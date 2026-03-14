@@ -60,6 +60,7 @@ export async function addReply(questionId: string, content: string) {
 }
 
 // ─── Resolve a question (admin only) ─────────────────────────────────────────
+export async function resolveQuestion(questionId: string) {
   const dbUser = await getDbUser();
   if (!dbUser) throw new Error("Unauthorized");
 
@@ -83,6 +84,7 @@ export async function addReply(questionId: string, content: string) {
 }
 
 // ─── Answer question (admin only, kept for compatibility) ─────────────────────
+export async function answerQuestion(questionId: string, answer: string) {
   const dbUser = await getDbUser();
   if (!dbUser) throw new Error("Unauthorized");
 
@@ -105,8 +107,13 @@ export async function addReply(questionId: string, content: string) {
   revalidatePath("/pitanja");
 }
 
+export async function handleProposal(questionId: string, isAccepted: boolean, content: string, titleStr?: string) {
   const dbUser = await getDbUser();
   if (!dbUser) throw new Error("Unauthorized");
+
+  // Find the exact title from the content string [PREDLOG: <Title>]
+  const match = content.match(/\[PREDLOG:\s*(.*?)\]/);
+  const extractedTitle = match ? match[1] : (titleStr || "Nepoznati Predlog");
 
   let finalAnswer = "";
   if (isAccepted) {
