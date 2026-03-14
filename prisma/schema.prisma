@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  ADMIN
+}
+
+model User {
+  id        String     @id @default(cuid())
+  clerkId   String     @unique
+  email     String     @unique
+  name      String?
+  role      Role       @default(STUDENT)
+  votes     Vote[]
+  questions Question[]
+  feedPosts GimnazijaFeedPost[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model News {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  mediaUrl  String?  // URL for image or video
+  mediaType String?  // "IMAGE" or "VIDEO"
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Rule {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  mediaUrl    String?
+  mediaType   String?
+  status      String   @default("ACTIVE") // ACTIVE, AMENDMENT_PROPOSED, DEPRECATED
+  votes       Vote[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Vote {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  ruleId    String
+  rule      Rule     @relation(fields: [ruleId], references: [id])
+  value     Boolean  // true for Yes/New, false for No/Keep
+  createdAt DateTime @default(now())
+
+  @@unique([userId, ruleId])
+}
+
+model Question {
+  id        String   @id @default(cuid())
+  content   String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  answer    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GimnazijaFeedPost {
+  id        String   @id @default(cuid())
+  content   String
+  mediaUrl  String?
+  mediaType String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
