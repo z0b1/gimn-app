@@ -17,7 +17,6 @@ export function VoteButtons({ ruleId, isExpired }: VoteButtonsProps) {
     setIsPending(true);
     try {
       await castVote(ruleId, value);
-      // Optional: Add success toast
     } catch (error) {
        console.error(error);
        alert(error instanceof Error ? error.message : "Nešto je pošlo po zlu.");

@@ -4,14 +4,32 @@ import prisma from "@/lib/db";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
-export async function createFeedPost(formData: FormData) {
+async function getOrCreateUser() {
   const { userId } = auth();
-  if (!userId) {
-    throw new Error("You must be logged in to post.");
-  }
+  if (!userId) return null;
 
   const user = await currentUser();
-  if (!user) throw new Error("User not found");
+  if (!user) return null;
+
+  const name = [user.firstName, user.lastName].filter(Boolean).join(" ") || "Korisnik";
+  const email = user.emailAddresses[0]?.emailAddress || `${userId}@clerk.com`;
+
+  return await prisma.user.upsert({
+    where: { clerkId: userId },
+    update: { name, email },
+    create: {
+      clerkId: userId,
+      name,
+      email,
+    },
+  });
+}
+
+export async function createFeedPost(formData: FormData) {
+  const dbUser = await getOrCreateUser();
+  if (!dbUser) {
+    throw new Error("You must be logged in to post.");
+  }
 
   const content = formData.get("content")?.toString();
   const mediaUrl = formData.get("mediaUrl")?.toString() || null;
@@ -20,23 +38,6 @@ export async function createFeedPost(formData: FormData) {
   if (!content) {
     throw new Error("Sadržaj je obavezan.");
   }
-
-  const name = [user.firstName, user.lastName].filter(Boolean).join(" ") || "Korisnik";
-  const email = user.emailAddresses[0]?.emailAddress || `${userId}@clerk.com`;
-
-  // Ensure user exists in our DB
-  const dbUser = await prisma.user.upsert({
-    where: { clerkId: userId },
-    update: {
-      name,
-      email,
-    },
-    create: {
-      clerkId: userId,
-      name,
-      email,
-    },
-  });
 
   await prisma.gimnazijaFeedPost.create({
     data: {
@@ -117,13 +118,8 @@ export async function createRule(formData: FormData) {
 }
 
 export async function castVote(ruleId: string, value: boolean) {
-  const { userId } = auth();
-  if (!userId) throw new Error("Unauthorized");
-
-  const user = await prisma.user.findUnique({
-    where: { clerkId: userId }
-  });
-  if (!user) throw new Error("User not found in database");
+  const dbUser = await getOrCreateUser();
+  if (!dbUser) throw new Error("Moraš biti prijavljen da bi glasao.");
 
   // Check if rule exists and is still active
   const rule = await prisma.rule.findUnique({
@@ -140,13 +136,13 @@ export async function castVote(ruleId: string, value: boolean) {
   await prisma.vote.upsert({
     where: {
       userId_ruleId: {
-        userId: user.id,
+        userId: dbUser.id,
         ruleId,
       }
     },
     update: { value },
     create: {
-      userId: user.id,
+      userId: dbUser.id,
       ruleId,
       value,
     }
@@ -154,4 +150,5 @@ export async function castVote(ruleId: string, value: boolean) {
 
   revalidatePath("/glasanje");
   revalidatePath("/");
+  revalidatePath("/admin");
 }
