@@ -2,15 +2,19 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { UserButton, SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
-import { Menu, X, Landmark, Bell, Vote, MessageSquare, Plus } from "lucide-react";
+import { Menu, X, Bell, Vote, MessageSquare, Plus, Info, Map as MapIcon, HelpCircle } from "lucide-react";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 
 const navLinks = [
   { href: "/vesti", label: "Vesti", icon: Bell },
   { href: "/glasanje", label: "Glasanje", icon: Vote },
-  { href: "/gimnazija-feed", label: "Gimnazija Feed", icon: MessageSquare },
-  { href: "/pitanja", label: "Pitanja", icon: Landmark },
+  { href: "/gimnazija-feed", label: "Feed", icon: MessageSquare },
+  { href: "/pitanja", label: "Pitanja", icon: HelpCircle },
+  { href: "/o-nama", label: "O nama", icon: Info },
+  { href: "/mapa", label: "Mapa", icon: MapIcon },
 ];
 
 export function Navbar() {
@@ -23,11 +27,16 @@ export function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-2 font-bold text-xl text-indigo-600 dark:text-indigo-400">
-              <div className="bg-indigo-600 dark:bg-indigo-500 p-1.5 rounded-lg text-white">
-                <Landmark size={20} />
+            <Link href="/" className="flex items-center gap-3 font-bold text-xl text-slate-900 dark:text-white group">
+              <div className="relative w-10 h-10 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 group-hover:scale-105 transition-transform duration-300 shadow-sm shadow-indigo-100 dark:shadow-none">
+                <Image
+                  src="/favicon.ico"
+                  alt="Šabačka gimnazija logo"
+                  fill
+                  className="object-contain p-1"
+                />
               </div>
-              <span>GimnApp</span>
+              <span className="tracking-tight">GimnApp</span>
             </Link>
 
             <div className="hidden md:flex items-center gap-1">
@@ -47,6 +56,7 @@ export function Navbar() {
             <ThemeToggle />
             
             <SignedIn>
+              <NotificationCenter />
               {isAdmin && (
                 <Link
                   href="/admin"

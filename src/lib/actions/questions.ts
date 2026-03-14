@@ -3,6 +3,7 @@
 import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { createNotification } from "./notifications";
 
 // Extracts role robustly
 function getRole() {
@@ -40,8 +41,19 @@ export async function addReply(questionId: string, content: string) {
 
   if (!content.trim()) throw new Error("Odgovor ne može biti prazan.");
 
-  await prisma.questionReply.create({
+  const reply = await prisma.questionReply.create({
     data: { content, userId: dbUser.id, questionId },
+    include: { question: { select: { userId: true } } }
+  });
+
+  // Notify Question Author (always enable for testing per user request)
+  await createNotification({
+    userId: reply.question.userId,
+    issuerId: dbUser.id,
+    type: "REPLY",
+    title: "Nova poruka na vaše pitanje",
+    message: `${dbUser.name} je odgovorio na vaše pitanje: "${content.substring(0, 50)}..."`,
+    link: "/pitanja",
   });
 
   revalidatePath("/pitanja");
@@ -121,4 +133,54 @@ export async function handleProposal(questionId: string, isAccepted: boolean, co
   revalidatePath("/pitanja");
   revalidatePath("/glasanje");
   revalidatePath("/");
+}
+
+// ─── Update a question (author only) ──────────────────────────────────────────
+export async function updateQuestion(id: string, content: string) {
+  const dbUser = await getDbUser();
+  if (!dbUser) throw new Error("Moraš biti prijavljen.");
+
+  const question = await prisma.question.findUnique({
+    where: { id },
+    select: { userId: true, isResolved: true },
+  });
+
+  if (!question) throw new Error("Pitanje nije pronađeno.");
+  
+  // Only allow editing if not resolved and is author
+  if (question.isResolved) throw new Error("Ne možete menjati rešeno pitanje.");
+  if (question.userId !== dbUser.id) throw new Error("Nemate dozvolu.");
+
+  if (!content.trim()) throw new Error("Sadržaj ne može biti prazan.");
+
+  await prisma.question.update({
+    where: { id },
+    data: { content },
+  });
+
+  revalidatePath("/pitanja");
+}
+
+// ─── Delete a question (author or admin) ──────────────────────────────────────
+export async function deleteQuestion(id: string) {
+  const dbUser = await getDbUser();
+  if (!dbUser) throw new Error("Moraš biti prijavljen.");
+
+  const role = getRole();
+  const question = await prisma.question.findUnique({
+    where: { id },
+    select: { userId: true },
+  });
+
+  if (!question) throw new Error("Pitanje nije pronađeno.");
+
+  if (question.userId !== dbUser.id && role !== "ADMIN") {
+    throw new Error("Nemate dozvolu.");
+  }
+
+  await prisma.question.delete({
+    where: { id },
+  });
+
+  revalidatePath("/pitanja");
 }

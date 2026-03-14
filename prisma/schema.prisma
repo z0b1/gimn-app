@@ -31,8 +31,38 @@ model User {
   feedLikes         GimnazijaFeedLike[]
   feedComments      GimnazijaFeedComment[]
   feedMessages      FeedMessage[]
+  notifications     Notification[] @relation("ReceivedNotifications")
+  issuedNotifications Notification[] @relation("IssuedNotifications")
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
+}
+
+enum NotificationType {
+  REPLY
+  LIKE
+  COMMENT
+}
+
+model Notification {
+  id          String           @id @default(cuid())
+  type        NotificationType
+  title       String
+  message     String
+  link        String?          // Link to the content (e.g., /pitanja#id)
+  isRead      Boolean          @default(false)
+  
+  // The user who receives the notification
+  userId      String
+  user        User             @relation("ReceivedNotifications", fields: [userId], references: [id], onDelete: Cascade)
+  
+  // The user who triggered the notification (e.g., the one who liked)
+  issuerId    String?
+  issuer      User?            @relation("IssuedNotifications", fields: [issuerId], references: [id], onDelete: SetNull)
+
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@index([userId])
 }
 
 model News {

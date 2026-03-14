@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     title: "GimnApp - Učenički parlament",
     description: "Zvanična aplikacija Učeničkog parlamenta Šabačke gimnazije.",
   },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 import { ThemeProvider } from "@/components/providers/ThemeProvider";

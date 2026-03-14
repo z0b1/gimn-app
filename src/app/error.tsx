@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { Landmark, RefreshCcw, AlertTriangle } from "lucide-react";
 import Link from "next/link";
+import { reportError } from "@/lib/actions/error-reporting";
 
 export default function Error({
   error,
@@ -12,8 +13,20 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log the error to an error reporting service
+    // Log the error locally
     console.error(error);
+
+    // Report error via email
+    const reportToAdmin = async () => {
+      await reportError({
+        message: error.message || "Unknown error",
+        digest: error.digest,
+        url: window.location.href,
+        timestamp: new Date().toLocaleString("sr-RS"),
+      });
+    };
+
+    reportToAdmin();
   }, [error]);
 
   return (

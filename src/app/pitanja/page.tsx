@@ -5,6 +5,7 @@ import { isAdmin } from "@/lib/roles";
 import { AdminQuestionActions } from "@/components/qna/AdminQuestionActions";
 import { QuestionForm } from "@/components/qna/QuestionForm";
 import { QuestionReplies } from "@/components/qna/QuestionReplies";
+import { UserQuestionActions } from "@/components/qna/UserQuestionActions";
 import { currentUser } from "@clerk/nextjs/server";
 
 export const dynamic = "force-dynamic";
@@ -55,7 +56,7 @@ export default async function PitanjaPage() {
             questions.map((q) => (
               <div
                 key={q.id}
-                className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm p-8 transition-colors"
+                className="group bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm p-8 transition-colors"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -71,17 +72,22 @@ export default async function PitanjaPage() {
                       </div>
                     </div>
                   </div>
-                  <span
-                    className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-                      q.isResolved
-                        ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
-                        : q.answer
-                        ? "bg-green-50 text-green-700"
-                        : "bg-orange-50 text-orange-700"
-                    }`}
-                  >
-                    {q.isResolved ? "REŠENO" : q.answer ? "ODGOVORENO" : "U OBRADI"}
-                  </span>
+                  <div className="flex items-center gap-4">
+                    {dbUser?.id === q.userId && !q.isResolved && (
+                      <UserQuestionActions questionId={q.id} content={q.content} />
+                    )}
+                    <span
+                      className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                        q.isResolved
+                          ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
+                          : q.answer
+                          ? "bg-green-50 text-green-700"
+                          : "bg-orange-50 text-orange-700"
+                      }`}
+                    >
+                      {q.isResolved ? "REŠENO" : q.answer ? "ODGOVORENO" : "U OBRADI"}
+                    </span>
+                  </div>
                 </div>
 
                 <p className="text-lg font-medium text-slate-800 dark:text-slate-200 mb-6 transition-colors">

@@ -3,6 +3,7 @@
 import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { createNotification } from "./notifications";
 
 async function getDbUser() {
   const { userId } = auth();
@@ -32,11 +33,22 @@ export async function toggleLike(postId: string) {
     });
   } else {
     // Like
-    await prisma.gimnazijaFeedLike.create({
+    const like = await prisma.gimnazijaFeedLike.create({
       data: {
         userId: dbUser.id,
         postId
-      }
+      },
+      include: { post: { select: { userId: true, content: true } } }
+    });
+
+    // Notify Post Author (always enable for testing per user request)
+    await createNotification({
+      userId: like.post.userId,
+      issuerId: dbUser.id,
+      type: "LIKE",
+      title: "Novi lajk",
+      message: `${dbUser.name} je lajkovao vašu objavu: "${like.post.content.substring(0, 30)}..."`,
+      link: "/gimnazija-feed",
     });
   }
 
@@ -51,12 +63,23 @@ export async function addComment(postId: string, content: string) {
 
   if (!content.trim()) throw new Error("Komentar ne može biti prazan.");
 
-  await prisma.gimnazijaFeedComment.create({
+  const comment = await prisma.gimnazijaFeedComment.create({
     data: {
       content,
       userId: dbUser.id,
       postId
-    }
+    },
+    include: { post: { select: { userId: true, content: true } } }
+  });
+
+  // Notify Post Author
+  await createNotification({
+    userId: comment.post.userId,
+    issuerId: dbUser.id,
+    type: "COMMENT",
+    title: "Novi komentar",
+    message: `${dbUser.name} je prokomentarisao vašu objavu: "${content.substring(0, 50)}..."`,
+    link: "/gimnazija-feed",
   });
 
   revalidatePath("/gimnazija-feed");
