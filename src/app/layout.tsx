@@ -10,6 +10,18 @@ const inter = Inter({ subsets: ["latin", "latin-ext"] });
 export const metadata: Metadata = {
   title: "GimnApp - Učenički parlament",
   description: "Zvanična aplikacija Učeničkog parlamenta Šabačke gimnazije.",
+  openGraph: {
+    title: "GimnApp - Učenički parlament",
+    description: "Zvanična aplikacija Učeničkog parlamenta Šabačke gimnazije.",
+    type: "website",
+    locale: "sr_RS",
+    siteName: "GimnApp",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GimnApp - Učenički parlament",
+    description: "Zvanična aplikacija Učeničkog parlamenta Šabačke gimnazije.",
+  },
 };
 
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
