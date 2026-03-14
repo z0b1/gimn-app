@@ -89,6 +89,7 @@ export function RuleForm({ onSuccess, onClose }: RuleFormProps) {
                <ImageUpload 
                  onUploadComplete={(url) => console.log("Uploaded:", url)}
                  onUploadError={(err) => setError(err)}
+                 onClear={() => setShowUpload(false)}
                />
              </div>
            )}

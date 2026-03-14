@@ -13,25 +13,28 @@ export async function createFeedPost(formData: FormData) {
   const user = await currentUser();
   if (!user) throw new Error("User not found");
 
-  const content = formData.get("content") as string;
-  const mediaUrl = formData.get("mediaUrl") as string | null;
-  const mediaType = formData.get("mediaType") as string | null;
+  const content = formData.get("content")?.toString();
+  const mediaUrl = formData.get("mediaUrl")?.toString() || null;
+  const mediaType = formData.get("mediaType")?.toString() || null;
 
   if (!content) {
-    throw new Error("Content is required.");
+    throw new Error("Sadržaj je obavezan.");
   }
+
+  const name = [user.firstName, user.lastName].filter(Boolean).join(" ") || "Korisnik";
+  const email = user.emailAddresses[0]?.emailAddress || `${userId}@clerk.com`;
 
   // Ensure user exists in our DB
   const dbUser = await prisma.user.upsert({
     where: { clerkId: userId },
     update: {
-      name: `${user.firstName} ${user.lastName}`,
-      email: user.emailAddresses[0].emailAddress,
+      name,
+      email,
     },
     create: {
       clerkId: userId,
-      name: `${user.firstName} ${user.lastName}`,
-      email: user.emailAddresses[0].emailAddress,
+      name,
+      email,
     },
   });
 

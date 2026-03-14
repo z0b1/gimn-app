@@ -9,10 +9,11 @@ import Image from "next/image";
 interface ImageUploadProps {
   onUploadComplete: (url: string) => void;
   onUploadError?: (error: string) => void;
+  onClear?: () => void;
   defaultValue?: string;
 }
 
-export function ImageUpload({ onUploadComplete, onUploadError, defaultValue }: ImageUploadProps) {
+export function ImageUpload({ onUploadComplete, onUploadError, onClear, defaultValue }: ImageUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedUrl, setUploadedUrl] = useState<string | null>(defaultValue || null);
   const [mediaType, setMediaType] = useState<string | null>(null);
@@ -21,6 +22,7 @@ export function ImageUpload({ onUploadComplete, onUploadError, defaultValue }: I
     e?.stopPropagation();
     setUploadedUrl(null);
     setMediaType(null);
+    onClear?.();
   };
 
   return (

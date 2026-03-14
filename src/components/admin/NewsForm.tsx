@@ -84,6 +84,7 @@ export function NewsForm({ onSuccess, onClose }: NewsFormProps) {
                <ImageUpload 
                  onUploadComplete={(url) => console.log("Uploaded:", url)}
                  onUploadError={(err) => setError(err)}
+                 onClear={() => setShowUpload(false)}
                />
              </div>
            )}
