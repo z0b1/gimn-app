@@ -6,7 +6,12 @@ const isAdminRoute = createRouteMatcher(['/admin(.*)']);
 
 export default clerkMiddleware((auth, request) => {
   const { sessionClaims } = auth();
-  const role = (sessionClaims?.metadata as { role?: string })?.role;
+  
+  // Standardize role detection
+  const metadata = sessionClaims?.metadata as { role?: string } | undefined;
+  const publicMetadata = sessionClaims?.publicMetadata as { role?: string } | undefined;
+  const directRole = (sessionClaims as unknown as { role?: string })?.role;
+  const role = metadata?.role || publicMetadata?.role || directRole;
 
   if (isAdminRoute(request)) {
     if (role !== "ADMIN") {
