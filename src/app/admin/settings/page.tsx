@@ -48,7 +48,7 @@ export default async function AdminSettings() {
                 <SettingsCard 
                   icon={UserCog}
                   title="Korisnici"
-                  link="/admin"
+                  link="/admin/korisnici"
                 />
                 <SettingsCard 
                   icon={ShieldCheck}

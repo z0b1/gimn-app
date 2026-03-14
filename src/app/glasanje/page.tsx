@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Vote, ChevronRight, Info, CheckCircle2, History, XCircle } from "lucide-react";
+import Link from "next/link";
 import prisma from "@/lib/db";
 import { VoteButtons } from "@/components/voting/VoteButtons";
 
@@ -76,10 +77,13 @@ export default async function GlasanjePage() {
                  <p className="text-indigo-100 text-lg mb-8 leading-relaxed">
                     Svaki učenik ima pravo da predloži promenu. Prikupi 50 potpisa podrške i tvoj predlog će se naći na glasanju.
                  </p>
-                 <button className="bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-indigo-50 dark:hover:bg-slate-800 transition-all shadow-xl dark:shadow-none flex items-center gap-3 group">
-                    Kompletno uputstvo
+                 <Link 
+                    href="/glasanje/novi-predlog"
+                    className="inline-flex bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-indigo-50 dark:hover:bg-slate-800 transition-all shadow-xl dark:shadow-none items-center gap-3 group"
+                 >
+                    Predloži glasanje
                     <ChevronRight size={22} className="group-hover:translate-x-2 transition-transform" />
-                 </button>
+                 </Link>
               </div>
            </div>
         </section>
