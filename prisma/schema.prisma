@@ -41,6 +41,8 @@ enum NotificationType {
   REPLY
   LIKE
   COMMENT
+  RESOLVED
+  ADMIN_ANSWER
 }
 
 model Notification {

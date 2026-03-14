@@ -60,52 +60,55 @@ export async function addReply(questionId: string, content: string) {
 }
 
 // ─── Resolve a question (admin only) ─────────────────────────────────────────
-export async function resolveQuestion(questionId: string) {
-  const { userId } = auth();
-  const role = getRole();
-  if (!userId || role !== "ADMIN") throw new Error("Unauthorized");
+  const dbUser = await getDbUser();
+  if (!dbUser) throw new Error("Unauthorized");
 
-  await prisma.question.update({
+  const question = await prisma.question.update({
     where: { id: questionId },
     data: { isResolved: true },
+    include: { user: { select: { id: true } } }
+  });
+
+  // Notify author
+  await createNotification({
+    userId: question.userId,
+    issuerId: dbUser.id,
+    type: "RESOLVED",
+    title: "Pitanje je rešeno",
+    message: `Vaše pitanje "${question.content.substring(0, 30)}..." je označeno kao rešeno.`,
+    link: "/pitanja",
   });
 
   revalidatePath("/pitanja");
 }
 
 // ─── Answer question (admin only, kept for compatibility) ─────────────────────
-export async function answerQuestion(questionId: string, answer: string) {
-  const { userId } = auth();
-  const role = getRole();
+  const dbUser = await getDbUser();
+  if (!dbUser) throw new Error("Unauthorized");
 
-  if (!userId || role !== "ADMIN") {
-    throw new Error("Unauthorized");
-  }
-
-  if (!answer.trim()) {
-    throw new Error("Answer cannot be empty");
-  }
-
-  await prisma.question.update({
+  const question = await prisma.question.update({
     where: { id: questionId },
     data: { answer },
+    include: { user: { select: { id: true } } }
+  });
+
+  // Notify author
+  await createNotification({
+    userId: question.userId,
+    issuerId: dbUser.id,
+    type: "ADMIN_ANSWER",
+    title: "Novi odgovor administratora",
+    message: `Administrator je odgovorio na vaše pitanje: "${answer.substring(0, 50)}..."`,
+    link: "/pitanja",
   });
 
   revalidatePath("/pitanja");
 }
 
-export async function handleProposal(questionId: string, isAccepted: boolean, content: string, titleStr?: string) {
-  const { userId } = auth();
-  const role = getRole();
+  const dbUser = await getDbUser();
+  if (!dbUser) throw new Error("Unauthorized");
 
-  if (!userId || role !== "ADMIN") {
-    throw new Error("Unauthorized");
-  }
-
-  // Find the exact title from the content string [PREDLOG: <Title>]
-  const match = content.match(/\[PREDLOG:\s*(.*?)\]/);
-  const extractedTitle = match ? match[1] : (titleStr || "Nepoznati Predlog");
-
+  let finalAnswer = "";
   if (isAccepted) {
     const description = content.split('\n\n').slice(1).join('\n\n') || content;
 
@@ -116,19 +119,28 @@ export async function handleProposal(questionId: string, isAccepted: boolean, co
         status: "ACTIVE",
       }
     });
-
-    await prisma.question.update({
-      where: { id: questionId },
-      data: { answer: "Predlog je prihvaćen i zvanično prosleđen na glasanje." }
-    });
+    finalAnswer = "Predlog je prihvaćen i zvanično prosleđen na glasanje.";
   } else {
-    const answer = titleStr ? `Predlog je odbijen: ${titleStr}` : "Predlog je odbijen od strane parlamenta.";
-
-    await prisma.question.update({
-      where: { id: questionId },
-      data: { answer }
-    });
+    finalAnswer = titleStr ? `Predlog je odbijen: ${titleStr}` : "Predlog je odbijen od strane parlamenta.";
   }
+
+  const question = await prisma.question.update({
+    where: { id: questionId },
+    data: { answer: finalAnswer },
+    include: { user: { select: { id: true } } }
+  });
+
+  // Notify author
+  await createNotification({
+    userId: question.userId,
+    issuerId: dbUser.id,
+    type: "ADMIN_ANSWER",
+    title: isAccepted ? "Predlog prihvaćen!" : "Predlog odbijen",
+    message: isAccepted 
+      ? `Vaš predlog "${extractedTitle}" je prihvaćen i postavljen na glasanje.`
+      : `Vaš predlog "${extractedTitle}" nažalost nije prihvaćen.`,
+    link: "/pitanja",
+  });
 
   revalidatePath("/pitanja");
   revalidatePath("/glasanje");

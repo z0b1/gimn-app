@@ -3,18 +3,27 @@ import { Vote, ChevronRight, Info, CheckCircle2, History, XCircle } from "lucide
 import Link from "next/link";
 import prisma from "@/lib/db";
 import { VoteButtons } from "@/components/voting/VoteButtons";
+import { auth } from "@clerk/nextjs/server";
 
 export const dynamic = "force-dynamic";
 
 export default async function GlasanjePage() {
+  const { userId: clerkId } = auth();
+
   const activeRules = await prisma.rule.findMany({
     include: {
       votes: true,
       _count: {
         select: { votes: true }
       }
-    }
+    },
+    orderBy: { createdAt: "desc" }
   });
+
+  const dbUser = clerkId ? await prisma.user.findUnique({
+    where: { clerkId },
+    include: { votes: true }
+  }) : null;
 
   const now = new Date();
 
@@ -50,6 +59,9 @@ export default async function GlasanjePage() {
             const noVotes = votes.filter(v => v.value === false).length;
             const isAccepted = isExpired && yesVotes > noVotes;
 
+            const userVote = dbUser?.votes.find(v => v.ruleId === rule.id);
+            const currentUserVote = userVote !== undefined ? userVote.value : null;
+
             return (
               <VoteCard 
                 key={rule.id}
@@ -61,6 +73,7 @@ export default async function GlasanjePage() {
                 yesVotes={yesVotes}
                 noVotes={noVotes}
                 participation={(rule._count?.votes ?? 0).toString()}
+                currentUserVote={currentUserVote}
               />
             );
           }) : (
@@ -101,9 +114,10 @@ interface VoteCardProps {
   yesVotes: number;
   noVotes: number;
   participation: string;
+  currentUserVote: boolean | null;
 }
 
-function VoteCard({ ruleId, title, description, isExpired, isAccepted, yesVotes, noVotes, participation }: VoteCardProps) {
+function VoteCard({ ruleId, title, description, isExpired, isAccepted, yesVotes, noVotes, participation, currentUserVote }: VoteCardProps) {
   return (
     <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden p-8 md:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <div className="flex flex-col md:flex-row gap-10">
@@ -154,7 +168,13 @@ function VoteCard({ ruleId, title, description, isExpired, isAccepted, yesVotes,
           </div>
         </div>
 
-        {!isExpired && <VoteButtons ruleId={ruleId} isExpired={isExpired} />}
+        {!isExpired && (
+          <VoteButtons 
+            ruleId={ruleId} 
+            isExpired={isExpired} 
+            initialUserVote={currentUserVote} 
+          />
+        )}
       </div>
     </div>
   );
