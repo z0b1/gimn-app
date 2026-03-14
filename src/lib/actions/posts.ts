@@ -15,8 +15,8 @@ async function getOrCreateUser() {
   const email = user.emailAddresses[0]?.emailAddress || `${userId}@clerk.com`;
 
   return await prisma.user.upsert({
-    where: { clerkId: userId },
-    update: { name, email },
+    where: { email: email },
+    update: { clerkId: userId, name },
     create: {
       clerkId: userId,
       name,
