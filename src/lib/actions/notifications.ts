@@ -50,7 +50,7 @@ export async function createNotification(params: CreateNotificationParams) {
           },
         });
 
-        const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://gimn-app.vercel.app";
+        const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://gimn-app-smoky.vercel.app";
         const emailHtml = `
           <div style="font-family: sans-serif; padding: 20px; color: #334155; max-width: 600px; margin: auto; border: 1px solid #e2e8f0; border-radius: 16px;">
             <h2 style="color: #4f46e5; margin-top: 0;">Zdravo, ${notification.user.name || "Korisniče"}! 🔔</h2>
