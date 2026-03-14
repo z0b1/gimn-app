@@ -19,17 +19,25 @@ export default async function Home() {
       <main className="flex-grow">
         {/* Hero Section */}
         <section className="relative pt-20 pb-24 lg:pt-32 lg:pb-32 overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300">
+          {/* Blurred background image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/hero-banner.jpg')" }}
+          />
+          {/* Blur + overlay layer */}
+          <div className="absolute inset-0 backdrop-blur-sm bg-white/80 dark:bg-slate-950/85 transition-colors duration-300" />
+
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 text-sm font-medium mb-6 animate-fade-in transition-colors">
                 <ShieldCheck size={16} />
-                <span>Zvanična platforma đačkog parlamenta</span>
+                <span>Zvanična platforma učeničkog parlamenta</span>
               </div>
               <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-8 transition-colors">
                 Tvoj glas menja <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">Gimnaziju</span>
               </h1>
               <p className="text-xl text-slate-600 dark:text-slate-300 mb-10 leading-relaxed max-w-2xl mx-auto transition-colors">
-                Pridruži se đačkom parlamentu. Prati najnovije vesti, učestvuj u glasanju i 
+                Pridruži se učeničkom parlamentu. Prati najnovije vesti, učestvuj u glasanju i 
                 daj svoj doprinos unapređenju naše škole.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -49,13 +57,8 @@ export default async function Home() {
               </div>
             </div>
           </div>
-          
-          {/* Background Decorative Elements */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-0 pointer-events-none">
-            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-50 rounded-full blur-3xl opacity-50" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-violet-50 rounded-full blur-3xl opacity-50" />
-          </div>
         </section>
+
 
         {/* Features Grid */}
         <section className="py-24 bg-slate-50 dark:bg-slate-900/50 transition-colors duration-300">
@@ -94,17 +97,6 @@ export default async function Home() {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="py-12 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 transition-colors duration-300">
-        <div className="container mx-auto px-4 text-center text-slate-500 dark:text-slate-400 text-sm">
-          <p>© {new Date().getFullYear()} GimnApp. Sva prava zadržana.</p>
-          <div className="flex justify-center gap-6 mt-4">
-            <Link href="/pravila" className="hover:text-indigo-600 dark:hover:text-indigo-400">Pravila korišćenja</Link>
-            <Link href="/privatnost" className="hover:text-indigo-600 dark:hover:text-indigo-400">Privatnost</Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

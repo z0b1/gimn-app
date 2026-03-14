@@ -64,9 +64,12 @@ export default function PrivatnostPage() {
 
         </article>
         
-        <div className="text-center mt-12">
+        <div className="text-center mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
            <Link href="/" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline transition-all">
               &larr; Povratak na početnu stranu
+           </Link>
+           <Link href="/uslovi-koriscenja" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline transition-all">
+              Uslovi Korišćenja &rarr;
            </Link>
         </div>
       </main>

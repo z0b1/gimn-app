@@ -3,12 +3,13 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { srRS } from "@clerk/localizations";
+import { Footer } from "@/components/layout/Footer";
 
 const inter = Inter({ subsets: ["latin", "latin-ext"] });
 
 export const metadata: Metadata = {
-  title: "Gimn App - Đački parlament",
-  description: "Aplikacija đačkog parlamenta za vesti, pravila i glasanje.",
+  title: "GimnApp - Učenički parlament",
+  description: "Zvanična aplikacija Učeničkog parlamenta Gimnazije 'Sveti Sava' u Šapcu.",
 };
 
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
@@ -35,6 +36,7 @@ export default function RootLayout({
             <main className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300">
               {children}
             </main>
+            <Footer />
           </ThemeProvider>
         </body>
       </html>
