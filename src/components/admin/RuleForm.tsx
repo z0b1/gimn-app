@@ -33,7 +33,7 @@ export function RuleForm({ onSuccess, onClose }: RuleFormProps) {
   };
 
   return (
-    <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 w-full max-w-2xl">
+    <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 w-full max-w-2xl relative z-10">
       <div className="flex justify-between items-center mb-8">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-violet-100 text-violet-600 flex items-center justify-center">
