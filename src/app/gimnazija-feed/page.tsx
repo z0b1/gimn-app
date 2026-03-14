@@ -1,9 +1,10 @@
 import { Navbar } from "@/components/layout/Navbar";
-import { MessageSquare, Share2, Plus } from "lucide-react";
+import { MessageSquare, Plus } from "lucide-react";
 import Image from "next/image";
 import prisma from "@/lib/db";
 import { PostForm } from "@/components/feed/PostForm";
 import { FeedInteractions } from "@/components/feed/FeedInteractions";
+import { ShareButton } from "@/components/feed/ShareButton";
 import { currentUser } from "@clerk/nextjs/server";
 
 export default async function FeedPage() {
@@ -46,7 +47,7 @@ export default async function FeedPage() {
 
         <div className="space-y-8">
           {posts.map((post) => (
-            <article key={post.id} className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-500 transition-colors">
+            <article id={post.id} key={post.id} className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-500 transition-colors">
               <div className="p-6">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-white font-bold text-xl overflow-hidden shrink-0">
@@ -101,9 +102,7 @@ export default async function FeedPage() {
                   />
                   
                   <div className="self-start mt-6 ml-auto pl-4">
-                    <button className="text-slate-400 hover:text-indigo-600 transition-colors" title="Podeli">
-                      <Share2 size={20} />
-                    </button>
+                    <ShareButton postId={post.id} />
                   </div>
                 </div>
               </div>

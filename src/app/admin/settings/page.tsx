@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { ShieldCheck, Settings as SettingsIcon, UserCog, Database, Bell, MessageSquare, Vote } from "lucide-react";
 import Link from "next/link";
+import { AdminDataTools } from "@/components/admin/AdminDataTools";
 import prisma from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -56,6 +57,8 @@ export default async function AdminSettings() {
                   link="/admin"
                 />
               </div>
+
+              <AdminDataTools />
             </div>
 
             {/* Right Content - Moderation Area */}
