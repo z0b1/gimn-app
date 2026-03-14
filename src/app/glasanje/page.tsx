@@ -1,18 +1,21 @@
 import { Navbar } from "@/components/layout/Navbar";
-import { Vote, ChevronRight, Info, CheckCircle2, History } from "lucide-react";
+import { Vote, ChevronRight, Info, CheckCircle2, History, XCircle } from "lucide-react";
 import prisma from "@/lib/db";
+import { VoteButtons } from "@/components/voting/VoteButtons";
 
 export const dynamic = "force-dynamic";
 
 export default async function GlasanjePage() {
   const activeRules = await prisma.rule.findMany({
-    where: { status: "ACTIVE" },
     include: {
+      votes: true,
       _count: {
         select: { votes: true }
       }
     }
   });
+
+  const now = new Date();
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -35,15 +38,29 @@ export default async function GlasanjePage() {
         </header>
 
         <div className="grid grid-cols-1 gap-8">
-          {activeRules.length > 0 ? activeRules.map((rule) => (
-            <VoteCard 
-              key={rule.id}
-              title={rule.title}
-              description={rule.description}
-              timeLeft="U toku"
-              participation={rule._count.votes.toString()}
-            />
-          )) : (
+          {activeRules.length > 0 ? activeRules.map((rule) => {
+            const expiryDate = new Date(rule.createdAt);
+            expiryDate.setDate(expiryDate.getDate() + 7);
+            const isExpired = now > expiryDate;
+            
+            const yesVotes = rule.votes.filter(v => v.value === true).length;
+            const noVotes = rule.votes.filter(v => v.value === false).length;
+            const isAccepted = isExpired && yesVotes > noVotes;
+
+            return (
+              <VoteCard 
+                key={rule.id}
+                ruleId={rule.id}
+                title={rule.title}
+                description={rule.description}
+                isExpired={isExpired}
+                isAccepted={isAccepted}
+                yesVotes={yesVotes}
+                noVotes={noVotes}
+                participation={rule._count.votes.toString()}
+              />
+            );
+          }) : (
             <div className="bg-white rounded-[2.5rem] border border-slate-100 p-12 text-center">
               <p className="text-slate-500 font-medium">Trenutno nema aktivnih glasanja.</p>
             </div>
@@ -62,8 +79,6 @@ export default async function GlasanjePage() {
                     <ChevronRight size={22} className="group-hover:translate-x-2 transition-transform" />
                  </button>
               </div>
-              <div className="hidden lg:block w-64 h-64 bg-white/10 rounded-full blur-3xl absolute -right-20 -bottom-20" />
-              <div className="hidden lg:block w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl absolute -left-40 -top-40" />
            </div>
         </section>
       </main>
@@ -72,46 +87,68 @@ export default async function GlasanjePage() {
 }
 
 interface VoteCardProps {
+  ruleId: string;
   title: string;
   description: string;
-  timeLeft: string;
+  isExpired: boolean;
+  isAccepted: boolean;
+  yesVotes: number;
+  noVotes: number;
   participation: string;
 }
 
-function VoteCard({ title, description, timeLeft, participation }: VoteCardProps) {
+function VoteCard({ ruleId, title, description, isExpired, isAccepted, yesVotes, noVotes, participation }: VoteCardProps) {
   return (
     <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden p-8 md:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <div className="flex flex-col md:flex-row gap-10">
         <div className="flex-grow">
           <div className="flex items-center gap-3 mb-4">
-             <span className="px-3 py-1 bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-widest rounded-full flex items-center gap-1.5">
-                <CheckCircle2 size={12} />
-                Aktivno
-             </span>
+             {isExpired ? (
+                isAccepted ? (
+                  <span className="px-3 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold uppercase tracking-widest rounded-full flex items-center gap-1.5">
+                    <CheckCircle2 size={12} />
+                    PRIHVAĆENO
+                  </span>
+                ) : (
+                  <span className="px-3 py-1 bg-rose-50 text-rose-700 text-[10px] font-bold uppercase tracking-widest rounded-full flex items-center gap-1.5">
+                    <XCircle size={12} />
+                    ODBIJENO
+                  </span>
+                )
+             ) : (
+                <span className="px-3 py-1 bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-widest rounded-full flex items-center gap-1.5">
+                  <CheckCircle2 size={12} />
+                  Aktivno
+                </span>
+             )}
              <span className="text-slate-400 text-xs font-medium flex items-center gap-1">
                 <Info size={14} />
-                {timeLeft}
+                {isExpired ? "Glasanje završeno" : "Još manje od 7 dana"}
              </span>
           </div>
           <h3 className="text-2xl font-bold text-slate-900 mb-4">{title}</h3>
           <p className="text-slate-600 leading-relaxed mb-8">{description}</p>
-          <div className="flex items-center gap-4 text-sm text-slate-500">
-             <div className="flex -space-x-3 overflow-hidden">
-                {[1,2,3,4].map(i => (
-                   <div key={i} className="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-slate-100 flex items-center justify-center text-[10px] font-bold">U{i}</div>
-                ))}
-             </div>
-             <span className="font-bold text-slate-900">{participation} ucenika</span> je već glasalo
+          
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4 text-sm text-slate-500">
+               <div className="flex -space-x-3 overflow-hidden">
+                  {[1,2,3,4].map(i => (
+                     <div key={i} className="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-slate-100 flex items-center justify-center text-[10px] font-bold">U{i}</div>
+                  ))}
+               </div>
+               <span className="font-bold text-slate-900">{participation} ucenika</span> je glasalo
+            </div>
+            
+            {isExpired && (
+              <div className="flex gap-4 text-sm font-bold">
+                <span className="text-emerald-600">ZA: {yesVotes}</span>
+                <span className="text-rose-600">PROTIV: {noVotes}</span>
+              </div>
+            )}
           </div>
         </div>
-        <div className="flex flex-col gap-3 justify-center min-w-[200px]">
-           <button className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100">
-              Glasaj ZA
-           </button>
-           <button className="w-full bg-white text-slate-900 border border-slate-200 py-4 rounded-2xl font-bold hover:bg-slate-50 transition-all">
-              Glasaj PROTIV
-           </button>
-        </div>
+
+        {!isExpired && <VoteButtons ruleId={ruleId} isExpired={isExpired} />}
       </div>
     </div>
   );

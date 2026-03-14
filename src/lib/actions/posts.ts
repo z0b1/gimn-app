@@ -115,3 +115,43 @@ export async function createRule(formData: FormData) {
   revalidatePath("/glasanje");
   revalidatePath("/admin");
 }
+
+export async function castVote(ruleId: string, value: boolean) {
+  const { userId } = auth();
+  if (!userId) throw new Error("Unauthorized");
+
+  const user = await prisma.user.findUnique({
+    where: { clerkId: userId }
+  });
+  if (!user) throw new Error("User not found in database");
+
+  // Check if rule exists and is still active
+  const rule = await prisma.rule.findUnique({
+    where: { id: ruleId }
+  });
+  if (!rule) throw new Error("Proposal not found");
+
+  const expiryDate = new Date(rule.createdAt);
+  expiryDate.setDate(expiryDate.getDate() + 7);
+  if (new Date() > expiryDate) {
+    throw new Error("Glasanje je završeno.");
+  }
+
+  await prisma.vote.upsert({
+    where: {
+      userId_ruleId: {
+        userId: user.id,
+        ruleId,
+      }
+    },
+    update: { value },
+    create: {
+      userId: user.id,
+      ruleId,
+      value,
+    }
+  });
+
+  revalidatePath("/glasanje");
+  revalidatePath("/");
+}
