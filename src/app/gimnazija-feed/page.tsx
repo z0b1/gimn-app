@@ -1,14 +1,20 @@
 import { Navbar } from "@/components/layout/Navbar";
-import { MessageSquare, Heart, MessageCircle, Share2, Plus } from "lucide-react";
+import { MessageSquare, Share2, Plus } from "lucide-react";
 import Image from "next/image";
 import prisma from "@/lib/db";
 import { PostForm } from "@/components/feed/PostForm";
+import { FeedInteractions } from "@/components/feed/FeedInteractions";
 import { currentUser } from "@clerk/nextjs/server";
 
 export default async function FeedPage() {
   const posts = await prisma.gimnazijaFeedPost.findMany({
     include: {
       user: true,
+      likes: true,
+      comments: {
+        include: { user: true },
+        orderBy: { createdAt: "asc" }
+      }
     },
     orderBy: {
       createdAt: "desc",
@@ -16,6 +22,7 @@ export default async function FeedPage() {
   });
 
   const user = await currentUser();
+  const dbUser = user ? await prisma.user.findUnique({ where: { clerkId: user.id } }) : null;
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
@@ -81,19 +88,23 @@ export default async function FeedPage() {
                 )}
 
                 <div className="flex items-center justify-between pt-6 border-t border-slate-50 dark:border-slate-800 transition-colors">
-                  <div className="flex gap-6">
-                    <button className="flex items-center gap-2 text-slate-500 hover:text-rose-500 transition-colors group">
-                      <Heart size={20} className="group-active:scale-125 transition-transform" />
-                      <span className="font-bold text-sm">0</span>
-                    </button>
-                    <button className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 transition-colors">
-                      <MessageCircle size={20} />
-                      <span className="font-bold text-sm">0</span>
+                  <FeedInteractions 
+                    postId={post.id}
+                    currentUserId={dbUser?.id || null}
+                    initialLikes={post.likes.map(l => l.userId)}
+                    initialComments={post.comments.map(c => ({
+                      id: c.id,
+                      content: c.content,
+                      createdAt: c.createdAt.toISOString(),
+                      user: { name: c.user.name }
+                    }))}
+                  />
+                  
+                  <div className="self-start mt-6 ml-auto pl-4">
+                    <button className="text-slate-400 hover:text-indigo-600 transition-colors" title="Podeli">
+                      <Share2 size={20} />
                     </button>
                   </div>
-                  <button className="text-slate-400 hover:text-indigo-600 transition-colors">
-                    <Share2 size={20} />
-                  </button>
                 </div>
               </div>
             </article>

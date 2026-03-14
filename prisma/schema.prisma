@@ -27,6 +27,8 @@ model User {
   votes     Vote[]
   questions Question[]
   feedPosts GimnazijaFeedPost[]
+  feedLikes GimnazijaFeedLike[]
+  feedComments GimnazijaFeedComment[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 }
@@ -83,6 +85,30 @@ model GimnazijaFeedPost {
   mediaType String?
   userId    String
   user      User     @relation(fields: [userId], references: [id])
+  likes     GimnazijaFeedLike[]
+  comments  GimnazijaFeedComment[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GimnazijaFeedLike {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId    String
+  post      GimnazijaFeedPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, postId])
+}
+
+model GimnazijaFeedComment {
+  id        String   @id @default(cuid())
+  content   String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId    String
+  post      GimnazijaFeedPost @relation(fields: [postId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
