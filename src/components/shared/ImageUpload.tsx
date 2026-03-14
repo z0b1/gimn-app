@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X, Upload, CheckCircle2 } from "lucide-react";
+import { X, CheckCircle2 } from "lucide-react";
 import { UploadDropzone } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
 import Image from "next/image";
@@ -13,14 +13,12 @@ interface ImageUploadProps {
 }
 
 export function ImageUpload({ onUploadComplete, onUploadError, defaultValue }: ImageUploadProps) {
-  const [preview, setPreview] = useState<string | null>(defaultValue || null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedUrl, setUploadedUrl] = useState<string | null>(defaultValue || null);
   const [mediaType, setMediaType] = useState<string | null>(null);
 
   const clearFile = (e?: React.MouseEvent) => {
     e?.stopPropagation();
-    setPreview(null);
     setUploadedUrl(null);
     setMediaType(null);
   };
@@ -66,7 +64,6 @@ export function ImageUpload({ onUploadComplete, onUploadError, defaultValue }: I
               setIsUploading(false);
               const url = res[0].url;
               setUploadedUrl(url);
-              setPreview(url);
               setMediaType(res[0].type.startsWith("video") ? "VIDEO" : "IMAGE");
               onUploadComplete(url);
             }}

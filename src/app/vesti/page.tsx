@@ -30,7 +30,15 @@ export default async function VestiPage() {
             </div>
             <h1 className="text-4xl font-bold text-slate-900">Najnovije iz Gimnazije</h1>
           </div>
-          {admin && <NewsFormModal />}
+          {admin && (
+            <NewsFormModal 
+              trigger={
+                <button className="bg-indigo-600 text-white px-6 py-3 rounded-2xl font-bold text-sm hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100">
+                  Nova vest
+                </button>
+              }
+            />
+          )}
         </header>
 
         <div className="grid grid-cols-1 gap-8">

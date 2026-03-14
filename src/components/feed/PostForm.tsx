@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Image as ImageIcon, Film, X } from "lucide-react";
+import { Image as ImageIcon, X } from "lucide-react";
 import { createFeedPost } from "@/lib/actions/posts";
 import Image from "next/image";
 import { ImageUpload } from "../shared/ImageUpload";
