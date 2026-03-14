@@ -186,6 +186,11 @@ export async function deleteRule(id: string) {
     throw new Error("Unauthorized");
   }
 
+  // Delete associated votes first to satisfy foreign key constraints
+  await prisma.vote.deleteMany({
+    where: { ruleId: id },
+  });
+
   await prisma.rule.delete({
     where: { id },
   });

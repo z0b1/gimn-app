@@ -18,31 +18,31 @@ export default async function Home() {
       
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative pt-20 pb-24 lg:pt-32 lg:pb-32 overflow-hidden bg-white">
+        <section className="relative pt-20 pb-24 lg:pt-32 lg:pb-32 overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300">
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-sm font-medium mb-6 animate-fade-in">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 text-sm font-medium mb-6 animate-fade-in transition-colors">
                 <ShieldCheck size={16} />
                 <span>Zvanična platforma đačkog parlamenta</span>
               </div>
-              <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight text-slate-900 mb-8">
-                Tvoj glas menja <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">Gimnaziju</span>
+              <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-8 transition-colors">
+                Tvoj glas menja <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">Gimnaziju</span>
               </h1>
-              <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-2xl mx-auto">
+              <p className="text-xl text-slate-600 dark:text-slate-300 mb-10 leading-relaxed max-w-2xl mx-auto transition-colors">
                 Pridruži se đačkom parlamentu. Prati najnovije vesti, učestvuj u glasanju i 
                 daj svoj doprinos unapređenju naše škole.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
                   href="/gimnazija-feed"
-                  className="w-full sm:w-auto px-8 py-4 bg-indigo-600 text-white rounded-2xl font-semibold text-lg hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 flex items-center justify-center gap-2 group"
+                  className="w-full sm:w-auto px-8 py-4 bg-indigo-600 dark:bg-indigo-500 text-white rounded-2xl font-semibold text-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all shadow-xl shadow-indigo-100 dark:shadow-none flex items-center justify-center gap-2 group"
                 >
                   Pridruži se diskusiji
                   <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
                   href="/vesti"
-                  className="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 border border-slate-200 rounded-2xl font-semibold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-8 py-4 bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 rounded-2xl font-semibold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
                 >
                   Pročitaj vesti
                 </Link>
@@ -58,7 +58,7 @@ export default async function Home() {
         </section>
 
         {/* Features Grid */}
-        <section className="py-24 bg-slate-50">
+        <section className="py-24 bg-slate-50 dark:bg-slate-900/50 transition-colors duration-300">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <FeatureCard 
@@ -84,7 +84,7 @@ export default async function Home() {
         </section>
 
         {/* Stats / Trust Section */}
-        <section className="py-20 border-t border-slate-100 bg-white">
+        <section className="py-20 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 transition-colors duration-300">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center gap-x-16 gap-y-10 text-center">
               <StatItem value={`${userCount.toLocaleString()}+`} label="Aktivnih učenika" />
@@ -96,12 +96,12 @@ export default async function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="py-12 bg-white border-t border-slate-100">
-        <div className="container mx-auto px-4 text-center text-slate-500 text-sm">
+      <footer className="py-12 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 transition-colors duration-300">
+        <div className="container mx-auto px-4 text-center text-slate-500 dark:text-slate-400 text-sm">
           <p>© {new Date().getFullYear()} GimnApp. Sva prava zadržana.</p>
           <div className="flex justify-center gap-6 mt-4">
-            <Link href="/pravila" className="hover:text-indigo-600">Pravila korišćenja</Link>
-            <Link href="/privatnost" className="hover:text-indigo-600">Privatnost</Link>
+            <Link href="/pravila" className="hover:text-indigo-600 dark:hover:text-indigo-400">Pravila korišćenja</Link>
+            <Link href="/privatnost" className="hover:text-indigo-600 dark:hover:text-indigo-400">Privatnost</Link>
           </div>
         </div>
       </footer>
@@ -118,12 +118,12 @@ interface FeatureCardProps {
 
 function FeatureCard({ icon: Icon, title, description, color }: FeatureCardProps) {
   return (
-    <div className="p-8 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+    <div className="p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6", color)}>
         <Icon size={28} />
       </div>
-      <h3 className="text-xl font-bold text-slate-900 mb-3">{title}</h3>
-      <p className="text-slate-600 leading-relaxed">
+      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 transition-colors">{title}</h3>
+      <p className="text-slate-600 dark:text-slate-300 leading-relaxed transition-colors">
         {description}
       </p>
     </div>
@@ -133,8 +133,8 @@ function FeatureCard({ icon: Icon, title, description, color }: FeatureCardProps
 function StatItem({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <div className="text-4xl font-extrabold text-indigo-600 mb-1">{value}</div>
-      <div className="text-slate-500 font-medium">{label}</div>
+      <div className="text-4xl font-extrabold text-indigo-600 dark:text-indigo-400 mb-1 transition-colors">{value}</div>
+      <div className="text-slate-500 dark:text-slate-400 font-medium transition-colors">{label}</div>
     </div>
   );
 }

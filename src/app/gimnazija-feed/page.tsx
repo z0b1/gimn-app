@@ -18,17 +18,17 @@ export default async function FeedPage() {
   const user = await currentUser();
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <Navbar />
       
       <main className="container mx-auto px-4 py-12 max-w-2xl">
         <header className="mb-12 flex items-end justify-between">
           <div>
-            <div className="flex items-center gap-2 text-indigo-600 font-semibold mb-2">
+            <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold mb-2">
               <MessageSquare size={20} />
               <span>Gimnazija Feed</span>
             </div>
-            <h1 className="text-4xl font-bold text-slate-900">Zajednica</h1>
+            <h1 className="text-4xl font-bold text-slate-900 dark:text-white transition-colors">Zajednica</h1>
           </div>
           <button className="bg-indigo-600 text-white p-4 rounded-2xl shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all">
              <Plus size={24} />
@@ -39,15 +39,15 @@ export default async function FeedPage() {
 
         <div className="space-y-8">
           {posts.map((post) => (
-            <article key={post.id} className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-500">
+            <article key={post.id} className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-500 transition-colors">
               <div className="p-6">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-white font-bold text-xl overflow-hidden shrink-0">
                     {post.user.name ? post.user.name[0] : "U"}
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900 leading-none mb-1">{post.user.name}</h3>
-                    <div className="flex items-center gap-2 text-slate-400 text-xs font-medium">
+                    <h3 className="font-bold text-slate-900 dark:text-white leading-none mb-1 transition-colors">{post.user.name}</h3>
+                    <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 text-xs font-medium transition-colors">
                       <span>{post.user.role === "ADMIN" ? "Admin" : "Učenik"}</span>
                       <span>•</span>
                       <span>{new Date(post.createdAt).toLocaleDateString("sr-RS", { day: 'numeric', month: 'short' })}</span>
@@ -55,12 +55,12 @@ export default async function FeedPage() {
                   </div>
                 </div>
                 
-                <p className="text-slate-700 leading-relaxed mb-6 whitespace-pre-wrap">
+                <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-6 whitespace-pre-wrap transition-colors">
                   {post.content}
                 </p>
 
                 {post.mediaUrl && (
-                  <div className="relative rounded-2xl overflow-hidden mb-6 bg-slate-100 border border-slate-100 min-h-[200px] flex items-center justify-center">
+                  <div className="relative rounded-2xl overflow-hidden mb-6 bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 min-h-[200px] flex items-center justify-center transition-colors">
                     {post.mediaType === "VIDEO" ? (
                       <video 
                         src={post.mediaUrl} 
@@ -80,7 +80,7 @@ export default async function FeedPage() {
                   </div>
                 )}
 
-                <div className="flex items-center justify-between pt-6 border-t border-slate-50">
+                <div className="flex items-center justify-between pt-6 border-t border-slate-50 dark:border-slate-800 transition-colors">
                   <div className="flex gap-6">
                     <button className="flex items-center gap-2 text-slate-500 hover:text-rose-500 transition-colors group">
                       <Heart size={20} className="group-active:scale-125 transition-transform" />
@@ -100,8 +100,8 @@ export default async function FeedPage() {
           ))}
 
           {posts.length === 0 && (
-            <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200">
-              <p className="text-slate-400 font-medium">Još uvek nema objava. Budi prvi koji će nešto podeliti!</p>
+            <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800 transition-colors">
+              <p className="text-slate-400 dark:text-slate-500 font-medium">Još uvek nema objava. Budi prvi koji će nešto podeliti!</p>
             </div>
           )}
         </div>

@@ -14,7 +14,7 @@ export default async function AdminSettings() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <Navbar />
       
       <main className="container mx-auto px-4 pt-24 pb-12">
@@ -24,17 +24,17 @@ export default async function AdminSettings() {
               <SettingsIcon size={24} />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-slate-900">Admin Panel</h1>
-              <p className="text-slate-600">Upravljaj platformom i moderacijom sadržaja</p>
+              <h1 className="text-3xl font-bold text-slate-900 dark:text-white transition-colors">Admin Panel</h1>
+              <p className="text-slate-600 dark:text-slate-400 transition-colors">Upravljaj platformom i moderacijom sadržaja</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Sidebar - Navigation & Quick Stats */}
             <div className="lg:col-span-1 space-y-6">
-              <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm">
-                <h3 className="font-bold text-slate-900 mb-4 inline-flex items-center gap-2">
-                  <Database size={18} className="text-indigo-600" />
+              <div className="bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm transition-colors">
+                <h3 className="font-bold text-slate-900 dark:text-white mb-4 inline-flex items-center gap-2 transition-colors">
+                  <Database size={18} className="text-indigo-600 dark:text-indigo-400" />
                   Statistika sistema
                 </h3>
                 <div className="space-y-4">
@@ -63,7 +63,7 @@ export default async function AdminSettings() {
               {/* Moderation section */}
               <section className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-bold text-slate-900">Moderacija sadržaja</h2>
+                  <h2 className="text-2xl font-bold text-slate-900 dark:text-white transition-colors">Moderacija sadržaja</h2>
                 </div>
 
                 {/* News Moderation */}
@@ -103,8 +103,8 @@ export default async function AdminSettings() {
 function StatRow({ label, value }: { label: string, value: number }) {
   return (
     <div className="flex items-center justify-between text-sm">
-      <span className="text-slate-500">{label}</span>
-      <span className="font-bold text-slate-900 bg-slate-50 px-2 py-0.5 rounded-lg">{value}</span>
+      <span className="text-slate-500 dark:text-slate-400 transition-colors">{label}</span>
+      <span className="font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 px-2 py-0.5 rounded-lg transition-colors">{value}</span>
     </div>
   );
 }
@@ -118,22 +118,22 @@ interface ModerationItem {
 
 function ModerationSection({ title, icon: Icon, items }: { title: string, icon: React.ElementType, items: ModerationItem[] }) {
   return (
-    <div className="bg-white rounded-[2rem] border border-slate-100 shadow-sm overflow-hidden">
-      <div className="p-6 border-b border-slate-50 bg-slate-50/50 flex items-center gap-3">
-        <Icon size={20} className="text-indigo-600" />
-        <h3 className="font-bold text-slate-900">{title}</h3>
+    <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden transition-colors">
+      <div className="p-6 border-b border-slate-50 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex items-center gap-3 transition-colors">
+        <Icon size={20} className="text-indigo-600 dark:text-indigo-400" />
+        <h3 className="font-bold text-slate-900 dark:text-white transition-colors">{title}</h3>
       </div>
-      <div className="divide-y divide-slate-50 max-h-[400px] overflow-y-auto">
+      <div className="divide-y divide-slate-50 dark:divide-slate-800 max-h-[400px] overflow-y-auto transition-colors">
         {items.length > 0 ? items.map((item) => (
-          <div key={item.id} className="p-4 hover:bg-slate-50 transition-colors flex items-center justify-between group">
+          <div key={item.id} className="p-4 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center justify-between group">
             <div className="min-w-0 flex-1 mr-4">
-              <h4 className="font-semibold text-slate-900 truncate">{item.title}</h4>
-              <p className="text-xs text-slate-500 mt-0.5">{item.sub}</p>
+              <h4 className="font-semibold text-slate-900 dark:text-white truncate transition-colors">{item.title}</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 transition-colors">{item.sub}</p>
             </div>
             <DeleteButton id={item.id} type={item.type} />
           </div>
         )) : (
-          <div className="p-12 text-center text-slate-400 text-sm">Nema sadržaja za prikaz.</div>
+          <div className="p-12 text-center text-slate-400 dark:text-slate-500 text-sm transition-colors">Nema sadržaja za prikaz.</div>
         )}
       </div>
     </div>
@@ -147,12 +147,12 @@ function SettingsCard({ icon: Icon, title, link }: { icon: React.ElementType, ti
   return (
     <Link 
       href={link}
-      className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all flex items-center gap-4 group"
+      className="p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex items-center gap-4 group"
     >
-      <div className="w-10 h-10 rounded-xl bg-slate-50 text-slate-600 flex items-center justify-center group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
+      <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center justify-center group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/50 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
         <Icon size={20} />
       </div>
-      <h3 className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{title}</h3>
+      <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{title}</h3>
     </Link>
   );
 }

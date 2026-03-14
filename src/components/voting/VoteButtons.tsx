@@ -32,14 +32,14 @@ export function VoteButtons({ ruleId, isExpired }: VoteButtonsProps) {
       <button 
         onClick={() => handleVote(true)}
         disabled={isPending}
-        className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 disabled:opacity-50"
+        className="w-full bg-indigo-600 dark:bg-indigo-500 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all shadow-lg shadow-indigo-100 dark:shadow-none disabled:opacity-50"
       >
         {isPending ? "Glasanje..." : "Glasaj ZA"}
       </button>
       <button 
         onClick={() => handleVote(false)}
         disabled={isPending}
-        className="w-full bg-white text-slate-900 border border-slate-200 py-4 rounded-2xl font-bold hover:bg-slate-50 transition-all disabled:opacity-50"
+        className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 py-4 rounded-2xl font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-all disabled:opacity-50"
       >
         {isPending ? "Glasanje..." : "Glasaj PROTIV"}
       </button>

@@ -39,17 +39,17 @@ export default async function AdminPage() {
   ].sort((a, b) => b.time.getTime() - a.time.getTime()).slice(0, 5);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <Navbar />
       
       <main className="container mx-auto px-4 py-12">
         <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <div className="flex items-center gap-2 text-indigo-600 font-semibold mb-2">
+            <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold mb-2">
               <ShieldCheck size={20} />
               <span>Administratorski Panel</span>
             </div>
-            <h1 className="text-4xl font-bold text-slate-900">Upravljanje parlamentom</h1>
+            <h1 className="text-4xl font-bold text-slate-900 dark:text-white transition-colors">Upravljanje parlamentom</h1>
           </div>
           <div className="flex gap-3">
             <NewsFormModal 
@@ -62,7 +62,7 @@ export default async function AdminPage() {
             />
             <Link
               href="/admin/settings"
-              className="bg-white text-slate-900 border border-slate-200 px-6 py-3 rounded-2xl font-bold text-sm hover:bg-slate-50 transition-all flex items-center gap-2"
+              className="bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 px-6 py-3 rounded-2xl font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center gap-2"
             >
               <Settings size={18} />
               Podešavanja
@@ -79,8 +79,8 @@ export default async function AdminPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
            <div className="lg:col-span-2 space-y-8">
-              <section className="bg-white rounded-3xl border border-slate-100 shadow-sm p-8">
-                 <h3 className="text-xl font-bold mb-6">Nedavne aktivnosti</h3>
+              <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm p-8 transition-colors">
+                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 transition-colors">Nedavne aktivnosti</h3>
                  <div className="space-y-6">
                     {activities.length > 0 ? activities.map((activity) => (
                       <ActivityItem 
@@ -91,7 +91,7 @@ export default async function AdminPage() {
                         time={activity.time.toLocaleDateString("sr-RS")} 
                       />
                     )) : (
-                      <p className="text-slate-500 text-sm">Nema nedavnih aktivnosti.</p>
+                      <p className="text-slate-500 dark:text-slate-400 text-sm transition-colors">Nema nedavnih aktivnosti.</p>
                     )}
                  </div>
               </section>
@@ -122,13 +122,13 @@ interface AdminStatCardProps {
 
 function AdminStatCard({ icon: Icon, label, value, change }: AdminStatCardProps) {
    return (
-      <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
-         <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4">
+      <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm transition-colors">
+         <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-4 transition-colors">
             <Icon size={20} />
          </div>
-         <div className="text-slate-500 text-sm font-medium mb-1">{label}</div>
-         <div className="text-3xl font-bold text-slate-900 mb-2">{value}</div>
-         <div className="text-xs font-bold text-indigo-600 uppercase tracking-wider">{change}</div>
+         <div className="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1 transition-colors">{label}</div>
+         <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2 transition-colors">{value}</div>
+         <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider transition-colors">{change}</div>
       </div>
    );
 }
@@ -142,17 +142,17 @@ interface ActivityItemProps {
 
 function ActivityItem({ user, action, target, time }: ActivityItemProps) {
    return (
-      <div className="flex items-center justify-between py-4 border-b border-slate-50 last:border-0">
+      <div className="flex items-center justify-between py-4 border-b border-slate-50 dark:border-slate-800 last:border-0 transition-colors">
          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100" />
+            <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 transition-colors" />
             <div>
-               <div className="text-sm font-bold text-slate-900">
-                  {user} <span className="font-normal text-slate-500">{action}</span>
+               <div className="text-sm font-bold text-slate-900 dark:text-white transition-colors">
+                  {user} <span className="font-normal text-slate-500 dark:text-slate-400">{action}</span>
                </div>
-               <div className="text-xs text-indigo-600 font-medium">{target}</div>
+               <div className="text-xs text-indigo-600 dark:text-indigo-400 font-medium transition-colors">{target}</div>
             </div>
          </div>
-         <div className="text-xs text-slate-400">{time}</div>
+         <div className="text-xs text-slate-400 dark:text-slate-500 transition-colors">{time}</div>
       </div>
    );
 }

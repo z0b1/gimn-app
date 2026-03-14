@@ -20,17 +20,17 @@ export default async function VestiPage() {
   const admin = isAdmin();
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <Navbar />
       
       <main className="container mx-auto px-4 py-12">
         <header className="mb-12 flex justify-between items-end">
           <div>
-            <div className="flex items-center gap-2 text-indigo-600 font-semibold mb-2">
+            <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold mb-2">
               <Bell size={20} />
               <span>Vesti i Obaveštenja</span>
             </div>
-            <h1 className="text-4xl font-bold text-slate-900">Najnovije iz Gimnazije</h1>
+            <h1 className="text-4xl font-bold text-slate-900 dark:text-white transition-colors">Najnovije iz Gimnazije</h1>
           </div>
           {admin && (
             <NewsFormModal 
@@ -45,9 +45,9 @@ export default async function VestiPage() {
 
         <div className="grid grid-cols-1 gap-8">
           {news.map((item) => (
-            <article key={item.id} className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-md transition-all flex flex-col md:flex-row h-full group">
+            <article key={item.id} className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden hover:shadow-md transition-all flex flex-col md:flex-row h-full group">
               {item.mediaUrl && (
-                <div className="relative w-full md:w-80 h-64 md:h-auto shrink-0 bg-slate-200">
+                <div className="relative w-full md:w-80 h-64 md:h-auto shrink-0 bg-slate-200 dark:bg-slate-800 transition-colors">
                   <Image 
                     src={item.mediaUrl} 
                     alt={item.title}
@@ -66,23 +66,23 @@ export default async function VestiPage() {
               
               <div className="p-8 flex flex-col justify-center flex-grow">
                 <div className="flex items-center gap-4 mb-4">
-                  <span className="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-bold rounded-full uppercase tracking-wider">
+                  <span className="px-3 py-1 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-bold rounded-full uppercase tracking-wider transition-colors">
                     {item.mediaType === "VIDEO" ? "Video" : "Vesti"}
                   </span>
-                  <div className="flex items-center gap-1.5 text-slate-400 text-sm">
+                  <div className="flex items-center gap-1.5 text-slate-400 dark:text-slate-500 text-sm transition-colors">
                     <Calendar size={14} />
                     {new Date(item.createdAt).toLocaleDateString("sr-RS", { day: 'numeric', month: 'long', year: 'numeric' })}
                   </div>
                 </div>
                 
-                <h2 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-indigo-600 transition-colors">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                   {item.title}
                 </h2>
-                <p className="text-slate-600 leading-relaxed mb-6 line-clamp-3">
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6 line-clamp-3 transition-colors">
                   {item.content}
                 </p>
                 
-                <button className="flex items-center gap-2 text-indigo-600 font-bold hover:gap-3 transition-all">
+                <button className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold hover:gap-3 transition-all">
                   Pročitaj više
                   <ChevronRight size={20} />
                 </button>
@@ -91,8 +91,8 @@ export default async function VestiPage() {
           ))}
 
           {news.length === 0 && (
-            <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200">
-              <p className="text-slate-400 font-medium">Trenutno nema vesti.</p>
+            <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800 transition-colors">
+              <p className="text-slate-400 dark:text-slate-500 font-medium">Trenutno nema vesti.</p>
             </div>
           )}
         </div>
