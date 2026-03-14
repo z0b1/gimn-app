@@ -31,7 +31,7 @@ export default function UsloviKoriscenjaPage() {
             <h2 className="m-0 text-2xl font-bold">1. O platformi</h2>
           </div>
           <p className="text-slate-600 dark:text-slate-300">
-            GimnApp je interna digitalna platforma Učeničkog parlamenta Gimnazije, namenjena isključivo učenicima i zaposlenima škole. Platforma omogućava praćenje vesti, glasanje o pravilima, postavljanje pitanja parlamentu i interakciju unutar zajednice.
+            GimnApp je interna digitalna platforma Učeničkog parlamenta Šabačke gimnazije, namenjena isključivo učenicima i zaposlenima škole. Platforma omogućava praćenje vesti, glasanje o pravilima, postavljanje pitanja parlamentu i interakciju unutar zajednice.
           </p>
 
           <div className="flex items-center gap-4 mb-4 mt-12">

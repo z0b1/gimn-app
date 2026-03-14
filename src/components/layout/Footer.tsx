@@ -13,7 +13,7 @@ export function Footer() {
           <div>
             <h2 className="text-lg font-extrabold text-slate-900 dark:text-white mb-2">GimnApp</h2>
             <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-              Zvanična platforma Učeničkog parlamenta Gimnazije „Sveti Sava&quot; u Šapcu.
+              Zvanična platforma Učeničkog parlamenta Šabačke gimnazije.
             </p>
           </div>
 
@@ -27,8 +27,8 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={16} className="shrink-0 text-indigo-500" />
-                <a href="tel:+38115313942" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                  +381 15 313-942
+                <a href="tel:+38115350286" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                  015 350286
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -81,7 +81,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-slate-100 dark:border-slate-800 text-center text-xs text-slate-400 dark:text-slate-600">
-          © {currentYear} GimnApp · Učenički parlament · Gimnazija „Sveti Sava&quot; Šabac
+          © {currentYear} GimnApp · Učenički parlament · Šabačka gimnazija
         </div>
       </div>
     </footer>

@@ -42,7 +42,7 @@ export default function PrivatnostPage() {
              <h2 className="m-0 text-2xl font-bold">2. Kako koristimo podatke</h2>
           </div>
           <p className="text-slate-600 dark:text-slate-300">
-            Generisani podaci se koriste isključivo za funkcionisanje aplikacije unutar Gimnazije. Identitet (Ime i Prezime) se prikazuje javno pored vaših objava na feed-u, kako bi diskusija ostala transparentna i kako bi se izbeglo anonimno uznemiravanje. Vaš email se koristi striktno u svrhe bezbedne prijave.
+            Generisani podaci se koriste isključivo za funkcionisanje aplikacije unutar Šabačke gimnazije. Identitet (Ime i Prezime) se prikazuje javno pored vaših objava na feed-u, kako bi diskusija ostala transparentna i kako bi se izbeglo anonimno uznemiravanje. Vaš email se koristi striktno u svrhe bezbedne prijave.
           </p>
 
           <div className="flex items-center gap-4 mb-4 mt-12">

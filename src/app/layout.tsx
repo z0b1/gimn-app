@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin", "latin-ext"] });
 
 export const metadata: Metadata = {
   title: "GimnApp - Učenički parlament",
-  description: "Zvanična aplikacija Učeničkog parlamenta Gimnazije 'Sveti Sava' u Šapcu.",
+  description: "Zvanična aplikacija Učeničkog parlamenta Šabačke gimnazije.",
 };
 
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
