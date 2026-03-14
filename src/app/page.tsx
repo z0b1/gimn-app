@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
-import { ArrowRight, Bell, Vote, MessageSquare, ShieldCheck, Users, Zap } from "lucide-react";
+import { ArrowRight, Bell, Vote, MessageSquare, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
@@ -101,7 +101,14 @@ export default function Home() {
   );
 }
 
-function FeatureCard({ icon: Icon, title, description, color }: any) {
+interface FeatureCardProps {
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  color: string;
+}
+
+function FeatureCard({ icon: Icon, title, description, color }: FeatureCardProps) {
   return (
     <div className="p-8 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6", color)}>

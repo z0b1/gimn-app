@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import { Menu, X, Landmark, Bell, Vote, MessageSquare, Plus } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "/vesti", label: "Vesti", icon: Bell },

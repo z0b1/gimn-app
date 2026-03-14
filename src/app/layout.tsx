@@ -17,7 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider localization={srRS as any}>
+    <ClerkProvider 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      localization={srRS as any}
+    >
+
       <html lang="sr">
         <body className={inter.className}>
           <main className="min-h-screen bg-slate-50 text-slate-900">

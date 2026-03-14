@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Bell, Calendar, ChevronRight, PlayCircle, Image as ImageIcon } from "lucide-react";
+import Image from "next/image";
 
 const mockNews = [
   {
@@ -50,10 +51,11 @@ export default function VestiPage() {
             <article key={news.id} className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-md transition-all flex flex-col md:flex-row h-full">
               {news.mediaUrl && (
                 <div className="relative w-full md:w-80 h-64 md:h-auto shrink-0 bg-slate-200">
-                  <img 
+                  <Image 
                     src={news.mediaUrl} 
                     alt={news.title}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                   {news.mediaType === "VIDEO" && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20">

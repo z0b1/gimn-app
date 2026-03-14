@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/layout/Navbar";
-import { Landmark, MessageCircle, HelpCircle, CheckCircle, ChevronRight } from "lucide-react";
+import { Landmark, MessageCircle, HelpCircle, ChevronRight } from "lucide-react";
 
 const mockQuestions = [
   {
@@ -77,7 +77,7 @@ export default function PitanjaPage() {
               </div>
               
               <p className="text-lg font-medium text-slate-800 mb-6">
-                "{q.question}"
+                &quot;{q.question}&quot;
               </p>
 
               {q.answer ? (

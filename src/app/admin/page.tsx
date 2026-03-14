@@ -77,7 +77,14 @@ export default function AdminPage() {
   );
 }
 
-function AdminStatCard({ icon: Icon, label, value, change }: any) {
+interface AdminStatCardProps {
+  icon: React.ElementType;
+  label: string;
+  value: string;
+  change: string;
+}
+
+function AdminStatCard({ icon: Icon, label, value, change }: AdminStatCardProps) {
    return (
       <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
          <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4">
@@ -90,7 +97,14 @@ function AdminStatCard({ icon: Icon, label, value, change }: any) {
    );
 }
 
-function ActivityItem({ user, action, target, time }: any) {
+interface ActivityItemProps {
+  user: string;
+  action: string;
+  target: string;
+  time: string;
+}
+
+function ActivityItem({ user, action, target, time }: ActivityItemProps) {
    return (
       <div className="flex items-center justify-between py-4 border-b border-slate-50 last:border-0">
          <div className="flex items-center gap-3">

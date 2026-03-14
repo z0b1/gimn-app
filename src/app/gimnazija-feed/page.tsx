@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { MessageSquare, Heart, MessageCircle, Share2, Plus, Image as ImageIcon, Film } from "lucide-react";
-import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const mockPosts = [
   {
@@ -105,10 +105,11 @@ export default function FeedPage() {
 
                 {post.mediaUrl && (
                   <div className="relative rounded-2xl overflow-hidden mb-6 bg-slate-100 border border-slate-100 max-h-[500px]">
-                    <img 
+                    <Image 
                       src={post.mediaUrl} 
                       alt="Post media"
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                     />
                     {post.mediaType === "VIDEO" && (
                        <div className="absolute inset-0 flex items-center justify-center bg-black/10">
