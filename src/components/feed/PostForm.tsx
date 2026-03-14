@@ -35,7 +35,7 @@ export function PostForm({ userAvatar }: PostFormProps) {
   };
 
   return (
-    <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 mb-10">
+    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm p-4 sm:p-6 mb-10 transition-colors">
       <form onSubmit={handleSubmit} className="flex gap-4">
         <div className="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center shrink-0 overflow-hidden">
           {userAvatar ? (

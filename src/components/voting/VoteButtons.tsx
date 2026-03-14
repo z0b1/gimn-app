@@ -35,7 +35,7 @@ export function VoteButtons({ ruleId, isExpired, initialUserVote }: VoteButtonsP
 
   if (!isEditing && userVote !== null) {
     return (
-      <div className="flex flex-col gap-4 justify-center min-w-[200px]">
+      <div className="flex flex-col gap-4 justify-center w-full md:min-w-[200px]">
         <div className={cn(
           "p-4 rounded-2xl border-2 flex flex-col items-center gap-2",
           userVote 
@@ -56,7 +56,7 @@ export function VoteButtons({ ruleId, isExpired, initialUserVote }: VoteButtonsP
   }
 
   return (
-    <div className="flex flex-col gap-3 justify-center min-w-[200px]">
+    <div className="flex flex-col gap-3 justify-center w-full md:min-w-[200px]">
       <button 
         onClick={() => handleVote(true)}
         disabled={isPending || (userVote === true && !isEditing)}

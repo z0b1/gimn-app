@@ -35,35 +35,58 @@ export async function createNotification(params: CreateNotificationParams) {
 
     // 2. Send Email Notification
     const { GMAIL_USER, GMAIL_APP_PASSWORD } = process.env;
-    if (GMAIL_USER && GMAIL_APP_PASSWORD && notification.user.email) {
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: GMAIL_USER,
-          pass: GMAIL_APP_PASSWORD,
-        },
-      });
+    const recipientEmail = notification.user.email;
 
-      const emailHtml = `
-        <div style="font-family: sans-serif; padding: 20px; color: #334155;">
-          <h2 style="color: #4f46e5;">Zdravo, ${notification.user.name || "Korisniče"}!</h2>
-          <p style="font-size: 16px;">Imate novo obaveštenje na GimnApp-u:</p>
-          <div style="background: #f1f5f9; padding: 20px; border-radius: 12px; margin: 20px 0;">
-            <p style="margin: 0; font-weight: bold; font-size: 18px; color: #1e293b;">${title}</p>
-            <p style="margin: 10px 0 0 0; color: #475569;">${message}</p>
+    console.log(`[Notification] Attempting email send to: ${recipientEmail}`);
+
+    if (GMAIL_USER && GMAIL_APP_PASSWORD && recipientEmail) {
+      try {
+        console.log(`[Email] Creating transporter for ${GMAIL_USER}`);
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: GMAIL_USER,
+            pass: GMAIL_APP_PASSWORD,
+          },
+        });
+
+        const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://gimn-app.vercel.app";
+        const emailHtml = `
+          <div style="font-family: sans-serif; padding: 20px; color: #334155; max-width: 600px; margin: auto; border: 1px solid #e2e8f0; border-radius: 16px;">
+            <h2 style="color: #4f46e5; margin-top: 0;">Zdravo, ${notification.user.name || "Korisniče"}! 🔔</h2>
+            <p style="font-size: 16px; line-height: 1.5;">Imate novo obaveštenje na platformi <strong>GimnApp</strong>:</p>
+            <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin: 20px 0; border: 1px dashed #cbd5e1;">
+              <p style="margin: 0; font-weight: bold; font-size: 18px; color: #1e293b;">${title}</p>
+              <p style="margin: 10px 0 0 0; color: #475569; line-height: 1.4;">${message}</p>
+            </div>
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${appUrl}${link}" style="display: inline-block; background: #4f46e5; color: white; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 16px; box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);">
+                Pogledaj detalje
+              </a>
+            </div>
+            <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 30px 0;">
+            <p style="font-size: 11px; color: #94a3b8; text-align: center; margin: 0;">
+              Ovo je automatsko obaveštenje Učeničkog parlamenta Šabačke gimnazije.<br> 
+              Možete isključiti email obaveštenja u podešavanjima profila (uskoro).
+            </p>
           </div>
-          ${link ? `<a href="${process.env.NEXT_PUBLIC_APP_URL || ''}${link}" style="display: inline-block; background: #4f46e5; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">Pogledaj detalje</a>` : ''}
-          <p style="font-size: 12px; color: #94a3b8; margin-top: 30px;">
-            Ovo je automatsko obaveštenje. Možete isključiti email obaveštenja u podešavanjima profila (uskoro).
-          </p>
-        </div>
-      `;
+        `;
 
-      await transporter.sendMail({
-        from: `"GimnApp" <${GMAIL_USER}>`,
-        to: notification.user.email,
-        subject: `Novo obaveštenje: ${title}`,
-        html: emailHtml,
+        await transporter.sendMail({
+          from: `"GimnApp Notifications" <${GMAIL_USER}>`,
+          to: recipientEmail,
+          subject: `${title} | GimnApp 🔔`,
+          html: emailHtml,
+        });
+        console.log(`[Email] SUCCESS: Sent to ${recipientEmail}`);
+      } catch (mailError) {
+        console.error("[Email] ERROR sending to", recipientEmail, ":", mailError);
+      }
+    } else {
+      console.warn("[Email] SKIPPED. Reason:", {
+        user: !!GMAIL_USER,
+        pass: !!GMAIL_APP_PASSWORD,
+        recipient: !!recipientEmail
       });
     }
 

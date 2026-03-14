@@ -27,8 +27,8 @@ export function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-3 font-bold text-xl text-slate-900 dark:text-white group">
-              <div className="relative w-10 h-10 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 group-hover:scale-105 transition-transform duration-300 shadow-sm shadow-indigo-100 dark:shadow-none">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 font-bold text-lg sm:text-xl text-slate-900 dark:text-white group shrink-0">
+              <div className="relative w-9 h-9 sm:w-10 sm:h-10 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 group-hover:scale-105 transition-transform duration-300 shadow-sm shadow-indigo-100 dark:shadow-none shrink-0">
                 <Image
                   src="/favicon.ico"
                   alt="Šabačka gimnazija logo"
@@ -36,7 +36,7 @@ export function Navbar() {
                   className="object-contain p-1"
                 />
               </div>
-              <span className="tracking-tight">GimnApp</span>
+              <span className="tracking-tight truncate max-w-[120px] sm:max-w-none">GimnApp</span>
             </Link>
 
             <div className="hidden md:flex items-center gap-1">

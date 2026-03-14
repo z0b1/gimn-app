@@ -71,7 +71,7 @@ export function NotificationCenter() {
             className="fixed inset-0 z-40" 
             onClick={() => setIsOpen(false)} 
           />
-          <div className="absolute right-0 mt-3 w-80 md:w-96 bg-white rounded-3xl shadow-2xl shadow-indigo-200/40 border border-slate-100 z-50 overflow-hidden transform origin-top-right transition-all">
+          <div className="absolute right-0 mt-3 w-[calc(100vw-2rem)] sm:w-80 md:w-96 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl shadow-indigo-200/40 dark:shadow-none border border-slate-100 dark:border-slate-800 z-50 overflow-hidden transform origin-top-right transition-all">
             <div className="p-5 border-b border-slate-50 flex items-center justify-between bg-slate-50/50">
               <h3 className="font-bold text-slate-900">Obaveštenja</h3>
               {unreadCount > 0 && (

@@ -18,7 +18,7 @@ export default async function Home() {
       
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative pt-20 pb-24 lg:pt-32 lg:pb-32 overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300">
+        <section className="relative pt-12 pb-20 lg:pt-32 lg:pb-32 overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300">
           {/* Blurred background image */}
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -33,7 +33,7 @@ export default async function Home() {
                 <ShieldCheck size={16} />
                 <span>Zvanična platforma učeničkog parlamenta</span>
               </div>
-              <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-8 transition-colors">
+              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6 sm:mb-8 transition-colors text-balance">
                 Tvoj glas menja <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">Gimnaziju</span>
               </h1>
               <p className="text-xl text-slate-600 dark:text-slate-300 mb-10 leading-relaxed max-w-2xl mx-auto transition-colors">
@@ -89,7 +89,7 @@ export default async function Home() {
         {/* Stats / Trust Section */}
         <section className="py-20 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 transition-colors duration-300">
           <div className="container mx-auto px-4">
-            <div className="flex flex-wrap justify-center gap-x-16 gap-y-10 text-center">
+            <div className="flex flex-wrap justify-center gap-x-8 sm:gap-x-16 gap-y-10 text-center">
               <StatItem value={`${userCount.toLocaleString()}+`} label="Aktivnih učenika" />
               <StatItem value={`${ruleCount.toString()}+`} label="Usvojenih predloga" />
               <StatItem value="24/7" label="Dostupna podrška" />
@@ -110,7 +110,7 @@ interface FeatureCardProps {
 
 function FeatureCard({ icon: Icon, title, description, color }: FeatureCardProps) {
   return (
-    <div className="p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+    <div className="p-6 sm:p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6", color)}>
         <Icon size={28} />
       </div>
