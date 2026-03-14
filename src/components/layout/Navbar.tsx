@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import { UserButton, SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
 import { Menu, X, Landmark, Bell, Vote, MessageSquare, Plus } from "lucide-react";
 
 const navLinks = [
@@ -14,6 +14,8 @@ const navLinks = [
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useUser();
+  const isAdmin = (user?.publicMetadata as { role?: string })?.role === "ADMIN";
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
@@ -42,13 +44,15 @@ export function Navbar() {
 
           <div className="flex items-center gap-4">
             <SignedIn>
-              <Link
-                href="/admin"
-                className="hidden sm:flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-all shadow-sm"
-              >
-                <Plus size={16} />
-                Objavi
-              </Link>
+              {isAdmin && (
+                <Link
+                  href="/admin"
+                  className="hidden sm:flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-all shadow-sm"
+                >
+                  <Plus size={16} />
+                  Objavi
+                </Link>
+              )}
               <UserButton
                 afterSignOutUrl="/"
                 appearance={{
