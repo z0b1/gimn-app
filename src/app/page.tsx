@@ -2,8 +2,16 @@ import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { ArrowRight, Bell, Vote, MessageSquare, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
+import prisma from "@/lib/db";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const [userCount, ruleCount] = await Promise.all([
+    prisma.user.count(),
+    prisma.rule.count(),
+  ]);
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -79,8 +87,8 @@ export default function Home() {
         <section className="py-20 border-t border-slate-100 bg-white">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center gap-x-16 gap-y-10 text-center">
-              <StatItem value="1500+" label="Aktivnih učenika" />
-              <StatItem value="50+" label="Usvojenih predloga" />
+              <StatItem value={`${userCount.toLocaleString()}+`} label="Aktivnih učenika" />
+              <StatItem value={`${ruleCount.toString()}+`} label="Usvojenih predloga" />
               <StatItem value="24/7" label="Dostupna podrška" />
             </div>
           </div>

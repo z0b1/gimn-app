@@ -1,7 +1,19 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Vote, ChevronRight, Info, CheckCircle2, History } from "lucide-react";
+import prisma from "@/lib/db";
 
-export default function GlasanjePage() {
+export const dynamic = "force-dynamic";
+
+export default async function GlasanjePage() {
+  const activeRules = await prisma.rule.findMany({
+    where: { status: "ACTIVE" },
+    include: {
+      _count: {
+        select: { votes: true }
+      }
+    }
+  });
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Navbar />
@@ -23,18 +35,19 @@ export default function GlasanjePage() {
         </header>
 
         <div className="grid grid-cols-1 gap-8">
-          <VoteCard 
-            title="Novi kodeks oblačenja za maturante"
-            description="Predlog za uvođenje posebnih pravila oblačenja petkom za učenike četvrte godine, uključujući mogućnost nošenja odeće sa obeležjima škole."
-            timeLeft="Još 2 dana"
-            participation="420"
-          />
-          <VoteCard 
-            title="Produženje velikog odmora za 5 minuta"
-            description="Inicijativa da se veliki odmor produži radi lakšeg pristupa užini, uz skraćenje malih odmora između drugog i trećeg časa."
-            timeLeft="Još 5 sati"
-            participation="892"
-          />
+          {activeRules.length > 0 ? activeRules.map((rule) => (
+            <VoteCard 
+              key={rule.id}
+              title={rule.title}
+              description={rule.description}
+              timeLeft="U toku"
+              participation={rule._count.votes.toString()}
+            />
+          )) : (
+            <div className="bg-white rounded-[2.5rem] border border-slate-100 p-12 text-center">
+              <p className="text-slate-500 font-medium">Trenutno nema aktivnih glasanja.</p>
+            </div>
+          )}
         </div>
 
         <section className="mt-16 bg-indigo-600 rounded-[3rem] p-10 text-white relative overflow-hidden shadow-2xl shadow-indigo-200">

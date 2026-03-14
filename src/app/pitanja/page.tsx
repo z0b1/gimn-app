@@ -1,34 +1,17 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Landmark, MessageCircle, HelpCircle, ChevronRight } from "lucide-react";
+import prisma from "@/lib/db";
 
-const mockQuestions = [
-  {
-    id: "1",
-    user: "Katarina S.",
-    question: "Kada će biti objavljen raspored za polaganje popravnih ispita?",
-    answer: "Raspored će biti objavljen na oglasnoj tabli i u sekciji Vesti do kraja sledeće nedelje.",
-    status: "ODGORENO",
-    time: "pre 1 dan"
-  },
-  {
-    id: "2",
-    user: "Uroš Đ.",
-    question: "Da li možemo da dobijemo nove lopte za fizičko? Trenutne su prilično stare.",
-    answer: "Parlament je već razmatrao ovo pitanje. Odobrena su sredstva za nabavku 10 novih košarkaških i 5 odbojkaških lopti.",
-    status: "ODGORENO",
-    time: "pre 2 dana"
-  },
-  {
-    id: "3",
-    user: "Jelena P.",
-    question: "Zašto grejanje ne radi u kabinetu za biologiju?",
-    answer: null,
-    status: "U OBRADI",
-    time: "pre 3 sata"
-  }
-];
+export const dynamic = "force-dynamic";
 
-export default function PitanjaPage() {
+export default async function PitanjaPage() {
+  const questions = await prisma.question.findMany({
+    orderBy: { createdAt: 'desc' },
+    include: {
+      user: true,
+    }
+  });
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Navbar />
@@ -57,27 +40,27 @@ export default function PitanjaPage() {
 
         <div className="space-y-6">
           <h3 className="text-2xl font-bold text-slate-900 mb-8">Poslednji odgovori</h3>
-          {mockQuestions.map((q) => (
+          {questions.length > 0 ? questions.map((q) => (
             <div key={q.id} className="bg-white rounded-3xl border border-slate-100 shadow-sm p-8">
               <div className="flex items-start justify-between mb-4">
                  <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 font-bold">
-                       {q.user[0]}
+                       {q.user.name?.[0] || "U"}
                     </div>
                     <div>
-                       <div className="font-bold text-slate-900">{q.user}</div>
-                       <div className="text-slate-400 text-xs">{q.time}</div>
+                       <div className="font-bold text-slate-900">{q.user.name}</div>
+                       <div className="text-slate-400 text-xs">{q.createdAt.toLocaleDateString("sr-RS")}</div>
                     </div>
                  </div>
                  <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-                    q.status === "ODGORENO" ? "bg-green-50 text-green-700" : "bg-orange-50 text-orange-700"
+                    q.answer ? "bg-green-50 text-green-700" : "bg-orange-50 text-orange-700"
                  }`}>
-                    {q.status}
+                    {q.answer ? "ODGOVORENO" : "U OBRADI"}
                  </span>
               </div>
               
               <p className="text-lg font-medium text-slate-800 mb-6">
-                &quot;{q.question}&quot;
+                &quot;{q.content}&quot;
               </p>
 
               {q.answer ? (
@@ -97,7 +80,11 @@ export default function PitanjaPage() {
                 </div>
               )}
             </div>
-          ))}
+          )) : (
+            <div className="bg-white rounded-3xl border border-slate-100 p-8 text-center text-slate-500">
+               Još uvek nema postavljenih pitanja.
+            </div>
+          )}
         </div>
       </main>
     </div>

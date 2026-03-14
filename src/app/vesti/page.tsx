@@ -5,6 +5,8 @@ import prisma from "@/lib/db";
 import { isAdmin } from "@/lib/roles";
 import { NewsFormModal } from "@/components/admin/NewsFormModal";
 
+export const dynamic = "force-dynamic";
+
 export default async function VestiPage() {
   const news = await prisma.news.findMany({
     where: {

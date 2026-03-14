@@ -47,6 +47,7 @@ export async function createFeedPost(formData: FormData) {
     },
   });
 
+  revalidatePath("/");
   revalidatePath("/gimnazija-feed");
 }
 
@@ -76,6 +77,7 @@ export async function createNews(formData: FormData) {
     },
   });
 
+  revalidatePath("/");
   revalidatePath("/vesti");
 }
 
@@ -109,6 +111,7 @@ export async function createRule(formData: FormData) {
     },
   });
 
+  revalidatePath("/");
   revalidatePath("/glasanje");
   revalidatePath("/admin");
 }

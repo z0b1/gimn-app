@@ -5,11 +5,39 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { NewsFormModal } from "@/components/admin/NewsFormModal";
 import { RuleFormModal } from "@/components/admin/RuleFormModal";
+import prisma from "@/lib/db";
 
-export default function AdminPage() {
+export const dynamic = "force-dynamic";
+
+export default async function AdminPage() {
   if (!isAdmin()) {
     redirect("/");
   }
+
+  // Fetch real stats
+  const [userCount, activeRulesCount, questionCount, adminCount] = await Promise.all([
+    prisma.user.count(),
+    prisma.rule.count({ where: { status: "ACTIVE" } }),
+    prisma.question.count({ where: { answer: null } }),
+    prisma.user.count({ where: { role: "ADMIN" } }),
+  ]);
+
+  // Fetch recent activity (union of news and rules)
+  const recentNews = await prisma.news.findMany({
+    take: 3,
+    orderBy: { createdAt: 'desc' },
+  });
+
+  const recentRules = await prisma.rule.findMany({
+    take: 3,
+    orderBy: { createdAt: 'desc' },
+  });
+
+  const activities = [
+    ...recentNews.map(n => ({ id: n.id, type: 'NEWS', title: n.title, time: n.createdAt })),
+    ...recentRules.map(r => ({ id: r.id, type: 'RULE', title: r.title, time: r.createdAt })),
+  ].sort((a, b) => b.time.getTime() - a.time.getTime()).slice(0, 5);
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Navbar />
@@ -43,10 +71,10 @@ export default function AdminPage() {
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-           <AdminStatCard icon={Users} label="Ukupno učenika" value="1,245" change="+12 ovog meseca" />
-           <AdminStatCard icon={BarChart3} label="Aktivna glasanja" value="4" change="2 završena nedavno" />
-           <AdminStatCard icon={List} label="Nepročitana pitanja" value="12" change="8 hitnih" />
-           <AdminStatCard icon={ShieldCheck} label="Moderatori" value="8" change="Admin tim" />
+           <AdminStatCard icon={Users} label="Ukupno učenika" value={userCount.toLocaleString()} change="Sistem" />
+           <AdminStatCard icon={BarChart3} label="Aktivna glasanja" value={activeRulesCount.toString()} change="U toku" />
+           <AdminStatCard icon={List} label="Nepročitana pitanja" value={questionCount.toString()} change="Čekaju odgovor" />
+           <AdminStatCard icon={ShieldCheck} label="Moderatori" value={adminCount.toString()} change="Admin tim" />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -54,24 +82,17 @@ export default function AdminPage() {
               <section className="bg-white rounded-3xl border border-slate-100 shadow-sm p-8">
                  <h3 className="text-xl font-bold mb-6">Nedavne aktivnosti</h3>
                  <div className="space-y-6">
-                    <ActivityItem 
-                       user="Marko J." 
-                       action="Objavio novu vest" 
-                       target="Sportski turnir 2026" 
-                       time="pre 2h" 
-                    />
-                    <ActivityItem 
-                       user="Sistem" 
-                       action="Glasanje završeno" 
-                       target="Novi dresovi" 
-                       time="pre 5h" 
-                    />
-                    <ActivityItem 
-                       user="Jovana K." 
-                       action="Odgovorila na pitanje" 
-                       target="Fizika kabinet" 
-                       time="pre 1 dan" 
-                    />
+                    {activities.length > 0 ? activities.map((activity) => (
+                      <ActivityItem 
+                        key={activity.id}
+                        user="Admin" 
+                        action={activity.type === 'NEWS' ? "Objavio vest" : "Kreirao predlog"} 
+                        target={activity.title} 
+                        time={activity.time.toLocaleDateString("sr-RS")} 
+                      />
+                    )) : (
+                      <p className="text-slate-500 text-sm">Nema nedavnih aktivnosti.</p>
+                    )}
                  </div>
               </section>
            </div>
@@ -82,7 +103,7 @@ export default function AdminPage() {
                  <div className="space-y-3">
                     <RuleFormModal trigger={<QuickActionButton label="Kreiraj glasanje" />} />
                     <QuickActionButton label="Dodaj administratora" />
-                    <QuickActionButton label="Izvez podatke" />
+                    <QuickActionButton label="Izvezi podatke" />
                  </div>
               </section>
            </aside>
