@@ -13,7 +13,7 @@ export function Footer() {
           <div>
             <h2 className="text-lg font-extrabold text-slate-900 dark:text-white mb-2">GimnApp</h2>
             <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-              Zvanična platforma Učeničkog parlamenta Gimnazije „Sveti Sava" u Šapcu.
+              Zvanična platforma Učeničkog parlamenta Gimnazije „Sveti Sava&quot; u Šapcu.
             </p>
           </div>
 
@@ -81,7 +81,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-slate-100 dark:border-slate-800 text-center text-xs text-slate-400 dark:text-slate-600">
-          © {currentYear} GimnApp · Učenički parlament · Gimnazija „Sveti Sava" Šabac
+          © {currentYear} GimnApp · Učenički parlament · Gimnazija „Sveti Sava&quot; Šabac
         </div>
       </div>
     </footer>
