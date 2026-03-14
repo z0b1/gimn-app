@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Image as ImageIcon, Film } from "lucide-react";
+import { Image as ImageIcon, Film, X } from "lucide-react";
 import { createFeedPost } from "@/lib/actions/posts";
 import Image from "next/image";
+import { ImageUpload } from "../shared/ImageUpload";
 
 interface PostFormProps {
   userAvatar?: string;
@@ -13,6 +14,7 @@ export function PostForm({ userAvatar }: PostFormProps) {
   const [content, setContent] = useState("");
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showUpload, setShowUpload] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,6 +25,7 @@ export function PostForm({ userAvatar }: PostFormProps) {
     try {
       await createFeedPost(formData);
       setContent("");
+      setShowUpload(false);
       (e.target as HTMLFormElement).reset();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Nešto je pošlo po zlu.");
@@ -50,6 +53,15 @@ export function PostForm({ userAvatar }: PostFormProps) {
             className="w-full bg-slate-50 border-none rounded-2xl p-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-100 min-h-[100px] resize-none transition-all"
             disabled={isPending}
           />
+
+          {showUpload && (
+            <div className="mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
+               <ImageUpload 
+                 onUploadComplete={() => {}}
+                 onUploadError={(err) => setError(err)}
+               />
+            </div>
+          )}
           
           {error && <p className="text-rose-500 text-sm mt-2 font-medium">{error}</p>}
 
@@ -57,17 +69,11 @@ export function PostForm({ userAvatar }: PostFormProps) {
             <div className="flex gap-2">
               <button
                 type="button"
-                className="p-2.5 text-slate-500 hover:bg-slate-50 rounded-xl transition-colors"
-                title="Dodaj sliku (Uskoro)"
+                onClick={() => setShowUpload(!showUpload)}
+                className={`p-2.5 rounded-xl transition-all ${showUpload ? 'bg-indigo-50 text-indigo-600' : 'text-slate-500 hover:bg-slate-50'}`}
+                title="Dodaj sliku ili video"
               >
-                <ImageIcon size={20} />
-              </button>
-              <button
-                type="button"
-                className="p-2.5 text-slate-500 hover:bg-slate-50 rounded-xl transition-colors"
-                title="Dodaj video (Uskoro)"
-              >
-                <Film size={20} />
+                {showUpload ? <X size={20} /> : <ImageIcon size={20} />}
               </button>
             </div>
             <button

@@ -2,6 +2,9 @@ import { Navbar } from "@/components/layout/Navbar";
 import { ShieldCheck, Plus, List, Settings, BarChart3, Users } from "lucide-react";
 import { isAdmin } from "@/lib/roles";
 import { redirect } from "next/navigation";
+import Link from "next/link";
+import { NewsFormModal } from "@/components/admin/NewsFormModal";
+import { RuleFormModal } from "@/components/admin/RuleFormModal";
 
 export default function AdminPage() {
   if (!isAdmin()) {
@@ -21,14 +24,21 @@ export default function AdminPage() {
             <h1 className="text-4xl font-bold text-slate-900">Upravljanje parlamentom</h1>
           </div>
           <div className="flex gap-3">
-             <button className="bg-indigo-600 text-white px-6 py-3 rounded-2xl font-bold text-sm hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 flex items-center gap-2">
-                <Plus size={18} />
-                Nova Objava
-             </button>
-             <button className="bg-white text-slate-900 border border-slate-200 px-6 py-3 rounded-2xl font-bold text-sm hover:bg-slate-50 transition-all flex items-center gap-2">
-                <Settings size={18} />
-                Podešavanja
-             </button>
+            <NewsFormModal 
+              trigger={
+                <button className="bg-indigo-600 text-white px-6 py-3 rounded-2xl font-bold text-sm hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 flex items-center gap-2">
+                  <Plus size={18} />
+                  Nova Objava
+                </button>
+              }
+            />
+            <Link
+              href="/admin/settings"
+              className="bg-white text-slate-900 border border-slate-200 px-6 py-3 rounded-2xl font-bold text-sm hover:bg-slate-50 transition-all flex items-center gap-2"
+            >
+              <Settings size={18} />
+              Podešavanja
+            </Link>
           </div>
         </header>
 
@@ -70,7 +80,7 @@ export default function AdminPage() {
               <section className="bg-indigo-600 rounded-3xl shadow-xl shadow-indigo-100 p-8 text-white">
                  <h3 className="text-xl font-bold mb-4 text-indigo-100">Brze akcije</h3>
                  <div className="space-y-3">
-                    <QuickActionButton label="Kreiraj glasanje" />
+                    <RuleFormModal trigger={<QuickActionButton label="Kreiraj glasanje" />} />
                     <QuickActionButton label="Dodaj administratora" />
                     <QuickActionButton label="Izvez podatke" />
                  </div>

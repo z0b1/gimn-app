@@ -1,16 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { createNews } from "@/lib/actions/posts";
-import { X, Send } from "lucide-react";
+import { createRule } from "@/lib/actions/posts";
+import { X, Send, Vote } from "lucide-react";
 import { ImageUpload } from "../shared/ImageUpload";
 
-interface NewsFormProps {
+interface RuleFormProps {
   onSuccess?: () => void;
   onClose?: () => void;
 }
 
-export function NewsForm({ onSuccess, onClose }: NewsFormProps) {
+export function RuleForm({ onSuccess, onClose }: RuleFormProps) {
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -21,7 +21,7 @@ export function NewsForm({ onSuccess, onClose }: NewsFormProps) {
 
     const formData = new FormData(e.currentTarget);
     try {
-      await createNews(formData);
+      await createRule(formData);
       onSuccess?.();
       onClose?.();
     } catch (err) {
@@ -34,7 +34,12 @@ export function NewsForm({ onSuccess, onClose }: NewsFormProps) {
   return (
     <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 w-full max-w-2xl animate-in fade-in zoom-in duration-300">
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-2xl font-bold text-slate-900">Nova vest</h2>
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-violet-100 text-violet-600 flex items-center justify-center">
+            <Vote size={24} />
+          </div>
+          <h2 className="text-2xl font-bold text-slate-900">Novi predlog / Pravilo</h2>
+        </div>
         {onClose && (
           <button 
             onClick={onClose}
@@ -47,23 +52,23 @@ export function NewsForm({ onSuccess, onClose }: NewsFormProps) {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-bold text-slate-700 mb-2 px-1">Naslov vesti</label>
+          <label className="block text-sm font-bold text-slate-700 mb-2 px-1">Naslov predloga</label>
           <input
             name="title"
             required
-            placeholder="Unesi naslov..."
-            className="w-full bg-slate-50 border-none rounded-2xl p-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-100 transition-all font-semibold"
+            placeholder="Npr. Novi pravilnik o oblačenju..."
+            className="w-full bg-slate-50 border-none rounded-2xl p-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-violet-100 transition-all font-semibold"
             disabled={isPending}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-slate-700 mb-2 px-1">Sadržaj</label>
+          <label className="block text-sm font-bold text-slate-700 mb-2 px-1">Opis i detalji</label>
           <textarea
-            name="content"
+            name="description"
             required
-            placeholder="O čemu se radi?"
-            className="w-full bg-slate-50 border-none rounded-2xl p-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-100 min-h-[200px] resize-none transition-all"
+            placeholder="Detaljno objasni predlog učenicima..."
+            className="w-full bg-slate-50 border-none rounded-2xl p-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-violet-100 min-h-[200px] resize-none transition-all"
             disabled={isPending}
           />
         </div>
@@ -91,12 +96,12 @@ export function NewsForm({ onSuccess, onClose }: NewsFormProps) {
            <button
              type="submit"
              disabled={isPending}
-             className="flex-[2] bg-indigo-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 disabled:opacity-50"
+             className="flex-[2] bg-violet-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-violet-700 transition-all shadow-lg shadow-violet-100 disabled:opacity-50"
            >
              {isPending ? "Objavljivanje..." : (
                <>
                  <Send size={20} />
-                 Objavi vest
+                 Objavi predlog
                </>
              )}
            </button>

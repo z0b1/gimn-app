@@ -60,13 +60,23 @@ export default async function FeedPage() {
                 </p>
 
                 {post.mediaUrl && (
-                  <div className="relative rounded-2xl overflow-hidden mb-6 bg-slate-100 border border-slate-100 h-80">
-                    <Image 
-                      src={post.mediaUrl} 
-                      alt="Post media"
-                      fill
-                      className="object-cover"
-                    />
+                  <div className="relative rounded-2xl overflow-hidden mb-6 bg-slate-100 border border-slate-100 min-h-[200px] flex items-center justify-center">
+                    {post.mediaType === "VIDEO" ? (
+                      <video 
+                        src={post.mediaUrl} 
+                        controls 
+                        className="w-full h-auto max-h-[500px]"
+                      />
+                    ) : (
+                      <div className="relative w-full h-80">
+                        <Image 
+                          src={post.mediaUrl} 
+                          alt="Post media"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
 

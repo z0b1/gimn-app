@@ -75,3 +75,37 @@ export async function createNews(formData: FormData) {
 
   revalidatePath("/vesti");
 }
+
+export async function createRule(formData: FormData) {
+  const { userId, sessionClaims } = auth();
+  const metadata = sessionClaims?.metadata as { role?: string } | undefined;
+  const publicMetadata = sessionClaims?.publicMetadata as { role?: string } | undefined;
+  const directRole = (sessionClaims as unknown as { role?: string })?.role;
+  const role = metadata?.role || publicMetadata?.role || directRole;
+
+  if (!userId || role !== "ADMIN") {
+    throw new Error("Unauthorized");
+  }
+
+  const title = formData.get("title") as string;
+  const description = formData.get("description") as string;
+  const mediaUrl = formData.get("mediaUrl") as string | null;
+  const mediaType = formData.get("mediaType") as string | null;
+
+  if (!title || !description) {
+    throw new Error("Title and description are required.");
+  }
+
+  await prisma.rule.create({
+    data: {
+      title,
+      description,
+      mediaUrl,
+      mediaType,
+      status: "ACTIVE",
+    },
+  });
+
+  revalidatePath("/glasanje");
+  revalidatePath("/admin");
+}

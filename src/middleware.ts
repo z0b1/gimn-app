@@ -13,12 +13,6 @@ export default clerkMiddleware((auth, request) => {
   const directRole = (sessionClaims as unknown as { role?: string })?.role;
   const role = metadata?.role || publicMetadata?.role || directRole;
 
-  if (process.env.NODE_ENV === "development") {
-    console.log("Middleware Debug - Path:", request.nextUrl.pathname);
-    console.log("Middleware Debug - Role detected:", role);
-    console.log("Middleware Debug - Session Claims:", JSON.stringify(sessionClaims, null, 2));
-  }
-
   if (isAdminRoute(request)) {
     if (role !== "ADMIN") {
       return NextResponse.redirect(new URL("/", request.url));

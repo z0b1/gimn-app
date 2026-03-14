@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { NewsForm } from "./NewsForm";
+import { RuleForm } from "./RuleForm";
 
-interface NewsFormModalProps {
+interface RuleFormModalProps {
   trigger: React.ReactNode;
 }
 
-export function NewsFormModal({ trigger }: NewsFormModalProps) {
+export function RuleFormModal({ trigger }: RuleFormModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -22,7 +22,7 @@ export function NewsFormModal({ trigger }: NewsFormModalProps) {
             className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
             onClick={() => setIsOpen(false)}
           />
-          <NewsForm 
+          <RuleForm 
             onClose={() => setIsOpen(false)} 
             onSuccess={() => setIsOpen(false)}
           />
