@@ -1,6 +1,8 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Landmark, MessageCircle, HelpCircle, ChevronRight } from "lucide-react";
 import prisma from "@/lib/db";
+import { isAdmin } from "@/lib/roles";
+import { AdminQuestionActions } from "@/components/qna/AdminQuestionActions";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +13,8 @@ export default async function PitanjaPage() {
       user: true,
     }
   });
+
+  const isUserAdmin = isAdmin();
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
@@ -78,6 +82,10 @@ export default async function PitanjaPage() {
                    <Landmark size={16} />
                    Čeka se odgovor...
                 </div>
+              )}
+              
+              {isUserAdmin && !q.answer && (
+                <AdminQuestionActions questionId={q.id} content={q.content} />
               )}
             </div>
           )) : (
