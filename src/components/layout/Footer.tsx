@@ -23,7 +23,7 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
               <li className="flex items-start gap-3">
                 <MapPin size={16} className="mt-0.5 shrink-0 text-indigo-500" />
-                <span>Gospodar Jovanova 6, 15000 Šabac, Srbija</span>
+                <span>Masarikova 13, 15000 Šabac, Srbija</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={16} className="shrink-0 text-indigo-500" />
@@ -33,8 +33,8 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={16} className="shrink-0 text-indigo-500" />
-                <a href="mailto:gimnazijasabac@gmail.com" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                  gimnazijasabac@gmail.com
+                <a href="mailto:parlamentucenickiparlament@gmail.com" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                  parlamentucenickiparlament@gmail.com
                 </a>
               </li>
             </ul>
