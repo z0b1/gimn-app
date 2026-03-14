@@ -150,5 +150,4 @@ export async function castVote(ruleId: string, value: boolean) {
 
   revalidatePath("/glasanje");
   revalidatePath("/");
-  revalidatePath("/admin");
 }

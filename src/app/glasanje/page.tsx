@@ -38,13 +38,15 @@ export default async function GlasanjePage() {
         </header>
 
         <div className="grid grid-cols-1 gap-8">
-          {activeRules.length > 0 ? activeRules.map((rule) => {
+          {activeRules && activeRules.length > 0 ? activeRules.map((rule) => {
+            if (!rule) return null;
             const expiryDate = new Date(rule.createdAt);
             expiryDate.setDate(expiryDate.getDate() + 7);
             const isExpired = now > expiryDate;
             
-            const yesVotes = rule.votes.filter(v => v.value === true).length;
-            const noVotes = rule.votes.filter(v => v.value === false).length;
+            const votes = rule.votes || [];
+            const yesVotes = votes.filter(v => v.value === true).length;
+            const noVotes = votes.filter(v => v.value === false).length;
             const isAccepted = isExpired && yesVotes > noVotes;
 
             return (
@@ -57,7 +59,7 @@ export default async function GlasanjePage() {
                 isAccepted={isAccepted}
                 yesVotes={yesVotes}
                 noVotes={noVotes}
-                participation={rule._count.votes.toString()}
+                participation={(rule._count?.votes ?? 0).toString()}
               />
             );
           }) : (
