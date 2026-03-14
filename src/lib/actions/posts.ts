@@ -4,6 +4,8 @@ import prisma from "@/lib/db";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
+import { Role } from "@prisma/client";
+
 async function getOrCreateUser() {
   const { userId } = auth();
   if (!userId) return null;
@@ -14,13 +16,21 @@ async function getOrCreateUser() {
   const name = [user.firstName, user.lastName].filter(Boolean).join(" ") || "Korisnik";
   const email = user.emailAddresses[0]?.emailAddress || `${userId}@clerk.com`;
 
+  const metadata = user.publicMetadata as { role?: string } | undefined;
+  const role = metadata?.role === "ADMIN" ? "ADMIN" : "STUDENT";
+
   return await prisma.user.upsert({
     where: { email: email },
-    update: { clerkId: userId, name },
+    update: { 
+      clerkId: userId, 
+      name,
+      role: role as Role,
+    },
     create: {
       clerkId: userId,
       name,
       email,
+      role: role as Role,
     },
   });
 }
@@ -150,4 +160,53 @@ export async function castVote(ruleId: string, value: boolean) {
 
   revalidatePath("/glasanje");
   revalidatePath("/");
+}
+
+export async function deleteNews(id: string) {
+  const { userId, sessionClaims } = auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+
+  if (!userId || role !== "ADMIN") {
+    throw new Error("Unauthorized");
+  }
+
+  await prisma.news.delete({
+    where: { id },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/vesti");
+}
+
+export async function deleteRule(id: string) {
+  const { userId, sessionClaims } = auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+
+  if (!userId || role !== "ADMIN") {
+    throw new Error("Unauthorized");
+  }
+
+  await prisma.rule.delete({
+    where: { id },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/glasanje");
+  revalidatePath("/admin");
+}
+
+export async function deleteFeedPost(id: string) {
+  const { userId, sessionClaims } = auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+
+  if (!userId || role !== "ADMIN") {
+    throw new Error("Unauthorized");
+  }
+
+  await prisma.gimnazijaFeedPost.delete({
+    where: { id },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/gimnazija-feed");
 }
