@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/layout/Navbar";
-import { Bell, Calendar, ChevronRight, PlayCircle, Image as ImageIcon, Plus } from "lucide-react";
+import { Bell, Calendar, ChevronRight, PlayCircle } from "lucide-react";
 import Image from "next/image";
 import prisma from "@/lib/db";
 import { isAdmin } from "@/lib/roles";
