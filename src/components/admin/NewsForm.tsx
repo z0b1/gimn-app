@@ -33,7 +33,7 @@ export function NewsForm({ onSuccess, onClose }: NewsFormProps) {
   };
 
   return (
-    <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 w-full max-w-2xl animate-in fade-in zoom-in duration-300">
+    <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8 w-full max-w-2xl">
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-2xl font-bold text-slate-900">Nova vest</h2>
         {onClose && (

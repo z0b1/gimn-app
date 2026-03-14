@@ -18,12 +18,12 @@ export function NewsFormModal({ trigger }: NewsFormModalProps) {
 
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div 
-            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+          <div
+            className="absolute inset-0 bg-slate-900/40"
             onClick={() => setIsOpen(false)}
           />
-          <NewsForm 
-            onClose={() => setIsOpen(false)} 
+          <NewsForm
+            onClose={() => setIsOpen(false)}
             onSuccess={() => setIsOpen(false)}
           />
         </div>

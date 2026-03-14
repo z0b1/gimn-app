@@ -48,12 +48,12 @@ export function ImageUpload({ onUploadComplete, onUploadError, onClear, defaultV
             
             <button
               onClick={clearFile}
-              className="absolute top-4 right-4 p-2 bg-slate-900/60 hover:bg-slate-900/80 backdrop-blur-md rounded-full text-white transition-all shadow-xl z-10"
+              className="absolute top-4 right-4 p-2 bg-slate-900/60 hover:bg-slate-900/80 rounded-full text-white transition-all shadow-xl z-10"
             >
               <X size={20} />
             </button>
 
-            <div className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-emerald-500 text-white rounded-full text-xs font-bold shadow-lg animate-in slide-in-from-bottom-2">
+            <div className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-emerald-500 text-white rounded-full text-xs font-bold shadow-lg">
               <CheckCircle2 size={14} />
               SPREMNO
             </div>
@@ -83,7 +83,7 @@ export function ImageUpload({ onUploadComplete, onUploadError, onClear, defaultV
         )}
 
         {isUploading && (
-          <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center p-6 z-20">
+          <div className="absolute inset-0 bg-white/90 flex flex-col items-center justify-center p-6 z-20">
             <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mb-4" />
             <p className="text-sm font-bold text-slate-900 text-center">Otpremanje u toku...</p>
           </div>
