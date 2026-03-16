@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { UserButton, SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
-import { Menu, X, Bell, Vote, MessageSquare, Plus, Info, Map as MapIcon, HelpCircle } from "lucide-react";
+import { Menu, X, Bell, Vote, MessageSquare, Plus, Info, Map as MapIcon, HelpCircle, Users } from "lucide-react";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 
@@ -13,6 +13,7 @@ const navLinks = [
   { href: "/glasanje", label: "Glasanje", icon: Vote },
   { href: "/gimnazija-feed", label: "Feed", icon: MessageSquare },
   { href: "/pitanja", label: "Pitanja", icon: HelpCircle },
+  { href: "/kanali", label: "Kanali", icon: Users },
   { href: "/hemija-26", label: "Hemija 26'", icon: Info },
   { href: "/o-nama", label: "O nama", icon: Info },
   { href: "/mapa", label: "Mapa", icon: MapIcon },

@@ -98,7 +98,7 @@ export default async function KorisniciPage() {
 
           <UserManagementTable initialUsers={serializedUsers} currentUserId={userId} />
 
-          <section className="mt-12 space-y-4">
+          <section id="kanali" className="mt-12 space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white transition-colors">
                 Kanali i članovi
