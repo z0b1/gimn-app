@@ -13,6 +13,7 @@ const navLinks = [
   { href: "/glasanje", label: "Glasanje", icon: Vote },
   { href: "/gimnazija-feed", label: "Feed", icon: MessageSquare },
   { href: "/pitanja", label: "Pitanja", icon: HelpCircle },
+  { href: "/hemija-26", label: "Hemija 26'", icon: Info },
   { href: "/o-nama", label: "O nama", icon: Info },
   { href: "/mapa", label: "Mapa", icon: MapIcon },
 ];
