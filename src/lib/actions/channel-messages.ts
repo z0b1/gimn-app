@@ -136,16 +136,14 @@ export async function toggleChannelMessageLike(messageId: string) {
       data: { messageId, userId: dbUser.id },
     });
 
-    if (message.userId !== dbUser.id) {
-      await createNotification({
-        userId: message.userId,
-        issuerId: dbUser.id,
-        type: NotificationType.LIKE,
-        title: `Reakcija na tvoju poruku u ${message.channel.name}`,
-        message: message.content.slice(0, 140),
-        link: `/kanali/${message.channelId}`,
-      });
-    }
+    await createNotification({
+      userId: message.userId,
+      issuerId: dbUser.id,
+      type: NotificationType.LIKE,
+      title: `Reakcija na poruku u ${message.channel.name}`,
+      message: message.content.slice(0, 140),
+      link: `/kanali/${message.channelId}`,
+    });
   }
 
   const likeCount = await prisma.channelMessageLike.count({ where: { messageId } });
