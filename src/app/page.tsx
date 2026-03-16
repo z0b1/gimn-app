@@ -29,12 +29,12 @@ export default async function Home() {
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 text-sm font-medium mb-6 animate-fade-in transition-colors">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 text-brand-primary dark:text-brand-accent text-sm font-medium mb-6 animate-fade-in transition-colors">
                 <ShieldCheck size={16} />
                 <span>Zvanična platforma učeničkog parlamenta</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6 sm:mb-8 transition-colors text-balance">
-                Tvoj glas menja <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">Gimnaziju</span>
+                Tvoj glas menja <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-accent dark:from-brand-accent dark:to-brand-primary">Gimnaziju</span>
               </h1>
               <p className="text-xl text-slate-600 dark:text-slate-300 mb-10 leading-relaxed max-w-2xl mx-auto transition-colors">
                 Pridruži se učeničkom parlamentu. Prati najnovije vesti, učestvuj u glasanju i 
@@ -43,14 +43,14 @@ export default async function Home() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
                   href="/gimnazija-feed"
-                  className="w-full sm:w-auto px-8 py-4 bg-indigo-600 dark:bg-indigo-500 text-white rounded-2xl font-semibold text-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all shadow-xl shadow-indigo-100 dark:shadow-none flex items-center justify-center gap-2 group"
+                  className="w-full sm:w-auto px-8 py-4 bg-brand-primary text-white rounded-xl font-semibold text-lg hover:bg-brand-primary/90 transition-all shadow-sm flex items-center justify-center gap-2 group"
                 >
                   Pridruži se diskusiji
                   <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
                   href="/vesti"
-                  className="w-full sm:w-auto px-8 py-4 bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 rounded-2xl font-semibold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-8 py-4 bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 rounded-xl font-semibold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
                 >
                   Pročitaj vesti
                 </Link>
@@ -74,13 +74,13 @@ export default async function Home() {
                 icon={Vote}
                 title="Digitalno Glasanje"
                 description="Tvoje mišljenje je važno. Glasaj za nove predloge i pravila direktno iz aplikacije."
-                color="bg-indigo-500"
+                color="bg-brand-primary"
               />
               <FeatureCard 
                 icon={MessageSquare}
                 title="Gimnazija Feed"
                 description="Mesto za tvoje ideje. Deli slike, video snimke i komuniciraj sa kolegama."
-                color="bg-violet-500"
+                color="bg-brand-accent"
               />
             </div>
           </div>
@@ -110,8 +110,8 @@ interface FeatureCardProps {
 
 function FeatureCard({ icon: Icon, title, description, color }: FeatureCardProps) {
   return (
-    <div className="p-6 sm:p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-      <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6", color)}>
+    <div className="p-6 sm:p-8 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+      <div className={cn("w-14 h-14 rounded-xl flex items-center justify-center text-white mb-6", color)}>
         <Icon size={28} />
       </div>
       <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 transition-colors">{title}</h3>
@@ -125,7 +125,7 @@ function FeatureCard({ icon: Icon, title, description, color }: FeatureCardProps
 function StatItem({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <div className="text-4xl font-extrabold text-indigo-600 dark:text-indigo-400 mb-1 transition-colors">{value}</div>
+      <div className="text-4xl font-extrabold text-brand-primary dark:text-brand-accent mb-1 transition-colors">{value}</div>
       <div className="text-slate-500 dark:text-slate-400 font-medium transition-colors">{label}</div>
     </div>
   );

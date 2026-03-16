@@ -28,7 +28,7 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-2 sm:gap-3 font-bold text-lg sm:text-xl text-slate-900 dark:text-white group shrink-0">
-              <div className="relative w-9 h-9 sm:w-10 sm:h-10 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 group-hover:scale-105 transition-transform duration-300 shadow-sm shadow-indigo-100 dark:shadow-none shrink-0">
+              <div className="relative w-9 h-9 sm:w-10 sm:h-10 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 group-hover:scale-105 transition-transform duration-300 shadow-sm shrink-0">
                 <Image
                   src="/favicon.ico"
                   alt="Šabačka gimnazija logo"
@@ -44,7 +44,7 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950/50"
+                  className="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-primary dark:hover:text-brand-accent transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900"
                 >
                   {link.label}
                 </Link>
@@ -70,14 +70,14 @@ export function Navbar() {
                 afterSignOutUrl="/"
                 appearance={{
                   elements: {
-                    avatarBox: "h-9 w-9 border-2 border-indigo-100 dark:border-indigo-900",
+                    avatarBox: "h-9 w-9 border-2 border-slate-100 dark:border-slate-900",
                   }
                 }}
               />
             </SignedIn>
             <SignedOut>
               <SignInButton mode="modal">
-                <button className="bg-indigo-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-all shadow-md shadow-indigo-100 dark:shadow-none">
+                <button className="bg-brand-primary text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-brand-primary/90 transition-all shadow-sm">
                   Prijavi se
                 </button>
               </SignInButton>
@@ -104,7 +104,7 @@ export function Navbar() {
                 className="flex items-center gap-3 px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-200 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
-                <link.icon size={20} className="text-indigo-600 dark:text-indigo-400" />
+                <link.icon size={20} className="text-brand-primary dark:text-brand-accent" />
                 {link.label}
               </Link>
             ))}

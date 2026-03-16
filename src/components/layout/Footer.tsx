@@ -22,18 +22,18 @@ export function Footer() {
             <h3 className="text-sm font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4">Kontakt</h3>
             <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
               <li className="flex items-start gap-3">
-                <MapPin size={16} className="mt-0.5 shrink-0 text-indigo-500" />
+                <MapPin size={16} className="mt-0.5 shrink-0 text-brand-primary/70 dark:text-brand-accent/70" />
                 <span>Masarikova 13, 15000 Šabac, Srbija</span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone size={16} className="shrink-0 text-indigo-500" />
-                <a href="tel:+38115350286" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                <Phone size={16} className="shrink-0 text-brand-primary/70 dark:text-brand-accent/70" />
+                <a href="tel:+38115350286" className="hover:text-brand-primary dark:hover:text-brand-accent transition-colors">
                   015 350286
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail size={16} className="shrink-0 text-indigo-500" />
-                <a href="mailto:parlamentucenickiparlament@gmail.com" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                <Mail size={16} className="shrink-0 text-brand-primary/70 dark:text-brand-accent/70" />
+                <a href="mailto:parlamentucenickiparlament@gmail.com" className="hover:text-brand-primary dark:hover:text-brand-accent transition-colors">
                   parlamentucenickiparlament@gmail.com
                 </a>
               </li>
@@ -45,12 +45,12 @@ export function Footer() {
             <h3 className="text-sm font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4">Linkovi</h3>
             <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400 mb-6">
               <li>
-                <Link href="/uslovi-koriscenja" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                <Link href="/uslovi-koriscenja" className="hover:text-brand-primary dark:hover:text-brand-accent transition-colors">
                   Uslovi Korišćenja
                 </Link>
               </li>
               <li>
-                <Link href="/privatnost" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                <Link href="/privatnost" className="hover:text-brand-primary dark:hover:text-brand-accent transition-colors">
                   Politika Privatnosti
                 </Link>
               </li>
@@ -62,7 +62,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all"
+                className="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-brand-primary dark:hover:text-brand-accent transition-all"
               >
                 <Facebook size={18} />
               </a>
@@ -71,7 +71,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all"
+                className="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-brand-primary dark:hover:text-brand-accent transition-all"
               >
                 <Instagram size={18} />
               </a>

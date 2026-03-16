@@ -12,6 +12,11 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        brand: {
+          primary: "#1e3a8a", // Deep professional blue
+          accent: "#3b82f6",  // Brighter blue for highlights
+          muted: "#64748b",   // Muted slate for less emphasis
+        },
       },
     },
   },
