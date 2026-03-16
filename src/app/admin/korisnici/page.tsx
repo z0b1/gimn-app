@@ -6,6 +6,7 @@ import { isAdmin } from "@/lib/roles";
 import { redirect } from "next/navigation";
 import { UserManagementTable } from "@/components/admin/UserManagementTable";
 import { auth } from "@clerk/nextjs/server";
+import { ChannelManager } from "@/components/admin/ChannelManager";
 
 export const dynamic = "force-dynamic";
 
@@ -29,10 +30,37 @@ export default async function KorisniciPage() {
     }
   });
 
+  const channels = await prisma.channel.findMany({
+    orderBy: { name: "asc" },
+    include: {
+      memberships: {
+        include: {
+          user: {
+            select: { id: true, name: true, email: true },
+          },
+        },
+      },
+    },
+  });
+
   // Convert Date to string for client component serialization
   const serializedUsers = users.map(u => ({
     ...u,
     createdAt: u.createdAt.toISOString()
+  }));
+
+  const serializedChannels = channels.map((channel) => ({
+    id: channel.id,
+    name: channel.name,
+    description: channel.description,
+    memberships: channel.memberships.map((membership) => ({
+      id: membership.id,
+      user: {
+        id: membership.user.id,
+        name: membership.user.name,
+        email: membership.user.email,
+      },
+    })),
   }));
 
   return (
@@ -69,6 +97,18 @@ export default async function KorisniciPage() {
           </div>
 
           <UserManagementTable initialUsers={serializedUsers} currentUserId={userId} />
+
+          <section className="mt-12 space-y-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white transition-colors">
+                Kanali i članovi
+              </h2>
+              <p className="text-sm text-slate-500 dark:text-slate-400 transition-colors">
+                Kreiraj kanale i dodeli korisnike (samo admin).
+              </p>
+            </div>
+            <ChannelManager initialChannels={serializedChannels} users={serializedUsers} />
+          </section>
         </div>
       </main>
     </div>

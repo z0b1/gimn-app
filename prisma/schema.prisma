@@ -18,12 +18,38 @@ enum Role {
   ADMIN
 }
 
+model Channel {
+  id           String               @id @default(cuid())
+  name         String               @unique
+  description  String?
+  createdById  String?
+  createdBy    User?                @relation("ChannelsCreated", fields: [createdById], references: [id], onDelete: SetNull)
+  memberships  ChannelMembership[]
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+}
+
+model ChannelMembership {
+  id        String   @id @default(cuid())
+  userId    String
+  channelId String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, channelId])
+  @@index([channelId])
+  @@index([userId])
+}
+
 model User {
   id        String     @id @default(cuid())
   clerkId   String     @unique
   email     String     @unique
   name      String?
   role      Role       @default(STUDENT)
+  channelMemberships ChannelMembership[]
+  createdChannels    Channel[] @relation("ChannelsCreated")
   votes            Vote[]
   questions        Question[]
   questionReplies  QuestionReply[]
