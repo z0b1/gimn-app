@@ -2,6 +2,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { redirect, notFound } from "next/navigation";
+import { ChannelMessages } from "@/components/channel/ChannelMessages";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +24,12 @@ export default async function ChannelDetailPage({ params }: { params: { channelI
         },
         orderBy: { createdAt: "asc" },
       },
+      messages: {
+        include: {
+          user: { select: { name: true, email: true } },
+        },
+        orderBy: { createdAt: "desc" },
+      },
     },
   });
 
@@ -37,7 +44,7 @@ export default async function ChannelDetailPage({ params }: { params: { channelI
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <Navbar />
       <main className="container mx-auto px-4 pt-24 pb-12">
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-5xl mx-auto space-y-8">
           <header className="flex items-start justify-between gap-3">
             <div>
               <p className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">Kanal</p>
@@ -51,29 +58,47 @@ export default async function ChannelDetailPage({ params }: { params: { channelI
             </span>
           </header>
 
-          <section className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm p-6 transition-colors">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Članovi</h2>
-            {channel.memberships.length === 0 ? (
-              <p className="text-sm text-slate-600 dark:text-slate-400">Nema članova.</p>
-            ) : (
-              <div className="space-y-3">
-                {channel.memberships.map((membership) => (
-                  <div
-                    key={membership.id}
-                    className="flex items-center justify-between px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 transition-colors"
-                  >
-                    <div>
-                      <div className="text-sm font-semibold text-slate-900 dark:text-white">
-                        {membership.user.name || "Bez imena"}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <section className="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm p-6 transition-colors space-y-4">
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white">Poruke kanala</h2>
+              <ChannelMessages
+                channelId={channel.id}
+                initialMessages={channel.messages.map((m) => ({
+                  id: m.id,
+                  content: m.content,
+                  createdAt: m.createdAt.toISOString(),
+                  user: {
+                    name: m.user.name,
+                    email: m.user.email,
+                  },
+                }))}
+              />
+            </section>
+
+            <section className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm p-6 transition-colors">
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Članovi</h2>
+              {channel.memberships.length === 0 ? (
+                <p className="text-sm text-slate-600 dark:text-slate-400">Nema članova.</p>
+              ) : (
+                <div className="space-y-3">
+                  {channel.memberships.map((membership) => (
+                    <div
+                      key={membership.id}
+                      className="flex items-center justify-between px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 transition-colors"
+                    >
+                      <div>
+                        <div className="text-sm font-semibold text-slate-900 dark:text-white">
+                          {membership.user.name || "Bez imena"}
+                        </div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400">{membership.user.email}</div>
                       </div>
-                      <div className="text-xs text-slate-500 dark:text-slate-400">{membership.user.email}</div>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">Član</span>
                     </div>
-                    <span className="text-xs text-slate-500 dark:text-slate-400">Član</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
+                  ))}
+                </div>
+              )}
+            </section>
+          </div>
         </div>
       </main>
     </div>

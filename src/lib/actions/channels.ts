@@ -3,6 +3,7 @@
 import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import nodemailer from "nodemailer";
 
 function assertAdmin() {
   const { sessionClaims, userId } = auth();
@@ -60,7 +61,7 @@ export async function addUserToChannel(channelId: string, userId: string) {
   assertAdmin();
 
   const [channel, user] = await Promise.all([
-    prisma.channel.findUnique({ where: { id: channelId }, select: { id: true } }),
+    prisma.channel.findUnique({ where: { id: channelId }, select: { id: true, name: true } }),
     prisma.user.findUnique({ where: { id: userId }, select: { id: true, name: true, email: true } }),
   ]);
 
@@ -80,6 +81,44 @@ export async function addUserToChannel(channelId: string, userId: string) {
       user: { select: { id: true, name: true, email: true } },
     },
   });
+
+  // Send email notification (best-effort)
+  const { GMAIL_USER, GMAIL_APP_PASSWORD, NEXT_PUBLIC_APP_URL } = process.env;
+  if (GMAIL_USER && GMAIL_APP_PASSWORD && membership.user.email) {
+    try {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: GMAIL_USER,
+          pass: GMAIL_APP_PASSWORD,
+        },
+      });
+
+      const appUrl = NEXT_PUBLIC_APP_URL || "https://gimn-app-smoky.vercel.app";
+      await transporter.sendMail({
+        from: `"GimnApp" <${GMAIL_USER}>`,
+        to: membership.user.email,
+        subject: `Dodat si u kanal "${channel.name}"`,
+        html: `
+          <div style="font-family: sans-serif; padding: 20px; color: #334155;">
+            <h2 style="margin: 0 0 12px 0; color: #4f46e5;">Pozdrav ${membership.user.name || "članu"},</h2>
+            <p style="margin: 0 0 12px 0;">Administrator te je dodao u kanal <strong>${channel.name}</strong>.</p>
+            <p style="margin: 0 0 16px 0;">Otvorite kanal kako biste videli detalje i članove.</p>
+            <a href="${appUrl}/kanali/${channelId}" style="display: inline-block; padding: 12px 18px; background: #4f46e5; color: #fff; text-decoration: none; border-radius: 10px; font-weight: 700;">Otvori kanal</a>
+            <p style="margin: 16px 0 0 0; font-size: 12px; color: #94a3b8;">Ako niste očekivali ovu poruku, obratite se administratoru.</p>
+          </div>
+        `,
+      });
+    } catch (error) {
+      console.error("[Channel email] Failed to send invite:", error);
+    }
+  } else {
+    console.warn("[Channel email] Skipped send", {
+      hasUser: !!GMAIL_USER,
+      hasPass: !!GMAIL_APP_PASSWORD,
+      hasRecipient: !!membership.user.email,
+    });
+  }
 
   revalidatePath("/admin/korisnici");
 
