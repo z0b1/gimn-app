@@ -128,16 +128,16 @@ export default function ONamaPage() {
           </section>
 
           {/* Kontakt */}
-          <section className="bg-indigo-600 rounded-3xl p-8 md:p-12 text-center text-white">
+          <section className="bg-indigo-600 rounded-3xl p-8 md:p-12 text-center text-white overflow-hidden">
             <h2 className="text-3xl font-bold mb-4">Kontaktiraj nas</h2>
             <p className="text-indigo-100 mb-8 max-w-xl mx-auto">
               Imaš pitanje, predlog ili želiš da se uključiš u rad parlamenta? Piši nam na našu zvaničnu email adresu.
             </p>
             <a 
               href="mailto:parlamentucenickiparlament@gmail.com"
-              className="inline-flex items-center gap-3 bg-white text-indigo-600 px-8 py-4 rounded-2xl font-bold hover:bg-indigo-50 transition-all shadow-xl shadow-indigo-900/20"
+              className="inline-flex items-center gap-3 bg-white text-indigo-600 px-4 sm:px-8 py-4 rounded-2xl font-bold hover:bg-indigo-50 transition-all shadow-xl shadow-indigo-900/20 max-w-full"
             >
-              <span className="text-lg">parlamentucenickiparlament@gmail.com</span>
+              <span className="text-base sm:text-lg break-all">parlamentucenickiparlament@gmail.com</span>
             </a>
           </section>
         </div>
