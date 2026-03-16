@@ -4,6 +4,7 @@ import Image from "next/image";
 import prisma from "@/lib/db";
 import { isAdmin } from "@/lib/roles";
 import { NewsFormModal } from "@/components/admin/NewsFormModal";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -82,10 +83,13 @@ export default async function VestiPage() {
                   {item.content}
                 </p>
                 
-                <button className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold hover:gap-3 transition-all">
+                <Link
+                  href={`/vesti/${item.id}`}
+                  className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold hover:gap-3 transition-all"
+                >
                   Pročitaj više
                   <ChevronRight size={20} />
-                </button>
+                </Link>
               </div>
             </article>
           ))}

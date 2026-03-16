@@ -51,6 +51,9 @@ model User {
   role      Role       @default(STUDENT)
   channelMemberships ChannelMembership[]
   createdChannels    Channel[] @relation("ChannelsCreated")
+  channelMessageLikes ChannelMessageLike[]
+  channelMessageComments ChannelMessageComment[]
+  editedNews         News[] @relation("NewsLastEditor")
   votes            Vote[]
   questions        Question[]
   questionReplies  QuestionReply[]
@@ -98,9 +101,13 @@ model News {
   id        String   @id @default(cuid())
   title     String
   content   String
+  body      String?
   mediaUrl  String?  // URL for image or video
   mediaType String?  // "IMAGE" or "VIDEO"
   published Boolean  @default(true)
+  lastEditedById String?
+  lastEditedBy   User?    @relation("NewsLastEditor", fields: [lastEditedById], references: [id], onDelete: SetNull)
+  lastEditedAt   DateTime @default(now())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -195,8 +202,36 @@ model FeedMessage {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   channelId String?
   channel   Channel? @relation(fields: [channelId], references: [id], onDelete: SetNull)
+  likes     ChannelMessageLike[]
+  comments  ChannelMessageComment[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([channelId])
+}
+
+model ChannelMessageLike {
+  id         String      @id @default(cuid())
+  messageId  String
+  userId     String
+  message    FeedMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime    @default(now())
+
+  @@unique([messageId, userId])
+  @@index([userId])
+}
+
+model ChannelMessageComment {
+  id         String      @id @default(cuid())
+  content    String
+  messageId  String
+  userId     String
+  message    FeedMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@index([messageId])
+  @@index([userId])
 }

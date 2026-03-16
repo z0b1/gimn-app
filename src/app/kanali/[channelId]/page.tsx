@@ -13,6 +13,12 @@ export default async function ChannelDetailPage({ params }: { params: { channelI
   const role = (sessionClaims?.metadata as { role?: string })?.role;
   const isAdmin = role === "ADMIN";
 
+  const dbUser = await prisma.user.findUnique({
+    where: { clerkId: userId },
+    select: { id: true, name: true, email: true },
+  });
+  if (!dbUser) redirect("/sign-in");
+
   const channel = await prisma.channel.findUnique({
     where: { id: params.channelId },
     include: {
@@ -27,6 +33,13 @@ export default async function ChannelDetailPage({ params }: { params: { channelI
       messages: {
         include: {
           user: { select: { name: true, email: true } },
+          likes: { select: { userId: true } },
+          comments: {
+            include: {
+              user: { select: { name: true, email: true } },
+            },
+            orderBy: { createdAt: "desc" },
+          },
         },
         orderBy: { createdAt: "desc" },
       },
@@ -67,6 +80,14 @@ export default async function ChannelDetailPage({ params }: { params: { channelI
                   id: m.id,
                   content: m.content,
                   createdAt: m.createdAt.toISOString(),
+                  likeCount: m.likes.length,
+                  likedByMe: m.likes.some((l) => l.userId === dbUser.id),
+                  comments: m.comments.map((c) => ({
+                    id: c.id,
+                    content: c.content,
+                    createdAt: c.createdAt.toISOString(),
+                    user: { name: c.user.name, email: c.user.email },
+                  })),
                   user: {
                     name: m.user.name,
                     email: m.user.email,

@@ -70,10 +70,16 @@ export async function createNews(formData: FormData) {
     throw new Error("Unauthorized");
   }
 
+  const dbUser = await getOrCreateUser();
+  if (!dbUser) {
+    throw new Error("User not found");
+  }
+
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
   const mediaUrl = formData.get("mediaUrl") as string | null;
   const mediaType = formData.get("mediaType") as string | null;
+  const body = formData.get("body") as string | null;
 
   if (!title || !content) {
     throw new Error("Title and content are required.");
@@ -83,13 +89,47 @@ export async function createNews(formData: FormData) {
     data: {
       title,
       content,
+      body: body || null,
       mediaUrl,
       mediaType,
+      lastEditedById: dbUser.id,
+      lastEditedAt: new Date(),
     },
   });
 
   revalidatePath("/");
   revalidatePath("/vesti");
+}
+
+export async function updateNewsBody(id: string, body: string) {
+  const { userId, sessionClaims } = auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+
+  if (!userId || role !== "ADMIN") {
+    throw new Error("Unauthorized");
+  }
+
+  const dbUser = await getOrCreateUser();
+  if (!dbUser) {
+    throw new Error("User not found");
+  }
+
+  const trimmedBody = body.trim();
+  if (!trimmedBody) {
+    throw new Error("Sadržaj članka ne može biti prazan.");
+  }
+
+  await prisma.news.update({
+    where: { id },
+    data: {
+      body: trimmedBody,
+      lastEditedById: dbUser.id,
+      lastEditedAt: new Date(),
+    },
+  });
+
+  revalidatePath("/vesti");
+  revalidatePath(`/vesti/${id}`);
 }
 
 export async function createRule(formData: FormData) {
