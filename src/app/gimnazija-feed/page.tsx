@@ -25,6 +25,13 @@ export default async function FeedPage() {
   const user = await currentUser();
   const dbUser = user ? await prisma.user.findUnique({ where: { clerkId: user.id } }) : null;
 
+  if (user && dbUser && user.imageUrl !== dbUser.imageUrl) {
+    await prisma.user.update({
+      where: { id: dbUser.id },
+      data: { imageUrl: user.imageUrl },
+    });
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <Navbar />
@@ -50,9 +57,20 @@ export default async function FeedPage() {
             <article id={post.id} key={post.id} className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-500 transition-colors">
               <div className="p-6">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-white font-bold text-xl overflow-hidden shrink-0">
-                    {post.user.name ? post.user.name[0] : "U"}
-                  </div>
+                  {post.user.imageUrl ? (
+                    <div className="relative w-12 h-12 rounded-2xl overflow-hidden shrink-0">
+                      <Image
+                        src={post.user.imageUrl}
+                        alt={post.user.name || "User"}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-white font-bold text-xl overflow-hidden shrink-0">
+                      {post.user.name ? post.user.name[0] : "U"}
+                    </div>
+                  )}
                   <div>
                     <h3 className="font-bold text-slate-900 dark:text-white leading-none mb-1 transition-colors">{post.user.name}</h3>
                     <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 text-xs font-medium transition-colors">
@@ -92,12 +110,13 @@ export default async function FeedPage() {
                   <FeedInteractions 
                     postId={post.id}
                     currentUserId={dbUser?.id || null}
+                    currentUserImage={dbUser?.imageUrl || null}
                     initialLikes={post.likes.map(l => l.userId)}
                     initialComments={post.comments.map(c => ({
                       id: c.id,
                       content: c.content,
                       createdAt: c.createdAt.toISOString(),
-                      user: { name: c.user.name }
+                      user: { name: c.user.name, imageUrl: c.user.imageUrl }
                     }))}
                   />
                   

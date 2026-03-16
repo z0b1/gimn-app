@@ -48,6 +48,7 @@ model User {
   clerkId   String     @unique
   email     String     @unique
   name      String?
+  imageUrl  String?
   role      Role       @default(STUDENT)
   channelMemberships ChannelMembership[]
   createdChannels    Channel[] @relation("ChannelsCreated")

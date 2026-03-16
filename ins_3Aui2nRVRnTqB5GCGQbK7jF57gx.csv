@@ -1,0 +1,12 @@
+id,first_name,last_name,username,primary_email_address,primary_phone_number,verified_email_addresses,unverified_email_addresses,verified_phone_numbers,unverified_phone_numbers,totp_secret,password_digest,password_hasher
+user_3AvkbsV1VnZRTo0DT1lY6DakGIf,Učenički ,Parlament,,parlamentucenickiparlament@gmail.com,,parlamentucenickiparlament@gmail.com,,,,,$2a$10$syM4jH.qVNKB13UKhvz01uFFZbyqOzMXudxn705l4OJxlmDLL/PPi,bcrypt
+user_3Aw9D6dvvC6Pej4Zf3KG7cdbCXX,Божидар,Мишковић,,yu4tmb@gmail.com,,yu4tmb@gmail.com,,,,,,
+user_3AwzSiJEPdA8NlBUGrEKuhn03ZR,Natalija,Tošić,,natalijatosic2@gmail.com,,natalijatosic2@gmail.com,,,,,$2a$10$PF.zxtciF4S6Vf2gHoJkk.CmW5XgD.Eq8ITB5Pt4/m7Cclg9oPPnq,bcrypt
+user_3AwzmLn3VjRz3re783y6Iab8VIB,Milica,Ćirić,,milicaciric23@sabackagimnazija.edu.rs,,milicaciric23@sabackagimnazija.edu.rs,,,,,$2a$10$4WNQBqhoyG3R6vtjV.24uee8GFvUI6TfyzQ48A0C8N9I4Fuufg7WK,bcrypt
+user_3Ax003iDGpRpJOKzCu9QRKZWGo8,Danilo,Kovanović,,kovanovic892008@gmail.com,,kovanovic892008@gmail.com,,,,,$2a$10$5VRGpGyrlYFwrobu0sXvAe65RuMXwmXI5Dboj8BGwFvW6lv6yP8QO,bcrypt
+user_3Ax0sauTTm1uMrfcEk2k37vjGoM,Andjela,Pantović Ćirić,,andjela.ciricpantovic@gmail.com,,andjela.ciricpantovic@gmail.com,,,,,$2a$10$Dy9dkfGuOGdkCfDkF3dJfuMnKlEswYSgge0Jx/jkwMne/EQOGpkma,bcrypt
+user_3AxNu4MwPvBMyHrc6BddUt7IBeW,Ognjen,Borota,,borotaognjen07@gmail.com,,borotaognjen07@gmail.com,,,,,,
+user_3B2613w2r0tXJa9iCCWWbpFYD4i,Dunja,Stepanović,,dunjastepanovic1@gmail.com,,dunjastepanovic1@gmail.com,,,,,,
+user_3B2BBDbVW4ic16eK5v9OdCTu7r8,Lena,,,lenamilisic25@sabackagimnazija.edu.rs,,lenamilisic25@sabackagimnazija.edu.rs,,,,,$2a$10$VNJvb2WTeccaX/0AbXzP/.pMCnkKIeB39yjV3yUG1Q0AeMSjsTz5G,bcrypt
+user_3B2NUTZ92ihmNJHBlZCdCh3Vrzf,Anja,Dimitrijevic,,adimitrijevic710@gmail.com,,adimitrijevic710@gmail.com,,,,,,
+user_3B2Nb3lbsLVlWi6ESlSppyhKtj4,Petra,Jovanović,,petra.jovanovic1309@gmail.com,,petra.jovanovic1309@gmail.com,,,,,,

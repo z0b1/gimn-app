@@ -63,7 +63,7 @@ export async function createChannelMessage(channelId: string, content: string) {
       channelId: channelId,
     },
     include: {
-      user: { select: { name: true, email: true } },
+      user: { select: { name: true, email: true, imageUrl: true } },
     },
   });
 
@@ -195,7 +195,7 @@ export async function addChannelMessageComment(messageId: string, content: strin
       userId: dbUser.id,
     },
     include: {
-      user: { select: { name: true, email: true } },
+      user: { select: { name: true, email: true, imageUrl: true } },
     },
   });
 

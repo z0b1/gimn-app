@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/layout/Navbar";
 import prisma from "@/lib/db";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect, notFound } from "next/navigation";
 import { ChannelMessages } from "@/components/channel/ChannelMessages";
 
@@ -15,9 +15,18 @@ export default async function ChannelDetailPage({ params }: { params: { channelI
 
   const dbUser = await prisma.user.findUnique({
     where: { clerkId: userId },
-    select: { id: true, name: true, email: true },
+    select: { id: true, name: true, email: true, imageUrl: true },
   });
   if (!dbUser) redirect("/sign-in");
+
+  // Sync image if changed
+  const user = await currentUser();
+  if (user && dbUser && user.imageUrl !== dbUser.imageUrl) {
+     await prisma.user.update({
+       where: { id: dbUser.id },
+       data: { imageUrl: user.imageUrl },
+     });
+  }
 
   const channel = await prisma.channel.findUnique({
     where: { id: params.channelId },
@@ -32,11 +41,11 @@ export default async function ChannelDetailPage({ params }: { params: { channelI
       },
       messages: {
         include: {
-          user: { select: { name: true, email: true } },
+          user: { select: { name: true, email: true, imageUrl: true } },
           likes: { select: { userId: true } },
           comments: {
             include: {
-              user: { select: { name: true, email: true } },
+              user: { select: { name: true, email: true, imageUrl: true } },
             },
             orderBy: { createdAt: "desc" },
           },
@@ -86,11 +95,12 @@ export default async function ChannelDetailPage({ params }: { params: { channelI
                     id: c.id,
                     content: c.content,
                     createdAt: c.createdAt.toISOString(),
-                    user: { name: c.user.name, email: c.user.email },
+                    user: { name: c.user.name, email: c.user.email, imageUrl: c.user.imageUrl },
                   })),
                   user: {
                     name: m.user.name,
                     email: m.user.email,
+                    imageUrl: m.user.imageUrl,
                   },
                 }))}
               />

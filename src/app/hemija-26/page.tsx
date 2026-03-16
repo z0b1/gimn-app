@@ -409,7 +409,7 @@ export default function HemijaPage() {
       <main className="container mx-auto px-4 py-10 space-y-10">
         <header className="space-y-3">
           <p className="text-sm uppercase tracking-[0.2em] text-brand-primary dark:text-brand-accent font-semibold">
-            Hemija 26&apos;
+            Hemija &apos;26
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-balance">
             Maketа periodnog sistema – interaktivno učenje na srpskom
@@ -457,11 +457,12 @@ export default function HemijaPage() {
                 Klikni element za detalje • Duplo dno: lantanidi/aktinidi
               </div>
             </div>
-            <div
-              className="grid gap-2"
-              style={{ gridTemplateColumns: "repeat(18, minmax(48px, 1fr))" }}
-            >
-              {ELEMENTS.map((el) => {
+            <div className="overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
+              <div
+                className="grid gap-2 min-w-[900px]"
+                style={{ gridTemplateColumns: "repeat(18, minmax(0, 1fr))" }}
+              >
+                {ELEMENTS.map((el) => {
                 const pos = cellPosition(el);
                 const isSelected = selectedElement.atomicNumber === el.atomicNumber;
                 return (
@@ -481,6 +482,7 @@ export default function HemijaPage() {
                   </button>
                 );
               })}
+              </div>
             </div>
             <div className="mt-4 text-xs text-slate-500 dark:text-slate-400 space-y-1">
               <div className="flex gap-2 items-center">

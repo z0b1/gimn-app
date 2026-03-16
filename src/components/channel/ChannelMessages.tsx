@@ -8,6 +8,8 @@ import {
 } from "@/lib/actions/channel-messages";
 import { Heart, Loader2, MessageCircle, Send } from "lucide-react";
 
+import Image from "next/image";
+
 type Message = {
   id: string;
   content: string;
@@ -21,11 +23,13 @@ type Message = {
     user: {
       name: string | null;
       email: string;
+      imageUrl?: string | null;
     };
   }>;
   user: {
     name: string | null;
     email: string;
+    imageUrl?: string | null;
   };
 };
 
@@ -60,6 +64,7 @@ export function ChannelMessages({
           user: {
             name: result.user.name,
             email: result.user.email,
+            imageUrl: result.user.imageUrl,
           },
         },
         ...prev,
@@ -109,6 +114,7 @@ export function ChannelMessages({
                     user: {
                       name: result.user.name,
                       email: result.user.email,
+                      imageUrl: result.user.imageUrl,
                     },
                   },
                   ...m.comments,
@@ -154,13 +160,31 @@ export function ChannelMessages({
               key={message.id}
               className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 transition-colors space-y-3"
             >
-              <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                <span className="font-semibold text-slate-700 dark:text-slate-200">
-                  {message.user.name || "Bez imena"}
-                </span>
-                <span>{new Date(message.createdAt).toLocaleString("sr-RS")}</span>
+              <div className="flex items-start gap-3">
+                {message.user.imageUrl ? (
+                  <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 mt-1">
+                    <Image
+                      src={message.user.imageUrl}
+                      alt={message.user.name || "User"}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-white font-bold text-xs shrink-0 mt-1">
+                    {message.user.name ? message.user.name[0] : "U"}
+                  </div>
+                )}
+                <div className="flex-1 space-y-1">
+                  <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                    <span className="font-semibold text-slate-700 dark:text-slate-200">
+                      {message.user.name || "Bez imena"}
+                    </span>
+                    <span>{new Date(message.createdAt).toLocaleString("sr-RS")}</span>
+                  </div>
+                  <p className="text-sm text-slate-900 dark:text-white whitespace-pre-wrap">{message.content}</p>
+                </div>
               </div>
-              <p className="text-sm text-slate-900 dark:text-white whitespace-pre-wrap">{message.content}</p>
 
               <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
                 <button
@@ -188,13 +212,31 @@ export function ChannelMessages({
                     key={comment.id}
                     className="rounded-lg bg-white/70 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-700 px-3 py-2"
                   >
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
-                      <span className="font-semibold text-slate-700 dark:text-slate-200">
-                        {comment.user.name || "Bez imena"}
-                      </span>
-                      <span>{new Date(comment.createdAt).toLocaleString("sr-RS")}</span>
+                    <div className="flex items-start gap-2">
+                      {comment.user.imageUrl ? (
+                        <div className="relative w-6 h-6 rounded-full overflow-hidden shrink-0 mt-0.5">
+                          <Image
+                            src={comment.user.imageUrl}
+                            alt={comment.user.name || "User"}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-6 h-6 rounded-full bg-slate-300 dark:bg-slate-600 flex items-center justify-center text-white font-bold text-[10px] shrink-0 mt-0.5">
+                          {comment.user.name ? comment.user.name[0] : "U"}
+                        </div>
+                      )}
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
+                          <span className="font-semibold text-slate-700 dark:text-slate-200">
+                            {comment.user.name || "Bez imena"}
+                          </span>
+                          <span>{new Date(comment.createdAt).toLocaleString("sr-RS")}</span>
+                        </div>
+                        <p className="text-sm text-slate-900 dark:text-white whitespace-pre-wrap">{comment.content}</p>
+                      </div>
                     </div>
-                    <p className="text-sm text-slate-900 dark:text-white whitespace-pre-wrap">{comment.content}</p>
                   </div>
                 ))}
               </div>

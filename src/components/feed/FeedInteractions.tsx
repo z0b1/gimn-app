@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { toggleLike, addComment } from "@/lib/actions/feed";
 import { Heart, MessageCircle, Send, Loader2 } from "lucide-react";
@@ -11,17 +12,19 @@ interface CommentData {
   createdAt: string; // ISO string 
   user: {
     name: string | null;
+    imageUrl?: string | null;
   };
 }
 
 interface FeedInteractionsProps {
   postId: string;
   currentUserId: string | null; // Database user ID
+  currentUserImage: string | null;
   initialLikes: string[]; // Array of User IDs who liked this
   initialComments: CommentData[];
 }
 
-export function FeedInteractions({ postId, currentUserId, initialLikes, initialComments }: FeedInteractionsProps) {
+export function FeedInteractions({ postId, currentUserId, currentUserImage, initialLikes, initialComments }: FeedInteractionsProps) {
   const [likes, setLikes] = useState<string[]>(initialLikes);
   const [comments, setComments] = useState<CommentData[]>(initialComments);
   
@@ -80,7 +83,7 @@ export function FeedInteractions({ postId, currentUserId, initialLikes, initialC
            id: Math.random().toString(),
            content: newComment,
            createdAt: new Date().toISOString(),
-           user: { name: "Vi" }
+           user: { name: "Vi", imageUrl: currentUserImage }
          }
        ]);
        setNewComment("");
@@ -131,12 +134,28 @@ export function FeedInteractions({ postId, currentUserId, initialLikes, initialC
            {/* Comment List */}
            <div className="space-y-4 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
              {comments.length > 0 ? comments.map((comment) => (
-                <div key={comment.id} className="bg-slate-50 dark:bg-slate-950/50 p-4 rounded-2xl transition-colors">
-                   <div className="flex items-center justify-between mb-2">
-                      <span className="font-bold text-sm text-slate-900 dark:text-white transition-colors">{comment.user.name || "Korisnik"}</span>
-                      <span className="text-[10px] text-slate-400 font-medium">{new Date(comment.createdAt).toLocaleDateString("sr-RS", { hour: '2-digit', minute: '2-digit'})}</span>
+                <div key={comment.id} className="bg-slate-50 dark:bg-slate-950/50 p-4 rounded-2xl transition-colors flex gap-3">
+                   {comment.user.imageUrl ? (
+                      <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 mt-0.5">
+                        <Image
+                          src={comment.user.imageUrl}
+                          alt={comment.user.name || "User"}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-slate-300 dark:bg-slate-700 flex items-center justify-center text-white font-bold text-xs shrink-0 mt-0.5">
+                        {comment.user.name ? comment.user.name[0] : "U"}
+                      </div>
+                    )}
+                   <div className="flex-1">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-bold text-sm text-slate-900 dark:text-white transition-colors">{comment.user.name || "Korisnik"}</span>
+                        <span className="text-[10px] text-slate-400 font-medium">{new Date(comment.createdAt).toLocaleDateString("sr-RS", { hour: '2-digit', minute: '2-digit'})}</span>
+                      </div>
+                      <p className="text-sm text-slate-600 dark:text-slate-300 transition-colors">{comment.content}</p>
                    </div>
-                   <p className="text-sm text-slate-600 dark:text-slate-300 transition-colors">{comment.content}</p>
                 </div>
              )) : (
                 <p className="text-sm text-center text-slate-400 dark:text-slate-500 transition-colors">Nema komentara. Budi prvi!</p>
