@@ -7,15 +7,22 @@ import { Footer } from "@/components/layout/Footer";
 
 const inter = Inter({ subsets: ["latin", "latin-ext"] });
 
+const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+
 export const metadata: Metadata = {
   title: "GimnApp - Učenički parlament",
   description: "Zvanična aplikacija Učeničkog parlamenta Šabačke gimnazije.",
+  metadataBase: new URL("https://gimnapp.me"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "GimnApp - Učenički parlament",
     description: "Zvanična aplikacija Učeničkog parlamenta Šabačke gimnazije.",
     type: "website",
     locale: "sr_RS",
     siteName: "GimnApp",
+    url: "https://gimnapp.me",
   },
   twitter: {
     card: "summary_large_image",
@@ -25,6 +32,13 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  ...(googleSiteVerification
+    ? {
+        verification: {
+          google: googleSiteVerification,
+        },
+      }
+    : {}),
 };
 
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
