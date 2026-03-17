@@ -14,6 +14,7 @@ const config: Config = {
         foreground: "var(--foreground)",
         brand: {
           primary: "#F35826", // Primary brand color
+          secondary: "#F7BD11", // Secondary brand color
           accent: "#3b82f6",  // Brighter blue for highlights
           muted: "#64748b",   // Muted slate for less emphasis
         },
