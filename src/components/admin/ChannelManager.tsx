@@ -1,7 +1,7 @@
 "use client";
 
 import { type FormEvent, useMemo, useState } from "react";
-import { addUserToChannel, createChannel, removeUserFromChannel } from "@/lib/actions/channels";
+import { addUserToChannel, createChannel, deleteChannel, removeUserFromChannel } from "@/lib/actions/channels";
 import { Loader2, Plus, Users, Trash2 } from "lucide-react";
 
 type ChannelMembership = {
@@ -112,6 +112,25 @@ export function ChannelManager({
     }
   };
 
+  const handleDeleteChannel = async (channelId: string) => {
+    if (!confirm("Da li ste sigurni da želite da obrišete kanal?")) {
+      return;
+    }
+    setPending(`delete-${channelId}`);
+    try {
+      await deleteChannel(channelId);
+      setChannels((prev) => prev.filter((channel) => channel.id !== channelId));
+      if (selectedChannelId === channelId) {
+        setSelectedChannelId("");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Greška pri brisanju kanala.");
+    } finally {
+      setPending(null);
+    }
+  };
+
   return (
     <div className="space-y-8">
       <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm p-6 transition-colors">
@@ -204,9 +223,23 @@ export function ChannelManager({
                   </p>
                 )}
               </div>
-              <span className="text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-3 py-1 rounded-full transition-colors">
-                {channel.memberships.length} članova
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-3 py-1 rounded-full transition-colors">
+                  {channel.memberships.length} članova
+                </span>
+                <button
+                  onClick={() => handleDeleteChannel(channel.id)}
+                  disabled={pending === `delete-${channel.id}`}
+                  className="text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 transition-colors disabled:opacity-50"
+                  aria-label="Obriši kanal"
+                >
+                  {pending === `delete-${channel.id}` ? (
+                    <Loader2 size={16} className="animate-spin" />
+                  ) : (
+                    <Trash2 size={16} />
+                  )}
+                </button>
+              </div>
             </div>
             <div className="space-y-2">
               {channel.memberships.length === 0 && (

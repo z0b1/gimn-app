@@ -57,6 +57,26 @@ export async function createChannel(name: string, description?: string) {
   };
 }
 
+export async function deleteChannel(channelId: string) {
+  assertAdmin();
+
+  const existing = await prisma.channel.findUnique({
+    where: { id: channelId },
+    select: { id: true },
+  });
+
+  if (!existing) {
+    throw new Error("Kanal ne postoji.");
+  }
+
+  await prisma.channel.delete({
+    where: { id: channelId },
+  });
+
+  revalidatePath("/admin/korisnici");
+  revalidatePath("/kanali");
+}
+
 export async function addUserToChannel(channelId: string, userId: string) {
   assertAdmin();
 
