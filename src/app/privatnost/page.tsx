@@ -33,6 +33,7 @@ export default function PrivatnostPage() {
           </p>
           <ul className="text-slate-600 dark:text-slate-300">
             <li><strong>Osnovni profil:</strong> Ime, prezime i email adresa posredstvom Clerk autentifikacije.</li>
+            <li><strong>Google OAuth podaci:</strong> Kada se prijavljujete putem Google naloga, dobijamo vašu email adresu, ime i profilnu sliku (ako postoji).</li>
             <li><strong>Sadržaj:</strong> Objave, komentari, i pitanja koje postavite na feed-u ili u obliku pitanja za parlament.</li>
             <li><strong>Podaci o glasanju:</strong> Beležimo vaš glas na osnovu unikatnog ID-a kako bismo sprečili višestruko glasanje, međutim javni rezultati prikazuju isključivo agregate (ukupan zbir) bez isticanja vašeg imena.</li>
           </ul>
@@ -42,7 +43,7 @@ export default function PrivatnostPage() {
              <h2 className="m-0 text-2xl font-bold">2. Kako koristimo podatke</h2>
           </div>
           <p className="text-slate-600 dark:text-slate-300">
-            Generisani podaci se koriste isključivo za funkcionisanje aplikacije unutar Šabačke gimnazije. Identitet (Ime i Prezime) se prikazuje javno pored vaših objava na feed-u, kako bi diskusija ostala transparentna i kako bi se izbeglo anonimno uznemiravanje. Vaš email se koristi striktno u svrhe bezbedne prijave.
+            Generisani podaci se koriste isključivo za funkcionisanje aplikacije unutar Šabačke gimnazije. Identitet (Ime i Prezime) se prikazuje javno pored vaših objava na feed-u, kako bi diskusija ostala transparentna i kako bi se izbeglo anonimno uznemiravanje. Vaš email i Google profilni podaci koriste se striktno u svrhe bezbedne prijave i prikaza naloga.
           </p>
 
           <div className="flex items-center gap-4 mb-4 mt-12">
@@ -54,7 +55,7 @@ export default function PrivatnostPage() {
           </p>
           <ul className="text-slate-600 dark:text-slate-300">
             <li><strong>Administratori:</strong> Isključivo u svrhu moderacije (uklanjanja neprikladnog sadržaja) i upravljanja ulogama (promocija u člana parlamenta).</li>
-            <li><strong>Autentifikacioni partneri:</strong> Platforma &quot;Clerk&quot; se koristi isključivo kao naš provajder za bezbedno upravljanje pristupom i osetljivim informacijama poput lozinki.</li>
+            <li><strong>Autentifikacioni partneri:</strong> Platforma &quot;Clerk&quot; i Google OAuth se koriste isključivo kao provajderi za bezbedno upravljanje pristupom i osetljivim informacijama poput lozinki.</li>
           </ul>
 
           <h2 className="text-2xl font-bold mt-12">4. Vaša prava</h2>

@@ -55,6 +55,17 @@ export default async function Home() {
                   Pročitaj vesti
                 </Link>
               </div>
+              <div className="mt-6 text-sm text-slate-600 dark:text-slate-300">
+                Prijavom koristiš Google/Clerk autentifikaciju. Pogledaj{" "}
+                <Link href="/privatnost" className="font-semibold text-brand-primary dark:text-brand-accent hover:underline">
+                  Politiku privatnosti
+                </Link>{" "}
+                i{" "}
+                <Link href="/uslovi-koriscenja" className="font-semibold text-brand-primary dark:text-brand-accent hover:underline">
+                  Uslove korišćenja
+                </Link>
+                .
+              </div>
             </div>
           </div>
         </section>
