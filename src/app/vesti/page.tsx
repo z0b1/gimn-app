@@ -27,7 +27,7 @@ export default async function VestiPage() {
       <main className="container mx-auto px-4 py-12">
         <header className="mb-12 flex justify-between items-end">
           <div>
-            <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold mb-2">
+            <div className="flex items-center gap-2 text-brand-accent dark:text-brand-secondary font-semibold mb-2">
               <Bell size={20} />
               <span>Vesti i Obaveštenja</span>
             </div>
@@ -36,7 +36,7 @@ export default async function VestiPage() {
           {admin && (
             <NewsFormModal 
               trigger={
-                <button className="bg-indigo-600 text-white px-6 py-3 rounded-2xl font-bold text-sm hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100">
+                <button className="bg-brand-accent text-white px-6 py-3 rounded-2xl font-bold text-sm hover:bg-brand-accent/90 transition-all shadow-lg shadow-brand-primary/20">
                   Nova vest
                 </button>
               }
@@ -67,7 +67,7 @@ export default async function VestiPage() {
               
               <div className="p-8 flex flex-col justify-center flex-grow">
                 <div className="flex items-center gap-4 mb-4">
-                  <span className="px-3 py-1 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-bold rounded-full uppercase tracking-wider transition-colors">
+                  <span className="px-3 py-1 bg-brand-primary/10 dark:bg-brand-accent/10 text-brand-accent dark:text-brand-secondary text-xs font-bold rounded-full uppercase tracking-wider transition-colors">
                     {item.mediaType === "VIDEO" ? "Video" : "Vesti"}
                   </span>
                   <div className="flex items-center gap-1.5 text-slate-400 dark:text-slate-500 text-sm transition-colors">
@@ -76,7 +76,7 @@ export default async function VestiPage() {
                   </div>
                 </div>
                 
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-brand-accent dark:group-hover:text-brand-secondary transition-colors">
                   {item.title}
                 </h2>
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6 line-clamp-3 transition-colors">
@@ -85,7 +85,7 @@ export default async function VestiPage() {
                 
                 <Link
                   href={`/vesti/${item.id}`}
-                  className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold hover:gap-3 transition-all"
+                  className="flex items-center gap-2 text-brand-accent dark:text-brand-secondary font-bold hover:gap-3 transition-all"
                 >
                   Pročitaj više
                   <ChevronRight size={20} />

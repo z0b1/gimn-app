@@ -47,7 +47,7 @@ export function VoteButtons({ ruleId, isExpired, initialUserVote }: VoteButtonsP
         </div>
         <button
           onClick={() => setIsEditing(true)}
-          className="text-sm font-bold text-slate-500 hover:text-indigo-600 transition-colors py-2"
+          className="text-sm font-bold text-slate-500 hover:text-brand-accent transition-colors py-2"
         >
           Promeni glas
         </button>

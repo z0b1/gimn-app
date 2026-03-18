@@ -45,7 +45,7 @@ export default async function AdminPage() {
       <main className="container mx-auto px-4 py-12">
         <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold mb-2">
+            <div className="flex items-center gap-2 text-brand-accent dark:text-brand-secondary font-semibold mb-2">
               <ShieldCheck size={20} />
               <span>Administratorski Panel</span>
             </div>
@@ -54,7 +54,7 @@ export default async function AdminPage() {
           <div className="flex gap-3">
             <NewsFormModal 
               trigger={
-                <button className="bg-indigo-600 text-white px-6 py-3 rounded-2xl font-bold text-sm hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 flex items-center gap-2">
+                <button className="bg-brand-accent text-white px-6 py-3 rounded-2xl font-bold text-sm hover:bg-brand-accent/90 transition-all shadow-lg shadow-brand-primary/20 flex items-center gap-2">
                   <Plus size={18} />
                   Nova Objava
                 </button>
@@ -99,7 +99,7 @@ export default async function AdminPage() {
            
            <aside className="space-y-8">
               <section className="bg-indigo-600 rounded-3xl shadow-xl shadow-indigo-100 p-8 text-white">
-                 <h3 className="text-xl font-bold mb-4 text-indigo-100">Brze akcije</h3>
+                 <h3 className="text-xl font-bold mb-4 text-brand-secondary">Brze akcije</h3>
                  <div className="space-y-3">
                     <RuleFormModal trigger={<QuickActionButton label="Kreiraj glasanje" />} />
                     <QuickActionButton label="Dodaj administratora" />
@@ -123,12 +123,12 @@ interface AdminStatCardProps {
 function AdminStatCard({ icon: Icon, label, value, change }: AdminStatCardProps) {
    return (
       <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm transition-colors">
-         <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-4 transition-colors">
+         <div className="w-10 h-10 rounded-xl bg-brand-primary/10 dark:bg-brand-accent/10 text-brand-accent dark:text-brand-secondary flex items-center justify-center mb-4 transition-colors">
             <Icon size={20} />
          </div>
          <div className="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1 transition-colors">{label}</div>
          <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2 transition-colors">{value}</div>
-         <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider transition-colors">{change}</div>
+         <div className="text-xs font-bold text-brand-accent dark:text-brand-secondary uppercase tracking-wider transition-colors">{change}</div>
       </div>
    );
 }
@@ -149,7 +149,7 @@ function ActivityItem({ user, action, target, time }: ActivityItemProps) {
                <div className="text-sm font-bold text-slate-900 dark:text-white transition-colors">
                   {user} <span className="font-normal text-slate-500 dark:text-slate-400">{action}</span>
                </div>
-               <div className="text-xs text-indigo-600 dark:text-indigo-400 font-medium transition-colors">{target}</div>
+               <div className="text-xs text-brand-accent dark:text-brand-secondary font-medium transition-colors">{target}</div>
             </div>
          </div>
          <div className="text-xs text-slate-400 dark:text-slate-500 transition-colors">{time}</div>

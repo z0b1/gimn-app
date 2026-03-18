@@ -25,7 +25,7 @@ export function ShareButton({ postId }: ShareButtonProps) {
   return (
     <button
       onClick={handleShare}
-      className="flex items-center gap-1.5 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+      className="flex items-center gap-1.5 text-slate-400 hover:text-brand-accent dark:hover:text-brand-secondary transition-colors"
       title="Kopiraj link"
     >
       {copied ? (

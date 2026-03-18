@@ -79,7 +79,7 @@ export default async function Home() {
                 icon={Bell}
                 title="Vesti i Obaveštenja"
                 description="Budi uvek u toku sa najvažnijim dešavanjima u školi. Brzo, tačno i pouzdano."
-                color="bg-blue-500"
+                color="bg-brand-secondary"
               />
               <FeatureCard 
                 icon={Vote}

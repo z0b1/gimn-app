@@ -34,7 +34,7 @@ export default async function PitanjaPage() {
 
       <main className="container mx-auto px-4 py-12 max-w-4xl">
         <header className="mb-12">
-          <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold mb-2">
+          <div className="flex items-center gap-2 text-brand-accent dark:text-brand-secondary font-semibold mb-2">
             <HelpCircle size={20} />
             <span>Pitanja i Sugestije</span>
           </div>
