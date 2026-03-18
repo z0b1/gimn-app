@@ -1,20 +1,13 @@
 "use server";
 
 import prisma from "@/lib/db";
-import { auth } from "@clerk/nextjs/server";
+import { getOrCreateUser } from "./posts";
 import { revalidatePath } from "next/cache";
 import { createNotification } from "./notifications";
 
-async function getDbUser() {
-  const { userId } = auth();
-  if (!userId) return null;
-  return await prisma.user.findUnique({
-    where: { clerkId: userId }
-  });
-}
 
 export async function toggleLike(postId: string) {
-  const dbUser = await getDbUser();
+  const dbUser = await getOrCreateUser();
   if (!dbUser) throw new Error("Moraš biti prijavljen.");
 
   const existingLike = await prisma.gimnazijaFeedLike.findUnique({
@@ -58,7 +51,7 @@ export async function toggleLike(postId: string) {
 }
 
 export async function addComment(postId: string, content: string) {
-  const dbUser = await getDbUser();
+  const dbUser = await getOrCreateUser();
   if (!dbUser) throw new Error("Moraš biti prijavljen.");
 
   if (!content.trim()) throw new Error("Komentar ne može biti prazan.");

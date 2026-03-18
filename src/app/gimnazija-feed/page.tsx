@@ -6,6 +6,7 @@ import { PostForm } from "@/components/feed/PostForm";
 import { FeedInteractions } from "@/components/feed/FeedInteractions";
 import { ShareButton } from "@/components/feed/ShareButton";
 import { currentUser } from "@clerk/nextjs/server";
+import { getOrCreateUser } from "@/lib/actions/posts";
 
 export default async function FeedPage() {
   const posts = await prisma.gimnazijaFeedPost.findMany({
@@ -23,7 +24,7 @@ export default async function FeedPage() {
   });
 
   const user = await currentUser();
-  const dbUser = user ? await prisma.user.findUnique({ where: { clerkId: user.id } }) : null;
+  const dbUser = await getOrCreateUser();
 
   if (user && dbUser && user.imageUrl !== dbUser.imageUrl) {
     await prisma.user.update({
@@ -39,13 +40,13 @@ export default async function FeedPage() {
       <main className="container mx-auto px-4 py-12 max-w-2xl">
         <header className="mb-12 flex items-end justify-between">
           <div>
-            <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold mb-2">
+            <div className="flex items-center gap-2 text-brand-primary dark:text-brand-accent font-semibold mb-2">
               <MessageSquare size={20} />
               <span>Gimnazija Feed</span>
             </div>
             <h1 className="text-4xl font-bold text-slate-900 dark:text-white transition-colors">Zajednica</h1>
           </div>
-          <button className="bg-indigo-600 text-white p-4 rounded-2xl shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all">
+          <button className="bg-brand-primary text-white p-4 rounded-2xl shadow-xl hover:bg-brand-primary/90 transition-all">
              <Plus size={24} />
           </button>
         </header>
@@ -67,7 +68,7 @@ export default async function FeedPage() {
                       />
                     </div>
                   ) : (
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-white font-bold text-xl overflow-hidden shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center text-white font-bold text-xl overflow-hidden shrink-0">
                       {post.user.name ? post.user.name[0] : "U"}
                     </div>
                   )}

@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 
 import { Role } from "@prisma/client";
 
-async function getOrCreateUser() {
+export async function getOrCreateUser() {
   const { userId } = auth();
   if (!userId) return null;
 
