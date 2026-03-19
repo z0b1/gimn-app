@@ -36,7 +36,7 @@ export function EditQuestionDialog({ questionId, initialContent }: EditQuestionD
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 rounded-lg transition-all"
+        className="p-2 text-slate-400 hover:text-brand-primary hover:bg-brand-primary/10 dark:hover:bg-brand-primary/10 rounded-lg transition-all"
         title="Izmeni"
       >
         <Edit2 size={16} />
@@ -60,7 +60,7 @@ export function EditQuestionDialog({ questionId, initialContent }: EditQuestionD
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="w-full bg-slate-50 dark:bg-slate-950/50 border-none rounded-2xl p-6 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900 min-h-[150px] resize-none mb-6 transition-colors"
+          className="w-full bg-slate-50 dark:bg-slate-950/50 border-none rounded-2xl p-6 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-brand-primary dark:focus:ring-brand-primary min-h-[150px] resize-none mb-6 transition-colors"
         />
 
         <div className="flex gap-3 justify-end">
@@ -73,7 +73,7 @@ export function EditQuestionDialog({ questionId, initialContent }: EditQuestionD
           <button
             onClick={handleUpdate}
             disabled={isPending || !content.trim()}
-            className="bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 dark:shadow-none flex items-center gap-2 disabled:opacity-50"
+            className="bg-brand-primary text-white px-8 py-3 rounded-xl font-bold hover:bg-brand-accent transition-all shadow-lg shadow-red-100 dark:shadow-none flex items-center gap-2 disabled:opacity-50"
           >
             {isPending && <Loader2 size={18} className="animate-spin" />}
             Sačuvaj izmene
