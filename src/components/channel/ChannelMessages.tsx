@@ -144,7 +144,7 @@ export function ChannelMessages({
         <button
           type="submit"
           disabled={pending || !content.trim()}
-          className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-brand-primary text-white text-sm font-semibold hover:bg-brand-accent disabled:opacity-50 transition-colors"
         >
           {pending ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
           Pošalji
@@ -251,7 +251,7 @@ export function ChannelMessages({
                 <button
                   onClick={() => handleAddComment(message.id)}
                   disabled={commentPending === message.id || !(commentDrafts[message.id]?.trim())}
-                  className="inline-flex items-center gap-1 px-3 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+                  className="inline-flex items-center gap-1 px-3 py-2 rounded-lg bg-brand-primary text-white text-sm font-semibold hover:bg-brand-accent disabled:opacity-50 transition-colors"
                 >
                   {commentPending === message.id ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
                 </button>

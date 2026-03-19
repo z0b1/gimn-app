@@ -40,7 +40,7 @@ export function QuestionForm() {
         <button
           type="submit"
           disabled={isPending || !content.trim()}
-          className="bg-indigo-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 flex items-center gap-2 disabled:opacity-50"
+          className="bg-brand-primary text-white px-10 py-4 rounded-2xl font-bold hover:bg-brand-accent transition-all shadow-lg shadow-brand-primary/20 flex items-center gap-2 disabled:opacity-50"
         >
           {isPending ? <Loader2 size={20} className="animate-spin" /> : <ChevronRight size={20} />}
           Pošalji pitanje

@@ -40,7 +40,7 @@ export function NewsBodyEditor({
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-primary text-white text-sm font-semibold hover:bg-brand-accent disabled:opacity-50 transition-colors"
       >
         {pending ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
         Sačuvaj članak

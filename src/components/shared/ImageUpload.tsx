@@ -74,7 +74,7 @@ export function ImageUpload({ onUploadComplete, onUploadError, onClear, defaultV
               onUploadError?.(error.message);
             }}
             config={{ mode: "manual" }}
-            className="ut-label:text-indigo-600 ut-button:bg-indigo-600 ut-button:ut-readying:bg-indigo-400 ut-allowed-content:text-slate-400 border-none w-full h-full flex flex-col items-center justify-center p-8 bg-transparent"
+            className="ut-label:text-brand-primary ut-button:bg-brand-primary ut-button:ut-readying:bg-brand-secondary ut-allowed-content:text-slate-400 border-none w-full h-full flex flex-col items-center justify-center p-8 bg-transparent"
             content={{
               label: "Klikni ili prevuci sliku/video",
               allowedContent: "Slike (4MB) ili Video (16MB)",
@@ -84,7 +84,7 @@ export function ImageUpload({ onUploadComplete, onUploadError, onClear, defaultV
 
         {isUploading && (
           <div className="absolute inset-0 bg-white/90 flex flex-col items-center justify-center p-6 z-20">
-            <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mb-4" />
+            <div className="w-12 h-12 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mb-4" />
             <p className="text-sm font-bold text-slate-900 text-center">Otpremanje u toku...</p>
           </div>
         )}

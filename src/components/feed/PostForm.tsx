@@ -41,7 +41,7 @@ export function PostForm({ userAvatar }: PostFormProps) {
           {userAvatar ? (
             <Image src={userAvatar} alt="User" width={48} height={48} />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-indigo-500 to-violet-500" />
+            <div className="w-full h-full bg-gradient-to-br from-brand-primary to-brand-accent" />
           )}
         </div>
         <div className="flex-grow">
@@ -50,7 +50,7 @@ export function PostForm({ userAvatar }: PostFormProps) {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="Šta ima novo u školi?"
-            className="w-full bg-slate-50 border-none rounded-2xl p-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-100 min-h-[100px] resize-none transition-all"
+            className="w-full bg-slate-50 border-none rounded-2xl p-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-brand-secondary/20 min-h-[100px] resize-none transition-all"
             disabled={isPending}
           />
 
@@ -70,7 +70,7 @@ export function PostForm({ userAvatar }: PostFormProps) {
               <button
                 type="button"
                 onClick={() => setShowUpload(!showUpload)}
-                className={`p-2.5 rounded-xl transition-all ${showUpload ? 'bg-indigo-50 text-indigo-600' : 'text-slate-500 hover:bg-slate-50'}`}
+                className={`p-2.5 rounded-xl transition-all ${showUpload ? 'bg-brand-secondary/20 text-brand-primary' : 'text-slate-500 hover:bg-slate-50'}`}
                 title="Dodaj sliku ili video"
               >
                 {showUpload ? <X size={20} /> : <ImageIcon size={20} />}
@@ -79,7 +79,7 @@ export function PostForm({ userAvatar }: PostFormProps) {
             <button
               type="submit"
               disabled={isPending || !content.trim()}
-              className="bg-indigo-600 text-white px-8 py-2.5 rounded-xl font-bold text-sm hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 disabled:opacity-50 disabled:shadow-none"
+              className="bg-brand-primary text-white px-8 py-2.5 rounded-xl font-bold text-sm hover:bg-brand-accent transition-all shadow-lg shadow-brand-primary/20 disabled:opacity-50 disabled:shadow-none"
             >
               {isPending ? "Objavljivanje..." : "Objavi"}
             </button>

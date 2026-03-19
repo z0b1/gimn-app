@@ -73,7 +73,7 @@ export function NewsForm({ onSuccess, onClose }: NewsFormProps) {
            <button
              type="button"
              onClick={() => setShowUpload(!showUpload)}
-             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${showUpload ? 'bg-indigo-50 text-indigo-600' : 'bg-slate-50 text-slate-500 hover:bg-slate-100'}`}
+             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${showUpload ? 'bg-brand-secondary/20 text-brand-primary' : 'bg-slate-50 text-slate-500 hover:bg-slate-100'}`}
            >
              <ImageIcon size={18} />
              {showUpload ? "Ukloni prilog" : "Dodaj sliku ili video (opciono)"}
@@ -105,7 +105,7 @@ export function NewsForm({ onSuccess, onClose }: NewsFormProps) {
            <button
              type="submit"
              disabled={isPending}
-             className="flex-[2] bg-indigo-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 disabled:opacity-50"
+             className="flex-[2] bg-brand-primary text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-brand-accent transition-all shadow-lg shadow-brand-primary/20 disabled:opacity-50"
            >
              {isPending ? "Objavljivanje..." : (
                <>
