@@ -64,7 +64,7 @@ export function VoteButtons({ ruleId, isExpired, initialUserVote }: VoteButtonsP
           "w-full py-4 rounded-2xl font-bold transition-all shadow-lg disabled:opacity-50",
           userVote === true
             ? "bg-emerald-600 text-white shadow-emerald-100"
-            : "bg-indigo-600 text-white shadow-indigo-100 hover:bg-indigo-700"
+            : "bg-brand-primary text-white shadow-brand-primary/20 hover:bg-brand-accent"
         )}
       >
         {isPending ? "Glasanje..." : "Glasaj ZA"}

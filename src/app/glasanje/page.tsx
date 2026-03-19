@@ -34,14 +34,14 @@ export default async function GlasanjePage() {
       <main className="container mx-auto px-4 py-12 max-w-5xl">
         <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold mb-2">
+            <div className="flex items-center gap-2 text-brand-primary dark:text-brand-secondary font-semibold mb-2">
               <Vote size={20} />
               <span>Digitalno Glasanje</span>
             </div>
             <h1 className="text-4xl font-bold text-slate-900 dark:text-white">Aktuelni predlozi</h1>
             <p className="text-slate-500 dark:text-slate-400 mt-2">Učestvuj u donošenju odluka koje se tiču svih nas.</p>
           </div>
-          <button className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold bg-white dark:bg-slate-900 px-6 py-3 rounded-2xl border border-indigo-50 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+          <button className="flex items-center gap-2 text-brand-primary dark:text-brand-secondary font-bold bg-white dark:bg-slate-900 px-6 py-3 rounded-2xl border border-brand-secondary/20 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
             <History size={18} />
             Arhiva glasanja
           </button>
@@ -83,7 +83,7 @@ export default async function GlasanjePage() {
           )}
         </div>
 
-        <section className="mt-16 bg-indigo-600 rounded-[3rem] p-10 text-white relative overflow-hidden shadow-2xl shadow-indigo-200 dark:shadow-none transition-colors">
+        <section className="mt-16 bg-brand-primary rounded-[3rem] p-10 text-white relative overflow-hidden shadow-2xl shadow-brand-primary/30 dark:shadow-none transition-colors">
            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
               <div className="max-w-xl text-center md:text-left">
                  <h2 className="text-3xl font-bold mb-4">Imaš svoj predlog?</h2>
@@ -92,7 +92,7 @@ export default async function GlasanjePage() {
                  </p>
                  <Link 
                     href="/glasanje/novi-predlog"
-                    className="inline-flex bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-indigo-50 dark:hover:bg-slate-800 transition-all shadow-xl dark:shadow-none items-center gap-3 group"
+                    className="inline-flex bg-white dark:bg-slate-900 text-brand-primary dark:text-brand-secondary px-10 py-4 rounded-2xl font-bold text-lg hover:bg-brand-secondary/10 dark:hover:bg-slate-800 transition-all shadow-xl dark:shadow-none items-center gap-3 group"
                  >
                     Predloži glasanje
                     <ChevronRight size={22} className="group-hover:translate-x-2 transition-transform" />

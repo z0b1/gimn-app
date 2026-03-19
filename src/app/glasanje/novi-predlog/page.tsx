@@ -49,14 +49,14 @@ export default async function NoviPredlogPage() {
       <main className="container mx-auto px-4 py-12 max-w-3xl">
         <Link 
           href="/glasanje" 
-          className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium mb-8 transition-colors"
+          className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-brand-primary dark:hover:text-brand-secondary font-medium mb-8 transition-colors"
         >
           <ArrowLeft size={20} />
           Nazad na glasanje
         </Link>
 
         <header className="mb-10 text-center">
-          <div className="w-16 h-16 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-3xl flex items-center justify-center mx-auto mb-6 transform -rotate-12 hover:rotate-0 transition-transform duration-300">
+          <div className="w-16 h-16 bg-brand-secondary/20 dark:bg-brand-accent/30 text-brand-primary dark:text-brand-secondary rounded-3xl flex items-center justify-center mx-auto mb-6 transform -rotate-12 hover:rotate-0 transition-transform duration-300">
             <Lightbulb size={32} />
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">Predloži promenu</h1>
@@ -68,23 +68,23 @@ export default async function NoviPredlogPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm text-center">
-            <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold mx-auto mb-3">1</div>
+            <div className="w-8 h-8 rounded-full bg-brand-secondary/20 dark:bg-brand-accent/20 text-brand-primary dark:text-brand-secondary flex items-center justify-center font-bold mx-auto mb-3">1</div>
             <h3 className="font-bold text-slate-900 dark:text-white mb-2">Ideja</h3>
             <p className="text-sm text-slate-500 dark:text-slate-400">Smisli i jasno opisi promenu koju želiš da vidiš.</p>
           </div>
           <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm text-center">
-            <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold mx-auto mb-3">2</div>
+            <div className="w-8 h-8 rounded-full bg-brand-secondary/20 dark:bg-brand-accent/20 text-brand-primary dark:text-brand-secondary flex items-center justify-center font-bold mx-auto mb-3">2</div>
             <h3 className="font-bold text-slate-900 dark:text-white mb-2">Podrška</h3>
             <p className="text-sm text-slate-500 dark:text-slate-400">Parlament razmatra predlog i proverava interesovanje.</p>
           </div>
           <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm text-center">
-            <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold mx-auto mb-3">3</div>
+            <div className="w-8 h-8 rounded-full bg-brand-secondary/20 dark:bg-brand-accent/20 text-brand-primary dark:text-brand-secondary flex items-center justify-center font-bold mx-auto mb-3">3</div>
             <h3 className="font-bold text-slate-900 dark:text-white mb-2">Glasanje</h3>
             <p className="text-sm text-slate-500 dark:text-slate-400">Ako je odobreno, predlog ide na digitalno glasanje.</p>
           </div>
         </div>
 
-        <form action={submitProposal} className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl shadow-indigo-100/20 dark:shadow-none">
+        <form action={submitProposal} className="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl shadow-brand-primary/10 dark:shadow-none">
           <div className="mb-6">
             <label className="block text-sm font-bold text-slate-900 dark:text-white mb-2">Naslov predloga</label>
             <input 
@@ -92,7 +92,7 @@ export default async function NoviPredlogPage() {
               type="text" 
               required
               placeholder="Npr. Duži veliki odmor za 5 minuta"
-              className="w-full bg-slate-50 dark:bg-slate-950/50 border-none rounded-2xl p-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900 transition-colors"
+              className="w-full bg-slate-50 dark:bg-slate-950/50 border-none rounded-2xl p-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-brand-secondary/30 dark:focus:ring-brand-accent/30 transition-colors"
             />
           </div>
 
@@ -102,7 +102,7 @@ export default async function NoviPredlogPage() {
               name="content"
               required
               placeholder="Objasnite zašto je ovaj predlog bitan, kako bi se sproveo i koje bi prednosti doneo učenicima..."
-              className="w-full bg-slate-50 dark:bg-slate-950/50 border-none rounded-2xl p-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900 min-h-[200px] resize-y transition-colors"
+              className="w-full bg-slate-50 dark:bg-slate-950/50 border-none rounded-2xl p-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-brand-secondary/30 dark:focus:ring-brand-accent/30 min-h-[200px] resize-y transition-colors"
             />
             <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
               Budite što jasniji i konkretniji kako bi parlament mogao lakše da donese odluku.
@@ -111,7 +111,7 @@ export default async function NoviPredlogPage() {
 
           <button 
             type="submit"
-            className="w-full bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 dark:shadow-none flex items-center justify-center gap-3 group"
+            className="w-full bg-brand-primary text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-brand-accent transition-all shadow-xl shadow-brand-primary/20 dark:shadow-none flex items-center justify-center gap-3 group"
           >
             <Send size={20} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
             Pošalji predlog parlamentu
