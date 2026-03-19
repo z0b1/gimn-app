@@ -13,9 +13,9 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         brand: {
-          primary: "#F35826", // Primary brand color (bright red-orange)
-          secondary: "#F97373", // Secondary brand color (soft light red)
-          accent: "#B91C1C",  // Action color (deep red for CTAs)
+          primary: "#DC2626", // Primary red (vibrant, confident)
+          secondary: "#EF4444", // Secondary red (lighter, softer)
+          accent: "#991B1B",  // Accent red (deep, rich for emphasis)
           muted: "#64748b",   // Muted slate for less emphasis
         },
       },
