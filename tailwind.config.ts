@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { colors } from "./src/lib/colors";
 
 const config: Config = {
   darkMode: "class",
@@ -13,11 +14,11 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         brand: {
-          primary: "#DC2626", // Primary red (vibrant, confident)
-          secondary: "#EF4444", // Secondary red (lighter, softer)
-          accent: "#991B1B",  // Accent red (deep, rich for emphasis)
-          muted: "#64748b",   // Muted slate for less emphasis
+          primary: colors.brand.primary,
+          secondary: colors.brand.secondary,
+          accent: colors.brand.accent,
         },
+        semantic: colors.semantic,
       },
     },
   },
