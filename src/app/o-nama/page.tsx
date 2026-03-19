@@ -8,13 +8,13 @@ export default function ONamaPage() {
 
       <main className="container mx-auto px-4 py-16 max-w-5xl">
         <header className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-bold text-sm mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-primary/10 dark:bg-brand-primary/20 text-brand-primary dark:text-brand-secondary font-bold text-sm mb-4">
             <Info size={16} />
             <span>O nama</span>
           </div>
           <h1 className="text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
             Učenički parlament <br />
-            <span className="text-indigo-600 dark:text-indigo-400">Šabačke gimnazije</span>
+            <span className="text-brand-primary dark:text-brand-secondary">Šabačke gimnazije</span>
           </h1>
           <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
             Mi smo glas učenika, pokretači promena i organizatori školskog života. 
@@ -26,7 +26,7 @@ export default function ONamaPage() {
           {/* Uvod */}
           <section className="bg-white dark:bg-slate-900 p-8 md:p-12 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm">
             <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
-              <Users className="text-indigo-600" />
+              <Users className="text-brand-primary" />
               Šta je Učenički parlament?
             </h2>
             <div className="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 leading-relaxed text-lg">
@@ -41,7 +41,7 @@ export default function ONamaPage() {
 
           {/* Ciljevi */}
           <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-indigo-50/50 dark:bg-indigo-950/20 p-8 rounded-3xl border border-indigo-100/50 dark:border-indigo-900/30">
+            <div className="bg-brand-primary/5 dark:bg-brand-primary/10 p-8 rounded-3xl border border-brand-primary/20 dark:border-brand-primary/20">
               <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Učenički parlament se organizuje radi:</h3>
               <ul className="space-y-4 text-slate-600 dark:text-slate-400">
                 {[
@@ -52,7 +52,7 @@ export default function ONamaPage() {
                   "Predlaganja članova Stručnog aktiva za razvojno planiranje iz reda učenika."
                 ].map((item, i) => (
                   <li key={i} className="flex gap-3">
-                    <span className="w-6 h-6 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center shrink-0 mt-0.5">{i + 1}</span>
+                    <span className="w-6 h-6 rounded-full bg-brand-primary text-white text-[10px] flex items-center justify-center shrink-0 mt-0.5">{i + 1}</span>
                     <span className="text-sm font-medium">{item}</span>
                   </li>
                 ))}
@@ -61,7 +61,7 @@ export default function ONamaPage() {
 
             <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col justify-center">
               <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-                <Award className="text-amber-500" />
+                <Award className="text-brand-accent" />
                 Rukovodstvo parlamenta
               </h3>
               <div className="space-y-4">
@@ -77,8 +77,8 @@ export default function ONamaPage() {
                   <span className="text-sm text-slate-500 dark:text-slate-400">Sekretar</span>
                   <span className="font-bold text-slate-900 dark:text-white">Teodora Marović</span>
                 </div>
-                <div className="p-4 border border-indigo-100 dark:border-indigo-900/40 rounded-2xl">
-                  <span className="text-xs text-indigo-600 dark:text-indigo-400 font-bold uppercase block mb-1">Predstavnici u Školskom odboru</span>
+                <div className="p-4 border border-brand-primary/20 dark:border-brand-primary/20 rounded-2xl">
+                  <span className="text-xs text-brand-primary dark:text-brand-secondary font-bold uppercase block mb-1">Predstavnici u Školskom odboru</span>
                   <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Isidora Živanović, Sergej Babić</span>
                 </div>
               </div>
@@ -120,7 +120,7 @@ export default function ONamaPage() {
                 { class: "IV-7", names: "Anđela Kukolj, Anđela Stevanović" },
               ].map((item) => (
                 <div key={item.class} className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800/50">
-                  <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400 mb-1">{item.class}</div>
+                  <div className="text-xs font-bold text-brand-primary dark:text-brand-secondary mb-1">{item.class}</div>
                   <div className="text-sm font-medium text-slate-700 dark:text-slate-300 leading-tight">{item.names}</div>
                 </div>
               ))}
@@ -128,14 +128,14 @@ export default function ONamaPage() {
           </section>
 
           {/* Kontakt */}
-          <section className="bg-indigo-600 rounded-3xl p-8 md:p-12 text-center text-white overflow-hidden">
+          <section className="bg-brand-primary rounded-3xl p-8 md:p-12 text-center text-white overflow-hidden">
             <h2 className="text-3xl font-bold mb-4">Kontaktiraj nas</h2>
-            <p className="text-indigo-100 mb-8 max-w-xl mx-auto">
+            <p className="text-brand-secondary/80 mb-8 max-w-xl mx-auto">
               Imaš pitanje, predlog ili želiš da se uključiš u rad parlamenta? Piši nam na našu zvaničnu email adresu.
             </p>
             <a 
               href="mailto:parlamentucenickiparlament@gmail.com"
-              className="inline-flex items-center gap-3 bg-white text-indigo-600 px-4 sm:px-8 py-4 rounded-2xl font-bold hover:bg-indigo-50 transition-all shadow-xl shadow-indigo-900/20 max-w-full"
+              className="inline-flex items-center gap-3 bg-white text-brand-primary px-4 sm:px-8 py-4 rounded-2xl font-bold hover:bg-brand-primary/5 transition-all shadow-xl shadow-brand-primary/20 max-w-full"
             >
               <span className="text-base sm:text-lg break-all">parlamentucenickiparlament@gmail.com</span>
             </a>

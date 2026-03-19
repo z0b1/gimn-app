@@ -80,8 +80,8 @@ export function QuestionReplies({
           className={cn(
             "flex items-center gap-2 text-sm font-bold transition-colors",
             showReplies
-              ? "text-indigo-600 dark:text-indigo-400"
-              : "text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400"
+              ? "text-brand-primary dark:text-indigo-400"
+              : "text-slate-500 dark:text-slate-400 hover:text-brand-primary dark:hover:text-indigo-400"
           )}
         >
           <MessageCircle size={16} />
@@ -146,12 +146,12 @@ export function QuestionReplies({
                 onChange={(e) => setNewReply(e.target.value)}
                 placeholder="Napiši odgovor..."
                 disabled={isSubmitting}
-                className="flex-grow bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
+                className="flex-grow bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary transition-colors"
               />
               <button
                 type="submit"
                 disabled={isSubmitting || !newReply.trim()}
-                className="bg-indigo-600 text-white p-2.5 rounded-xl hover:bg-indigo-700 transition-colors disabled:opacity-50"
+                className="bg-brand-primary text-white p-2.5 rounded-xl hover:bg-brand-accent transition-colors disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <Loader2 size={18} className="animate-spin" />

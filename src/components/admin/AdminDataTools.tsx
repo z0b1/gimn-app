@@ -69,7 +69,7 @@ export function AdminDataTools() {
         <button
           onClick={handleExport}
           disabled={isExporting}
-          className="w-full flex items-center gap-3 bg-indigo-50 dark:bg-indigo-500/10 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 text-indigo-700 dark:text-indigo-400 px-4 py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-50"
+          className="w-full flex items-center gap-3 bg-brand-primary/10 dark:bg-brand-primary/10 hover:bg-brand-primary/20 dark:hover:bg-brand-primary/20 text-brand-primary dark:text-brand-primary px-4 py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-50"
         >
           {isExporting ? (
             <Loader2 size={18} className="animate-spin" />

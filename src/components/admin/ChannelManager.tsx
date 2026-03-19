@@ -135,7 +135,7 @@ export function ChannelManager({
     <div className="space-y-8">
       <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm p-6 transition-colors">
         <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4 transition-colors">
-          <Plus size={18} className="text-indigo-600 dark:text-indigo-400" />
+          <Plus size={18} className="text-brand-primary dark:text-brand-primary" />
           Kreiraj kanal
         </h3>
         <form className="grid grid-cols-1 md:grid-cols-3 gap-4" onSubmit={handleCreateChannel}>
@@ -157,7 +157,7 @@ export function ChannelManager({
           <button
             type="submit"
             disabled={pending === "create"}
-            className="col-span-1 bg-indigo-600 text-white px-4 py-3 rounded-xl font-semibold text-sm hover:bg-indigo-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+            className="col-span-1 bg-brand-primary text-white px-4 py-3 rounded-xl font-semibold text-sm hover:bg-brand-accent transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {pending === "create" && <Loader2 size={16} className="animate-spin" />}
             Dodaj kanal
@@ -167,7 +167,7 @@ export function ChannelManager({
 
       <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm p-6 transition-colors">
         <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4 transition-colors">
-          <Users size={18} className="text-indigo-600 dark:text-indigo-400" />
+          <Users size={18} className="text-brand-primary dark:text-brand-primary" />
           Dodela korisnika kanalima
         </h3>
         <form className="grid grid-cols-1 md:grid-cols-3 gap-4" onSubmit={handleAssignUser}>
@@ -198,7 +198,7 @@ export function ChannelManager({
           <button
             type="submit"
             disabled={pending === "assign"}
-            className="bg-indigo-600 text-white px-4 py-3 rounded-xl font-semibold text-sm hover:bg-indigo-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+            className="bg-brand-primary text-white px-4 py-3 rounded-xl font-semibold text-sm hover:bg-brand-accent transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {pending === "assign" && <Loader2 size={16} className="animate-spin" />}
             Dodaj korisnika u kanal

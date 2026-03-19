@@ -103,7 +103,7 @@ export function UserManagementTable({ initialUsers, currentUserId }: { initialUs
                         disabled={pendingId === user.id}
                       />
                       {pendingId === user.id ? (
-                         <Loader2 size={16} className="animate-spin text-indigo-500" />
+                         <Loader2 size={16} className="animate-spin text-brand-primary" />
                       ) : (
                         <div className="flex gap-1">
                           <button onClick={() => handleNameSave(user)} className="text-green-600 hover:bg-green-50 dark:hover:bg-green-900/30 p-1 rounded transition-colors text-xs font-bold">Sačuvaj</button>
@@ -114,7 +114,7 @@ export function UserManagementTable({ initialUsers, currentUserId }: { initialUs
                   ) : (
                     <div className="font-semibold text-slate-900 dark:text-white flex items-center gap-2 transition-colors">
                       {user.name || "Bez imena"}
-                      {pendingId === user.id && <Loader2 size={14} className="animate-spin text-indigo-500" />}
+                      {pendingId === user.id && <Loader2 size={14} className="animate-spin text-brand-primary" />}
                     </div>
                   )}
                 </td>
@@ -122,7 +122,7 @@ export function UserManagementTable({ initialUsers, currentUserId }: { initialUs
                 <td className="p-4">
                   <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
                     user.role === "ADMIN" 
-                      ? "bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400" 
+                      ? "bg-brand-primary/10 dark:bg-brand-primary/10 text-brand-primary dark:text-brand-primary" 
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                   } transition-colors`}>
                     {user.role === "ADMIN" ? <ShieldCheck size={14} /> : <ShieldAlert size={14} />}
@@ -138,7 +138,7 @@ export function UserManagementTable({ initialUsers, currentUserId }: { initialUs
                       <button 
                         onClick={() => handleEditStart(user)}
                         disabled={pendingId === user.id}
-                        className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 disabled:opacity-50 transition-colors"
+                        className="text-sm font-semibold text-brand-primary dark:text-brand-primary hover:text-brand-accent dark:hover:text-brand-accent disabled:opacity-50 transition-colors"
                       >
                         Izmeni Ime
                       </button>

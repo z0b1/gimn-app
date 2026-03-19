@@ -55,7 +55,7 @@ export function NotificationCenter() {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors"
+        className="relative p-2 text-slate-600 hover:text-brand-primary hover:bg-brand-primary/5 rounded-full transition-colors"
       >
         <Bell size={24} />
         {unreadCount > 0 && (
@@ -77,7 +77,7 @@ export function NotificationCenter() {
               {unreadCount > 0 && (
                 <button
                   onClick={handleMarkAllRead}
-                  className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1"
+                  className="text-xs font-semibold text-brand-primary hover:text-brand-accent flex items-center gap-1"
                 >
                   <Check size={14} />
                   Označi sve kao pročitano
@@ -97,7 +97,7 @@ export function NotificationCenter() {
                     key={notification.id}
                     className={cn(
                       "p-4 border-b border-slate-50 hover:bg-slate-50 transition-colors group relative",
-                      !notification.isRead && "bg-indigo-50/30"
+                      !notification.isRead && "bg-brand-primary/5"
                     )}
                   >
                     <Link
@@ -111,7 +111,7 @@ export function NotificationCenter() {
                       <div className="flex gap-3">
                         <div className={cn(
                           "w-2 h-2 rounded-full mt-2 shrink-0",
-                          notification.isRead ? "bg-transparent" : "bg-indigo-500"
+                          notification.isRead ? "bg-transparent" : "bg-brand-primary"
                         )} />
                         <div>
                           <p className="text-sm font-bold text-slate-900 mb-1 leading-tight">

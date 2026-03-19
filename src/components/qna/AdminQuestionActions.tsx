@@ -81,7 +81,7 @@ export function AdminQuestionActions({ questionId, content }: AdminQuestionActio
       {!isAnswering ? (
         <button
           onClick={() => setIsAnswering(true)}
-          className="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+          className="text-sm font-bold text-brand-primary dark:text-indigo-400 hover:text-brand-accent dark:hover:text-indigo-300 transition-colors"
         >
           Odgovori na pitanje
         </button>
@@ -92,7 +92,7 @@ export function AdminQuestionActions({ questionId, content }: AdminQuestionActio
             onChange={(e) => setAnswerText(e.target.value)}
             disabled={isPending}
             placeholder="Napišite odgovor parlamenta..."
-            className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors min-h-[100px] resize-y"
+            className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary transition-colors min-h-[100px] resize-y"
             autoFocus
           />
           <div className="flex items-center gap-2 justify-end">
@@ -106,7 +106,7 @@ export function AdminQuestionActions({ questionId, content }: AdminQuestionActio
              <button
                 onClick={handleAnswerSubmit}
                 disabled={isPending || !answerText.trim()}
-                className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2 hover:bg-indigo-700 transition-colors disabled:opacity-50"
+                className="bg-brand-primary text-white px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2 hover:bg-brand-accent transition-colors disabled:opacity-50"
              >
                 {isPending ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
                 Pošalji odgovor

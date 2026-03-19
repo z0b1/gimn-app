@@ -8,7 +8,7 @@ export default function MapaPage() {
 
       <main className="container mx-auto px-4 py-16 max-w-5xl text-center">
         <header className="mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-bold text-sm mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-primary/10 dark:bg-indigo-950 text-brand-primary dark:text-indigo-400 font-bold text-sm mb-4">
             <MapIcon size={16} />
             <span>Mapa škole</span>
           </div>
@@ -24,13 +24,13 @@ export default function MapaPage() {
             {/* T-Shape Building Layout (Conceptual) */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full flex flex-col items-center">
               {/* Horizontal bar of T */}
-              <div className="w-full h-1/4 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-between px-8 relative border-2 border-indigo-500/20">
+              <div className="w-full h-1/4 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-between px-8 relative border-2 border-brand-primary/20">
                 <div className="text-xs font-bold text-slate-400">Levo krilo</div>
                 <div className="text-xs font-bold text-indigo-500">Glavni ulaz</div>
                 <div className="text-xs font-bold text-slate-400">Desno krilo</div>
               </div>
               {/* Vertical bar of T */}
-              <div className="w-1/3 h-3/4 bg-slate-100 dark:bg-slate-800 rounded-2xl mt-[-4px] border-2 border-indigo-500/20 flex flex-col items-center justify-around py-8">
+              <div className="w-1/3 h-3/4 bg-slate-100 dark:bg-slate-800 rounded-2xl mt-[-4px] border-2 border-brand-primary/20 flex flex-col items-center justify-around py-8">
                  <div className="text-xs font-bold text-slate-400">Kabineti</div>
                  <div className="text-xs font-bold text-slate-400">Laboratorije</div>
                  <div className="text-xs font-bold text-slate-400">Sala za fizičko</div>
@@ -47,7 +47,7 @@ export default function MapaPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
           <div className="bg-white/50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
             <h3 className="font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-indigo-500"></span>
+              <span className="w-2 h-2 rounded-full bg-brand-primary"></span>
               Prizemlje
             </h3>
             <ul className="text-sm text-slate-500 dark:text-slate-400 space-y-1">
@@ -58,7 +58,7 @@ export default function MapaPage() {
           </div>
           <div className="bg-white/50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
              <h3 className="font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span className="w-2 h-2 rounded-full bg-brand-secondary"></span>
               Prvi sprat
             </h3>
             <ul className="text-sm text-slate-500 dark:text-slate-400 space-y-1">
@@ -69,7 +69,7 @@ export default function MapaPage() {
           </div>
           <div className="bg-white/50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
              <h3 className="font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+              <span className="w-2 h-2 rounded-full bg-brand-accent"></span>
               Drugi sprat
             </h3>
             <ul className="text-sm text-slate-500 dark:text-slate-400 space-y-1">
@@ -80,7 +80,7 @@ export default function MapaPage() {
           </div>
         </div>
 
-        <div className="mt-12 p-6 bg-indigo-50 dark:bg-indigo-950/30 rounded-2xl inline-flex items-center gap-3 text-indigo-700 dark:text-indigo-400 text-sm font-medium">
+        <div className="mt-12 p-6 bg-brand-primary/10 dark:bg-indigo-950/30 rounded-2xl inline-flex items-center gap-3 text-brand-primary dark:text-indigo-400 text-sm font-medium">
           <Info size={18} />
           <span>Napomena: Ovo je konceptualni prikaz. Zgrada se sastoji iz 10 kabineta i 14 učionica.</span>
         </div>
