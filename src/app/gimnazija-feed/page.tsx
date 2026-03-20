@@ -75,7 +75,7 @@ export default async function FeedPage() {
                   <div>
                     <h3 className="font-bold text-slate-900 dark:text-white leading-none mb-1 transition-colors">{post.user.name}</h3>
                     <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 text-xs font-medium transition-colors">
-                      <span>{post.user.role === "ADMIN" ? "Admin" : "Učenik"}</span>
+                      <span>{post.user.role === "ADMIN" ? "Admin" : post.user.role === "REDAKCIJA" ? "Redakcija" : "Učenik"}</span>
                       <span>•</span>
                       <span>{new Date(post.createdAt).toLocaleDateString("sr-RS", { day: 'numeric', month: 'short' })}</span>
                     </div>

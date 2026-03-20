@@ -17,7 +17,7 @@ export async function getOrCreateUser() {
   const email = user.emailAddresses[0]?.emailAddress || `${userId}@clerk.com`;
 
   const metadata = user.publicMetadata as { role?: string } | undefined;
-  const role = metadata?.role === "ADMIN" ? "ADMIN" : "STUDENT";
+  const role = metadata?.role === "ADMIN" ? "ADMIN" : metadata?.role === "REDAKCIJA" ? "REDAKCIJA" : "STUDENT";
 
   return await prisma.user.upsert({
     where: { email: email },
