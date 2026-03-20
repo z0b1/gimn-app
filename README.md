@@ -32,3 +32,4 @@ Potrebne su environment varijable za Clerk, Neon DB i Gmail SMTP (pogledati `.en
 
 ---
 © 2026 Učenički parlament Šabačke gimnazije.
+# portfolio
