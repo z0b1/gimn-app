@@ -27,7 +27,7 @@ export function ImageUpload({ onUploadComplete, onUploadError, onClear, defaultV
 
   return (
     <div className="space-y-4">
-      <div className="relative group min-h-[200px] rounded-3xl border-2 border-dashed border-slate-200 transition-all overflow-hidden bg-slate-50 flex flex-col items-center justify-center">
+      <div className="relative group min-h-[200px] rounded-3xl border-2 border-dashed border-slate-300 dark:border-slate-600 transition-all overflow-hidden bg-slate-100 dark:bg-slate-800 flex flex-col items-center justify-center">
         {uploadedUrl ? (
           <div className="w-full h-full relative min-h-[200px]">
             {mediaType === "VIDEO" || uploadedUrl.includes("video") ? (
@@ -74,7 +74,7 @@ export function ImageUpload({ onUploadComplete, onUploadError, onClear, defaultV
               onUploadError?.(error.message);
             }}
             config={{ mode: "manual" }}
-            className="ut-label:text-brand-primary ut-button:bg-brand-primary ut-button:ut-readying:bg-brand-secondary ut-allowed-content:text-slate-400 border-none w-full h-full flex flex-col items-center justify-center p-8 bg-transparent"
+            className="ut-label:text-brand-primary ut-label:font-semibold ut-button:bg-brand-primary ut-button:ut-readying:bg-brand-secondary ut-allowed-content:text-slate-600 ut-allowed-content:dark:text-slate-400 border-none w-full h-full flex flex-col items-center justify-center p-8 bg-transparent"
             content={{
               label: "Klikni ili prevuci sliku/video",
               allowedContent: "Slike (4MB) ili Video (16MB)",
@@ -83,9 +83,9 @@ export function ImageUpload({ onUploadComplete, onUploadError, onClear, defaultV
         )}
 
         {isUploading && (
-          <div className="absolute inset-0 bg-white/90 flex flex-col items-center justify-center p-6 z-20">
+          <div className="absolute inset-0 bg-white/90 dark:bg-slate-900/90 flex flex-col items-center justify-center p-6 z-20">
             <div className="w-12 h-12 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mb-4" />
-            <p className="text-sm font-bold text-slate-900 text-center">Otpremanje u toku...</p>
+            <p className="text-sm font-bold text-slate-900 dark:text-slate-100 text-center">Otpremanje u toku...</p>
           </div>
         )}
       </div>

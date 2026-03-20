@@ -16,17 +16,29 @@ export async function getOrCreateUser() {
   const name = [user.firstName, user.lastName].filter(Boolean).join(" ") || "Korisnik";
   const email = user.emailAddresses[0]?.emailAddress || `${userId}@clerk.com`;
 
+  // Check if user already exists in database
+  const existingUser = await prisma.user.findUnique({
+    where: { email: email },
+  });
+
+  if (existingUser) {
+    // User exists - only update name and clerkId, preserve existing role
+    return await prisma.user.update({
+      where: { email: email },
+      data: { 
+        clerkId: userId, 
+        name,
+        // Do NOT overwrite role - preserve existing database role
+      },
+    });
+  }
+
+  // New user - use Clerk metadata for initial role, default to STUDENT
   const metadata = user.publicMetadata as { role?: string } | undefined;
   const role = metadata?.role === "ADMIN" ? "ADMIN" : metadata?.role === "REDAKCIJA" ? "REDAKCIJA" : "STUDENT";
 
-  return await prisma.user.upsert({
-    where: { email: email },
-    update: { 
-      clerkId: userId, 
-      name,
-      role: role as Role,
-    },
-    create: {
+  return await prisma.user.create({
+    data: {
       clerkId: userId,
       name,
       email,
