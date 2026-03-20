@@ -152,7 +152,7 @@ export function FeedInteractions({ postId, currentUserId, currentUserImage, init
                    <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
                         <span className="font-bold text-sm text-slate-900 dark:text-white transition-colors">{comment.user.name || "Korisnik"}</span>
-                        <span className="text-[10px] text-slate-400 font-medium">{new Date(comment.createdAt).toLocaleDateString("sr-RS", { hour: '2-digit', minute: '2-digit'})}</span>
+                        <span className="text-[10px] text-slate-400 font-medium">{new Date(comment.createdAt).toLocaleDateString("sr-Latn-RS", { hour: '2-digit', minute: '2-digit'})}</span>
                       </div>
                       <p className="text-sm text-slate-600 dark:text-slate-300 transition-colors">{comment.content}</p>
                    </div>

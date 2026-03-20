@@ -41,7 +41,7 @@ export default async function NewsDetailPage({ params }: { params: { id: string 
             <div className="flex-1 space-y-3">
               <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400 text-sm">
                 <Calendar size={16} />
-                {new Date(news.createdAt).toLocaleDateString("sr-RS", { day: "numeric", month: "long", year: "numeric" })}
+                {new Date(news.createdAt).toLocaleDateString("sr-Latn-RS", { day: "numeric", month: "long", year: "numeric" })}
               </div>
               <h1 className="text-3xl font-bold text-slate-900 dark:text-white">{news.title}</h1>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{news.content}</p>
@@ -49,7 +49,7 @@ export default async function NewsDetailPage({ params }: { params: { id: string 
                 <UserRound size={14} />
                 <span>Poslednja izmena: {news.lastEditedBy?.name || "Nepoznato"}</span>
                 <span className="text-slate-400">·</span>
-                <span>{new Date(news.lastEditedAt).toLocaleString("sr-RS")}</span>
+                <span>{new Date(news.lastEditedAt).toLocaleString("sr-Latn-RS")}</span>
               </div>
             </div>
           </header>

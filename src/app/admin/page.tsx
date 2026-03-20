@@ -94,7 +94,7 @@ export default async function AdminPage() {
                         user="Admin" 
                         action={activity.type === 'NEWS' ? "Objavio vest" : "Kreirao predlog"} 
                         target={activity.title} 
-                        time={activity.time.toLocaleDateString("sr-RS")} 
+                        time={activity.time.toLocaleDateString("sr-Latn-RS")} 
                       />
                     )) : (
                       <p className="text-slate-500 dark:text-slate-400 text-sm transition-colors">Nema nedavnih aktivnosti.</p>

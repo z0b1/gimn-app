@@ -16,7 +16,7 @@ export default function UsloviKoriscenjaPage() {
             Uslovi Korišćenja
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto transition-colors">
-            Poslednje ažuriranje: {new Date().toLocaleDateString("sr-RS")}
+            Poslednje ažuriranje: {new Date().toLocaleDateString("sr-Latn-RS")}
           </p>
         </header>
 

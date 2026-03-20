@@ -68,7 +68,7 @@ export default async function PitanjaPage() {
                         {q.isAnonymous ? "Anonimno" : q.user.name}
                       </div>
                       <div className="text-slate-400 dark:text-slate-500 text-xs transition-colors">
-                        {q.createdAt.toLocaleDateString("sr-RS")}
+                        {q.createdAt.toLocaleDateString("sr-Latn-RS")}
                       </div>
                     </div>
                   </div>

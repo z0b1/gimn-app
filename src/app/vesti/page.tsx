@@ -72,7 +72,7 @@ export default async function VestiPage() {
                   </span>
                   <div className="flex items-center gap-1.5 text-slate-400 dark:text-slate-500 text-sm transition-colors">
                     <Calendar size={14} />
-                    {new Date(item.createdAt).toLocaleDateString("sr-RS", { day: 'numeric', month: 'long', year: 'numeric' })}
+                    {new Date(item.createdAt).toLocaleDateString("sr-Latn-RS", { day: 'numeric', month: 'long', year: 'numeric' })}
                   </div>
                 </div>
                 

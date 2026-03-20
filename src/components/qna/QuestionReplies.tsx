@@ -120,7 +120,7 @@ export function QuestionReplies({
                       {reply.user.name || "Korisnik"}
                     </span>
                     <span className="text-[10px] text-slate-400 font-medium">
-                      {new Date(reply.createdAt).toLocaleDateString("sr-RS", {
+                      {new Date(reply.createdAt).toLocaleDateString("sr-Latn-RS", {
                         hour: "2-digit",
                         minute: "2-digit",
                       })}

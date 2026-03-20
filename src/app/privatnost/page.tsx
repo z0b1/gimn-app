@@ -14,7 +14,7 @@ export default function PrivatnostPage() {
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 transition-colors">Politika Privatnosti</h1>
           <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto transition-colors">
-            Poslednje ažuriranje: {new Date().toLocaleDateString("sr-RS")}
+            Poslednje ažuriranje: {new Date().toLocaleDateString("sr-Latn-RS")}
           </p>
         </header>
 
