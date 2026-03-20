@@ -50,7 +50,8 @@ export function UserManagementTable({ initialUsers, currentUserId }: { initialUs
       return;
     }
 
-    const newRole = user.role === "ADMIN" ? "STUDENT" : "ADMIN";
+    const newRole = user.role === "STUDENT" ? "REDAKCIJA" : 
+                    user.role === "REDAKCIJA" ? "ADMIN" : "STUDENT";
     
     // Confirm demotion to prevent accidents
     if (newRole === "STUDENT") {
@@ -123,6 +124,8 @@ export function UserManagementTable({ initialUsers, currentUserId }: { initialUs
                   <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
                     user.role === "ADMIN" 
                       ? "bg-brand-primary/10 dark:bg-brand-primary/10 text-brand-primary dark:text-brand-primary" 
+                      : user.role === "REDAKCIJA"
+                      ? "bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                   } transition-colors`}>
                     {user.role === "ADMIN" ? <ShieldCheck size={14} /> : <ShieldAlert size={14} />}
@@ -151,10 +154,12 @@ export function UserManagementTable({ initialUsers, currentUserId }: { initialUs
                         className={`text-sm font-semibold disabled:opacity-50 transition-colors ${
                           user.role === "ADMIN" 
                             ? "text-rose-600 dark:text-rose-400 hover:text-rose-800 dark:hover:text-rose-300"
+                            : user.role === "REDAKCIJA"
+                            ? "text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300"
                             : "text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300"
                         }`}
                       >
-                        {user.role === "ADMIN" ? "Skini Admina" : "Daj Admina"}
+                        {user.role === "ADMIN" ? "Skini Admina" : user.role === "REDAKCIJA" ? "Daj Admina" : "Daj Redakciju"}
                       </button>
                     )}
                   </div>

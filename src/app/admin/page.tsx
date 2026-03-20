@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { ShieldCheck, Plus, List, Settings, BarChart3, Users } from "lucide-react";
-import { isAdmin } from "@/lib/roles";
+import { isAdmin, canManageNews } from "@/lib/roles";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { NewsFormModal } from "@/components/admin/NewsFormModal";
@@ -10,7 +10,7 @@ import prisma from "@/lib/db";
 export const dynamic = "force-dynamic";
 
 export default async function AdminPage() {
-  if (!isAdmin()) {
+  if (!canManageNews()) {
     redirect("/");
   }
 
@@ -60,21 +60,27 @@ export default async function AdminPage() {
                 </button>
               }
             />
-            <Link
-              href="/admin/settings"
-              className="bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 px-6 py-3 rounded-2xl font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center gap-2"
-            >
-              <Settings size={18} />
-              Podešavanja
-            </Link>
+            {isAdmin() && (
+              <Link
+                href="/admin/settings"
+                className="bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 px-6 py-3 rounded-2xl font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center gap-2"
+              >
+                <Settings size={18} />
+                Podešavanja
+              </Link>
+            )}
           </div>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-           <AdminStatCard icon={Users} label="Ukupno učenika" value={userCount.toLocaleString()} change="Sistem" />
-           <AdminStatCard icon={BarChart3} label="Aktivna glasanja" value={activeRulesCount.toString()} change="U toku" />
-           <AdminStatCard icon={List} label="Nepročitana pitanja" value={questionCount.toString()} change="Čekaju odgovor" />
-           <AdminStatCard icon={ShieldCheck} label="Moderatori" value={adminCount.toString()} change="Admin tim" />
+           {isAdmin() && (
+             <>
+               <AdminStatCard icon={Users} label="Ukupno učenika" value={userCount.toLocaleString()} change="Sistem" />
+               <AdminStatCard icon={BarChart3} label="Aktivna glasanja" value={activeRulesCount.toString()} change="U toku" />
+               <AdminStatCard icon={List} label="Nepročitana pitanja" value={questionCount.toString()} change="Čekaju odgovor" />
+               <AdminStatCard icon={ShieldCheck} label="Moderatori" value={adminCount.toString()} change="Admin tim" />
+             </>
+           )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -101,9 +107,13 @@ export default async function AdminPage() {
               <section className="bg-indigo-600 rounded-3xl shadow-xl shadow-indigo-100 p-8 text-white">
                  <h3 className="text-xl font-bold mb-4 text-brand-secondary">Brze akcije</h3>
                  <div className="space-y-3">
-                    <RuleFormModal trigger={<QuickActionButton label="Kreiraj glasanje" />} />
-                    <QuickActionButton label="Dodaj administratora" />
-                    <QuickActionButton label="Izvezi podatke" />
+                    {isAdmin() && (
+                      <>
+                        <RuleFormModal trigger={<QuickActionButton label="Kreiraj glasanje" />} />
+                        <QuickActionButton label="Dodaj administratora" />
+                        <QuickActionButton label="Izvezi podatke" />
+                      </>
+                    )}
                  </div>
               </section>
            </aside>

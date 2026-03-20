@@ -156,7 +156,7 @@ function VoteCard({ ruleId, title, description, isExpired, isAccepted, yesVotes,
                      <div key={i} className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-slate-900 bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[10px] font-bold">U{i}</div>
                   ))}
                </div>
-               <span className="font-bold text-slate-900 dark:text-white transition-colors">{participation} ucenika</span> je glasalo
+               <span className="font-bold text-slate-900 dark:text-white transition-colors">{participation} učenika</span> je glasalo
             </div>
             
             {isExpired && (

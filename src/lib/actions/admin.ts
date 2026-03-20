@@ -92,10 +92,11 @@ export async function collectExportData() {
     questions: questions.map((q) => ({
       id: q.id,
       content: q.content,
-      author: q.user.name,
-      authorEmail: q.user.email,
+      author: q.isAnonymous ? "Anonimno" : q.user.name,
+      authorEmail: q.isAnonymous ? null : q.user.email,
       answer: q.answer,
       isResolved: q.isResolved,
+      isAnonymous: q.isAnonymous,
       createdAt: q.createdAt.toISOString(),
       replies: q.replies.map((r) => ({
         id: r.id,

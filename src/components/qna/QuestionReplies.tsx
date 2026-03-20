@@ -59,7 +59,7 @@ export function QuestionReplies({
   };
 
   const handleResolve = async () => {
-    if (!confirm("Jeste li sigurni da želite da označite ovo pitanje kao rešeno?")) return;
+    if (!confirm("Da li ste sigurni da želite da označite ovo pitanje kao rešeno?")) return;
     setIsResolving(true);
     try {
       await resolveQuestion(questionId);

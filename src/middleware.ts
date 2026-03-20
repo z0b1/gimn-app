@@ -21,7 +21,7 @@ export default clerkMiddleware((auth, request) => {
   const role = metadata?.role || publicMetadata?.role || directRole;
 
   if (isAdminRoute(request)) {
-    if (role !== "ADMIN") {
+    if (role !== "ADMIN" && role !== "REDAKCIJA") {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }

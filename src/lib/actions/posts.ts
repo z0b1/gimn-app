@@ -66,7 +66,7 @@ export async function createNews(formData: FormData) {
   const { userId, sessionClaims } = auth();
   const role = (sessionClaims?.metadata as { role?: string })?.role;
 
-  if (!userId || role !== "ADMIN") {
+  if (!userId || (role !== "ADMIN" && role !== "REDAKCIJA")) {
     throw new Error("Unauthorized");
   }
 
@@ -105,7 +105,7 @@ export async function updateNewsBody(id: string, body: string) {
   const { userId, sessionClaims } = auth();
   const role = (sessionClaims?.metadata as { role?: string })?.role;
 
-  if (!userId || role !== "ADMIN") {
+  if (!userId || (role !== "ADMIN" && role !== "REDAKCIJA")) {
     throw new Error("Unauthorized");
   }
 
@@ -206,7 +206,7 @@ export async function deleteNews(id: string) {
   const { userId, sessionClaims } = auth();
   const role = (sessionClaims?.metadata as { role?: string })?.role;
 
-  if (!userId || role !== "ADMIN") {
+  if (!userId || (role !== "ADMIN" && role !== "REDAKCIJA")) {
     throw new Error("Unauthorized");
   }
 

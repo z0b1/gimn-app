@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 
-export type Roles = "ADMIN" | "STUDENT";
+export type Roles = "ADMIN" | "STUDENT" | "REDAKCIJA";
 
 export const checkRole = (role: Roles) => {
   const { sessionClaims } = auth();
@@ -17,4 +17,18 @@ export const checkRole = (role: Roles) => {
 
 export const isAdmin = () => {
   return checkRole("ADMIN");
+};
+
+export const isRedakcija = () => {
+  return checkRole("REDAKCIJA");
+};
+
+// Check if user can manage news (create, edit, delete)
+export const canManageNews = () => {
+  return isAdmin() || isRedakcija();
+};
+
+// Check if user can create channels
+export const canCreateChannels = () => {
+  return isAdmin() || isRedakcija();
 };

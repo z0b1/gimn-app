@@ -15,6 +15,7 @@ datasource db {
 
 enum Role {
   STUDENT
+  REDAKCIJA
   ADMIN
 }
 
@@ -143,8 +144,9 @@ model Question {
   userId     String
   user       User            @relation(fields: [userId], references: [id])
   answer     String?
-  isResolved Boolean         @default(false)
-  replies    QuestionReply[]
+  isResolved  Boolean         @default(false)
+  isAnonymous Boolean         @default(false)
+  replies     QuestionReply[]
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @updatedAt
 }

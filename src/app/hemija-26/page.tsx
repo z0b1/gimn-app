@@ -412,7 +412,7 @@ export default function HemijaPage() {
             Hemija &apos;26
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-balance">
-            Maketа periodnog sistema – interaktivno učenje na srpskom
+            Maketa periodnog sistema – interaktivno učenje na srpskom
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-300 max-w-3xl">
             Klikni na grupu ili element da vidiš karakteristike, fizička i hemijska svojstva i tipične reakcije.

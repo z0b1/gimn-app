@@ -20,6 +20,21 @@ function assertAdmin() {
   return userId;
 }
 
+function assertCanCreateChannel() {
+  const { sessionClaims, userId } = auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+
+  if (role !== "ADMIN" && role !== "REDAKCIJA") {
+    throw new Error("Unauthorized: Only admins and redakcija can create channels.");
+  }
+
+  if (!userId) {
+    throw new Error("Unauthorized: Missing authenticated user.");
+  }
+
+  return userId;
+}
+
 async function resolveDbUserId(clerkId: string) {
   const user = await prisma.user.findUnique({
     where: { clerkId },
@@ -30,7 +45,7 @@ async function resolveDbUserId(clerkId: string) {
 }
 
 export async function createChannel(name: string, description?: string) {
-  const clerkId = assertAdmin();
+  const clerkId = assertCanCreateChannel();
   const trimmedName = name.trim();
   const trimmedDescription = description?.trim() || null;
 

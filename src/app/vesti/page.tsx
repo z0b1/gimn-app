@@ -2,7 +2,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Bell, Calendar, ChevronRight, PlayCircle } from "lucide-react";
 import Image from "next/image";
 import prisma from "@/lib/db";
-import { isAdmin } from "@/lib/roles";
+import { canManageNews } from "@/lib/roles";
 import { NewsFormModal } from "@/components/admin/NewsFormModal";
 import Link from "next/link";
 
@@ -18,7 +18,7 @@ export default async function VestiPage() {
     },
   });
 
-  const admin = isAdmin();
+  const admin = canManageNews();
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">

@@ -35,6 +35,7 @@ export default async function NoviPredlogPage() {
       data: {
         content: `[PREDLOG: ${title}]\n\n${content}`,
         userId: user.id,
+        isAnonymous: formData.get("isAnonymous") === "true",
       }
     });
 
@@ -107,6 +108,25 @@ export default async function NoviPredlogPage() {
             <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
               Budite što jasniji i konkretniji kako bi parlament mogao lakše da donese odluku.
             </p>
+          </div>
+
+          <div className="mb-8">
+            <label className="flex items-start gap-3 cursor-pointer group">
+              <input
+                type="checkbox"
+                name="isAnonymous"
+                value="true"
+                className="mt-1 w-5 h-5 rounded-lg border-2 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-950/50 text-brand-primary focus:ring-2 focus:ring-brand-secondary/30 dark:focus:ring-brand-accent/30 cursor-pointer transition-colors"
+              />
+              <div>
+                <span className="block font-bold text-slate-900 dark:text-white group-hover:text-brand-primary dark:group-hover:text-brand-secondary transition-colors">
+                  Anonimni predlog
+                </span>
+                <span className="block text-sm text-slate-500 dark:text-slate-400">
+                  Tvoj identitet će biti sakriven od drugih učenika. Samo članovi parlamenta će moći da vide ko je poslao predlog.
+                </span>
+              </div>
+            </label>
           </div>
 
           <button 
