@@ -44,20 +44,14 @@ export function UserManagementTable({ initialUsers, currentUserId }: { initialUs
     }
   };
 
-  const handleRoleToggle = async (user: UserData) => {
+  const handleSetRole = async (user: UserData, newRole: Role) => {
     if (user.clerkId === currentUserId) {
       alert("Ne možete promeniti sopstvenu ulogu.");
       return;
     }
 
-    const newRole = user.role === "STUDENT" ? "REDAKCIJA" : 
-                    user.role === "REDAKCIJA" ? "ADMIN" : "STUDENT";
-    
-    // Confirm demotion to prevent accidents
-    if (newRole === "STUDENT") {
-      if (!confirm(`Da li ste sigurni da želite da uklonite admin prava korisniku ${user.name}?`)) {
-        return;
-      }
+    if (user.role === newRole) {
+      return;
     }
 
     setPendingId(user.id);
@@ -136,31 +130,34 @@ export function UserManagementTable({ initialUsers, currentUserId }: { initialUs
                   {new Date(user.createdAt).toLocaleDateString("sr-RS")}
                 </td>
                 <td className="p-4 text-right">
-                  <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     {editingId !== user.id && (
                       <button 
                         onClick={() => handleEditStart(user)}
                         disabled={pendingId === user.id}
-                        className="text-sm font-semibold text-brand-primary dark:text-brand-primary hover:text-brand-accent dark:hover:text-brand-accent disabled:opacity-50 transition-colors"
+                        className="text-sm font-semibold text-brand-primary dark:text-brand-primary hover:text-brand-accent dark:hover:text-brand-accent disabled:opacity-50 transition-colors px-2 py-1 rounded hover:bg-brand-primary/10"
                       >
-                        Izmeni Ime
+                        Izmeni ime
                       </button>
                     )}
                     
                     {user.clerkId !== currentUserId && (
-                      <button 
-                        onClick={() => handleRoleToggle(user)}
-                        disabled={pendingId === user.id}
-                        className={`text-sm font-semibold disabled:opacity-50 transition-colors ${
-                          user.role === "ADMIN" 
-                            ? "text-rose-600 dark:text-rose-400 hover:text-rose-800 dark:hover:text-rose-300"
-                            : user.role === "REDAKCIJA"
-                            ? "text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300"
-                            : "text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300"
-                        }`}
-                      >
-                        {user.role === "ADMIN" ? "Skini Admina" : user.role === "REDAKCIJA" ? "Daj Admina" : "Daj Redakciju"}
-                      </button>
+                      <>
+                        <button 
+                          onClick={() => handleSetRole(user, "ADMIN")}
+                          disabled={pendingId === user.id || user.role === "ADMIN"}
+                          className="text-sm font-semibold text-brand-primary dark:text-brand-primary hover:text-brand-accent dark:hover:text-brand-accent disabled:opacity-30 transition-colors px-2 py-1 rounded hover:bg-brand-primary/10 disabled:hover:bg-transparent"
+                        >
+                          Daj admina
+                        </button>
+                        <button 
+                          onClick={() => handleSetRole(user, "REDAKCIJA")}
+                          disabled={pendingId === user.id || user.role === "REDAKCIJA"}
+                          className="text-sm font-semibold text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 disabled:opacity-30 transition-colors px-2 py-1 rounded hover:bg-amber-100 dark:hover:bg-amber-900/30 disabled:hover:bg-transparent"
+                        >
+                          Daj redakciju
+                        </button>
+                      </>
                     )}
                   </div>
                 </td>
