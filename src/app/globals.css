@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #f8fafc; /* slate-50 */
-  --foreground: #0f172a; /* slate-900 */
+  --background: #48d1cc;
+  --foreground: #124645;
   
   /* Brand Colors - from src/lib/colors.ts */
   --color-primary: #DC2626;
@@ -30,12 +30,22 @@
   --color-info: #3B82F6;
 }
 
+.dark {
+  --background: #48d1cc;
+  --foreground: #124645;
+  
+  /* Keep red brand palette unchanged */
+  --color-primary: #DC2626;
+  --color-secondary: #EF4444;
+  --color-accent: #991B1B;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not(.light) {
+    --background: #48d1cc;
+    --foreground: #124645;
     
-    /* Dark mode brand colors */
+    /* Keep red brand palette unchanged */
     --color-primary: #DC2626;
     --color-secondary: #EF4444;
     --color-accent: #991B1B;

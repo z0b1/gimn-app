@@ -64,7 +64,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <main className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300">
+            <main className="min-h-screen bg-background text-foreground transition-colors duration-300">
               {children}
             </main>
             <Footer />

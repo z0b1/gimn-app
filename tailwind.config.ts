@@ -13,6 +13,10 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        slate: colors.neutral,
+        gray: colors.neutral,
+        zinc: colors.neutral,
+        neutral: colors.neutral,
         brand: {
           primary: colors.brand.primary,
           secondary: colors.brand.secondary,

@@ -11,16 +11,17 @@ export const colors = {
   
   // Neutral colors - for backgrounds, text, borders
   neutral: {
-    50: '#F9FAFB',
-    100: '#F3F4F6',
-    200: '#E5E7EB',
-    300: '#D1D5DB',
-    400: '#9CA3AF',
-    500: '#6B7280',
-    600: '#4B5563',
-    700: '#374151',
-    800: '#1F2937',
-    900: '#111827',
+    50: '#ECFFFE',
+    100: '#D7FFFB',
+    200: '#B2F7F2',
+    300: '#8DEEE8',
+    400: '#66E2DB',
+    500: '#48D1CC',
+    600: '#34B6B1',
+    700: '#278F8B',
+    800: '#1D6966',
+    900: '#124645',
+    950: '#0A2B2A',
   },
   
   // Semantic colors - DO NOT CHANGE (UX consistency)
