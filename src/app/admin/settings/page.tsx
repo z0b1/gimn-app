@@ -21,7 +21,7 @@ export default async function AdminSettings() {
       <main className="container mx-auto px-4 pt-24 pb-12">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-100">
+            <div className="w-12 h-12 rounded-2xl bg-red-600 text-white flex items-center justify-center shadow-lg shadow-red-100 dark:shadow-red-900/30">
               <SettingsIcon size={24} />
             </div>
             <div>
@@ -35,7 +35,7 @@ export default async function AdminSettings() {
             <div className="lg:col-span-1 space-y-6">
               <div className="bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm transition-colors">
                 <h3 className="font-bold text-slate-900 dark:text-white mb-4 inline-flex items-center gap-2 transition-colors">
-                  <Database size={18} className="text-indigo-600 dark:text-indigo-400" />
+                  <Database size={18} className="text-red-600 dark:text-red-400" />
                   Statistika sistema
                 </h3>
                 <div className="space-y-4">
@@ -123,7 +123,7 @@ function ModerationSection({ title, icon: Icon, items }: { title: string, icon: 
   return (
     <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden transition-colors">
       <div className="p-6 border-b border-slate-50 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex items-center gap-3 transition-colors">
-        <Icon size={20} className="text-indigo-600 dark:text-indigo-400" />
+        <Icon size={20} className="text-red-600 dark:text-red-400" />
         <h3 className="font-bold text-slate-900 dark:text-white transition-colors">{title}</h3>
       </div>
       <div className="divide-y divide-slate-50 dark:divide-slate-800 max-h-[400px] overflow-y-auto transition-colors">
@@ -152,10 +152,10 @@ function SettingsCard({ icon: Icon, title, link }: { icon: React.ElementType, ti
       href={link}
       className="p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex items-center gap-4 group"
     >
-      <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center justify-center group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/50 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+      <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center justify-center group-hover:bg-red-50 dark:group-hover:bg-red-900/40 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
         <Icon size={20} />
       </div>
-      <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{title}</h3>
+      <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">{title}</h3>
     </Link>
   );
 }
