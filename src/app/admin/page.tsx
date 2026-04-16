@@ -47,7 +47,7 @@ export default async function AdminPage() {
       <main className="container mx-auto px-4 py-12">
         <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <div className="flex items-center gap-2 text-brand-accent dark:text-brand-secondary font-semibold mb-2">
+            <div className="flex items-center gap-2 text-red-600 dark:text-red-400 font-semibold mb-2">
               <ShieldCheck size={20} />
               <span>Administratorski Panel</span>
             </div>
@@ -135,14 +135,14 @@ interface AdminStatCardProps {
 function AdminStatCard({ icon: Icon, label, value, change }: AdminStatCardProps) {
    return (
       <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm transition-colors">
-         <div className="w-10 h-10 rounded-xl bg-brand-primary/10 dark:bg-brand-accent/10 text-brand-accent dark:text-brand-secondary flex items-center justify-center mb-4 transition-colors">
+         <div className="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center mb-4 transition-colors">
             <Icon size={20} />
          </div>
          <div className="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1 transition-colors">{label}</div>
          <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2 transition-colors">{value}</div>
-         <div className="text-xs font-bold text-brand-accent dark:text-brand-secondary uppercase tracking-wider transition-colors">{change}</div>
-      </div>
-   );
+         <div className="text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-wider transition-colors">{change}</div>
+       </div>
+    );
 }
 
 interface ActivityItemProps {

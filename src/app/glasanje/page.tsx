@@ -8,8 +8,15 @@ import { formatVoteDuration, getVoteDurationMinutesFromStatus } from "@/lib/vote
 
 export const dynamic = "force-dynamic";
 
-export default async function GlasanjePage() {
+interface GlasanjePageProps {
+  searchParams?: {
+    view?: string;
+  };
+}
+
+export default async function GlasanjePage({ searchParams }: GlasanjePageProps) {
   const { userId: clerkId } = auth();
+  const selectedView = searchParams?.view === "archive" ? "archive" : "active";
 
   const activeRules = await prisma.rule.findMany({
     include: {
@@ -27,6 +34,30 @@ export default async function GlasanjePage() {
   }) : null;
 
   const now = new Date();
+  const rulesWithState = activeRules.map((rule) => {
+    const durationMinutes = getVoteDurationMinutesFromStatus(rule.status);
+    const expiryDate = new Date(rule.createdAt.getTime() + durationMinutes * 60 * 1000);
+    const isExpired = now > expiryDate;
+    const votes = rule.votes || [];
+    const yesVotes = votes.filter(v => v.value === true).length;
+    const noVotes = votes.filter(v => v.value === false).length;
+    const isAccepted = isExpired && yesVotes > noVotes;
+    const userVote = dbUser?.votes.find(v => v.ruleId === rule.id);
+    const currentUserVote = userVote !== undefined ? userVote.value : null;
+
+    return {
+      rule,
+      durationMinutes,
+      isExpired,
+      yesVotes,
+      noVotes,
+      isAccepted,
+      currentUserVote,
+    };
+  });
+  const visibleRules = rulesWithState.filter(({ isExpired }) =>
+    selectedView === "archive" ? isExpired : !isExpired
+  );
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
@@ -39,53 +70,68 @@ export default async function GlasanjePage() {
               <Vote size={20} />
               <span>Digitalno Glasanje</span>
             </div>
-            <h1 className="text-4xl font-bold text-slate-900 dark:text-white">Aktuelni predlozi</h1>
-            <p className="text-slate-500 dark:text-slate-400 mt-2">Učestvuj u donošenju odluka koje se tiču svih nas.</p>
+            <h1 className="text-4xl font-bold text-slate-900 dark:text-white">
+              {selectedView === "archive" ? "Arhiva glasanja" : "Aktuelni predlozi"}
+            </h1>
+            <p className="text-slate-500 dark:text-slate-400 mt-2">
+              {selectedView === "archive"
+                ? "Pregled završenih glasanja i njihovih rezultata."
+                : "Učestvuj u donošenju odluka koje se tiču svih nas."}
+            </p>
           </div>
-          <button className="flex items-center gap-2 text-brand-primary dark:text-brand-secondary font-bold bg-white dark:bg-slate-900 px-6 py-3 rounded-2xl border border-brand-secondary/20 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
-            <History size={18} />
-            Arhiva glasanja
-          </button>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/glasanje"
+              className={`px-4 py-2 rounded-xl font-bold text-sm transition-all ${
+                selectedView === "active"
+                  ? "bg-brand-primary text-white"
+                  : "bg-white dark:bg-slate-900 text-brand-primary dark:text-brand-secondary border border-brand-secondary/20 dark:border-slate-800"
+              }`}
+            >
+              Aktuelna
+            </Link>
+            <Link
+              href="/glasanje?view=archive"
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm transition-all ${
+                selectedView === "archive"
+                  ? "bg-brand-primary text-white"
+                  : "bg-white dark:bg-slate-900 text-brand-primary dark:text-brand-secondary border border-brand-secondary/20 dark:border-slate-800"
+              }`}
+            >
+              <History size={16} />
+              Arhiva
+            </Link>
+          </div>
         </header>
 
         <div className="grid grid-cols-1 gap-8">
-          {activeRules && activeRules.length > 0 ? activeRules.map((rule) => {
-            if (!rule) return null;
-            const durationMinutes = getVoteDurationMinutesFromStatus(rule.status);
-            const expiryDate = new Date(rule.createdAt.getTime() + durationMinutes * 60 * 1000);
-            const isExpired = now > expiryDate;
-            
-            const votes = rule.votes || [];
-            const yesVotes = votes.filter(v => v.value === true).length;
-            const noVotes = votes.filter(v => v.value === false).length;
-            const isAccepted = isExpired && yesVotes > noVotes;
-
-            const userVote = dbUser?.votes.find(v => v.ruleId === rule.id);
-            const currentUserVote = userVote !== undefined ? userVote.value : null;
-
-            return (
-              <VoteCard 
-                key={rule.id}
-                ruleId={rule.id}
-                title={rule.title}
-                description={rule.description}
-                isExpired={isExpired}
-                isAccepted={isAccepted}
-                yesVotes={yesVotes}
-                noVotes={noVotes}
-                voteDurationLabel={formatVoteDuration(durationMinutes)}
-                participation={(rule._count?.votes ?? 0).toString()}
-                currentUserVote={currentUserVote}
-              />
-            );
-          }) : (
+          {visibleRules.length > 0 ? visibleRules.map(({ rule, isExpired, isAccepted, yesVotes, noVotes, durationMinutes, currentUserVote }) => (
+            <VoteCard 
+              key={rule.id}
+              ruleId={rule.id}
+              title={rule.title}
+              description={rule.description}
+              isExpired={isExpired}
+              isAccepted={isAccepted}
+              yesVotes={yesVotes}
+              noVotes={noVotes}
+              voteDurationLabel={formatVoteDuration(durationMinutes)}
+              participation={(rule._count?.votes ?? 0).toString()}
+              currentUserVote={currentUserVote}
+            />
+          )) : (
             <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-12 text-center transition-colors">
-              <p className="text-slate-500 dark:text-slate-400 font-medium">Trenutno nema aktivnih glasanja.</p>
+              <p className="text-slate-500 dark:text-slate-400 font-medium">
+                {selectedView === "archive"
+                  ? "Trenutno nema završenih glasanja."
+                  : "Trenutno nema aktivnih glasanja."}
+              </p>
             </div>
           )}
         </div>
 
-        <section className="mt-16 bg-brand-primary rounded-[3rem] p-10 text-white relative overflow-hidden shadow-2xl shadow-brand-primary/30 dark:shadow-none transition-colors">
+        {selectedView === "active" && (
+          <section className="mt-16 bg-brand-primary rounded-[3rem] p-10 text-white relative overflow-hidden shadow-2xl shadow-brand-primary/30 dark:shadow-none transition-colors">
            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
               <div className="max-w-xl text-center md:text-left">
                  <h2 className="text-3xl font-bold mb-4">Imaš svoj predlog?</h2>
@@ -101,7 +147,8 @@ export default async function GlasanjePage() {
                  </Link>
               </div>
            </div>
-        </section>
+          </section>
+        )}
       </main>
     </div>
   );
