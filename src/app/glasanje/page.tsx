@@ -4,7 +4,7 @@ import Link from "next/link";
 import prisma from "@/lib/db";
 import { VoteButtons } from "@/components/voting/VoteButtons";
 import { auth } from "@clerk/nextjs/server";
-import { DEFAULT_VOTE_DURATION_MINUTES, formatVoteDuration } from "@/lib/voteDuration";
+import { formatVoteDuration, getVoteDurationMinutesFromStatus } from "@/lib/voteDuration";
 
 export const dynamic = "force-dynamic";
 
@@ -51,7 +51,7 @@ export default async function GlasanjePage() {
         <div className="grid grid-cols-1 gap-8">
           {activeRules && activeRules.length > 0 ? activeRules.map((rule) => {
             if (!rule) return null;
-            const durationMinutes = rule.voteDurationMinutes ?? DEFAULT_VOTE_DURATION_MINUTES;
+            const durationMinutes = getVoteDurationMinutesFromStatus(rule.status);
             const expiryDate = new Date(rule.createdAt.getTime() + durationMinutes * 60 * 1000);
             const isExpired = now > expiryDate;
             

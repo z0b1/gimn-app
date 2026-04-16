@@ -6,6 +6,7 @@ import Link from "next/link";
 import { NewsFormModal } from "@/components/admin/NewsFormModal";
 import { RuleFormModal } from "@/components/admin/RuleFormModal";
 import prisma from "@/lib/db";
+import { isActiveRuleStatus } from "@/lib/voteDuration";
 
 export const dynamic = "force-dynamic";
 
@@ -15,12 +16,13 @@ export default async function AdminPage() {
   }
 
   // Fetch real stats
-  const [userCount, activeRulesCount, questionCount, adminCount] = await Promise.all([
+  const [userCount, rules, questionCount, adminCount] = await Promise.all([
     prisma.user.count(),
-    prisma.rule.count({ where: { status: "ACTIVE" } }),
+    prisma.rule.findMany({ select: { status: true } }),
     prisma.question.count({ where: { answer: null } }),
     prisma.user.count({ where: { role: "ADMIN" } }),
   ]);
+  const activeRulesCount = rules.filter((rule) => isActiveRuleStatus(rule.status)).length;
 
   // Fetch recent activity (union of news and rules)
   const recentNews = await prisma.news.findMany({

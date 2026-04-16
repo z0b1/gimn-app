@@ -3,7 +3,7 @@
 import prisma from "@/lib/db";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-import { DEFAULT_VOTE_DURATION_MINUTES, isVoteDurationUnit, MAX_VOTE_DURATION_MINUTES, MIN_VOTE_DURATION_MINUTES, VOTE_DURATION_UNIT_TO_MINUTES } from "@/lib/voteDuration";
+import { buildActiveRuleStatus, getVoteDurationMinutesFromStatus, isVoteDurationUnit, MAX_VOTE_DURATION_MINUTES, MIN_VOTE_DURATION_MINUTES, VOTE_DURATION_UNIT_TO_MINUTES } from "@/lib/voteDuration";
 
 import { Role } from "@prisma/client";
 
@@ -177,10 +177,9 @@ export async function createRule(formData: FormData) {
     data: {
       title,
       description,
-      voteDurationMinutes,
       mediaUrl,
       mediaType,
-      status: "ACTIVE",
+      status: buildActiveRuleStatus(voteDurationMinutes),
     },
   });
 
@@ -199,7 +198,7 @@ export async function castVote(ruleId: string, value: boolean) {
   });
   if (!rule) throw new Error("Proposal not found");
 
-  const durationMinutes = rule.voteDurationMinutes ?? DEFAULT_VOTE_DURATION_MINUTES;
+  const durationMinutes = getVoteDurationMinutesFromStatus(rule.status);
   const expiryDate = new Date(rule.createdAt.getTime() + durationMinutes * 60 * 1000);
   if (new Date() > expiryDate) {
     throw new Error("Glasanje je završeno.");

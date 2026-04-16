@@ -4,6 +4,7 @@ import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { createNotification } from "./notifications";
+import { buildActiveRuleStatus, DEFAULT_VOTE_DURATION_MINUTES } from "@/lib/voteDuration";
 
 // Extracts role robustly
 function getRole() {
@@ -123,7 +124,7 @@ export async function handleProposal(questionId: string, isAccepted: boolean, co
       data: {
         title: extractedTitle,
         description: description,
-        status: "ACTIVE",
+        status: buildActiveRuleStatus(DEFAULT_VOTE_DURATION_MINUTES),
       }
     });
     finalAnswer = "Predlog je prihvaćen i zvanično prosleđen na glasanje.";
