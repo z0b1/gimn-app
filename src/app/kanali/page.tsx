@@ -38,7 +38,7 @@ export default async function ChannelsPage() {
         <div className="max-w-5xl mx-auto space-y-6">
           <header className="flex items-center justify-between gap-3">
             <div>
-              <p className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">Kanali</p>
+              <p className="text-sm font-semibold text-red-600 dark:text-red-400">Kanali</p>
               <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Vaši kanali</h1>
               <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
                 Pristup je dozvoljen samo članovima kanala {isAdmin ? "(ADMIN vidi sve)" : ""}.
