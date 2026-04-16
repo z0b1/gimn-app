@@ -4,6 +4,7 @@ import Link from "next/link";
 import prisma from "@/lib/db";
 import { VoteButtons } from "@/components/voting/VoteButtons";
 import { auth } from "@clerk/nextjs/server";
+import { DEFAULT_VOTE_DURATION_MINUTES, formatVoteDuration } from "@/lib/voteDuration";
 
 export const dynamic = "force-dynamic";
 
@@ -50,8 +51,8 @@ export default async function GlasanjePage() {
         <div className="grid grid-cols-1 gap-8">
           {activeRules && activeRules.length > 0 ? activeRules.map((rule) => {
             if (!rule) return null;
-            const expiryDate = new Date(rule.createdAt);
-            expiryDate.setDate(expiryDate.getDate() + 7);
+            const durationMinutes = rule.voteDurationMinutes ?? DEFAULT_VOTE_DURATION_MINUTES;
+            const expiryDate = new Date(rule.createdAt.getTime() + durationMinutes * 60 * 1000);
             const isExpired = now > expiryDate;
             
             const votes = rule.votes || [];
@@ -72,6 +73,7 @@ export default async function GlasanjePage() {
                 isAccepted={isAccepted}
                 yesVotes={yesVotes}
                 noVotes={noVotes}
+                voteDurationLabel={formatVoteDuration(durationMinutes)}
                 participation={(rule._count?.votes ?? 0).toString()}
                 currentUserVote={currentUserVote}
               />
@@ -113,11 +115,12 @@ interface VoteCardProps {
   isAccepted: boolean;
   yesVotes: number;
   noVotes: number;
+  voteDurationLabel: string;
   participation: string;
   currentUserVote: boolean | null;
 }
 
-function VoteCard({ ruleId, title, description, isExpired, isAccepted, yesVotes, noVotes, participation, currentUserVote }: VoteCardProps) {
+function VoteCard({ ruleId, title, description, isExpired, isAccepted, yesVotes, noVotes, voteDurationLabel, participation, currentUserVote }: VoteCardProps) {
   return (
     <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden p-8 md:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <div className="flex flex-col md:flex-row gap-10">
@@ -141,11 +144,11 @@ function VoteCard({ ruleId, title, description, isExpired, isAccepted, yesVotes,
                   Aktivno
                 </span>
              )}
-             <span className="text-slate-400 dark:text-slate-500 text-xs font-medium flex items-center gap-1">
-                <Info size={14} />
-                {isExpired ? "Glasanje završeno" : "Još manje od 7 dana"}
-             </span>
-          </div>
+              <span className="text-slate-400 dark:text-slate-500 text-xs font-medium flex items-center gap-1">
+                 <Info size={14} />
+                {isExpired ? "Glasanje završeno" : `Trajanje: ${voteDurationLabel}`}
+              </span>
+           </div>
           <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 transition-colors">{title}</h3>
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-8 transition-colors">{description}</p>
           

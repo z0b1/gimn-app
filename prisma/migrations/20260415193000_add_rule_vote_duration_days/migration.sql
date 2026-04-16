@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Rule"
+ADD COLUMN "voteDurationMinutes" INTEGER NOT NULL DEFAULT 10080;

@@ -3,6 +3,7 @@
 import prisma from "@/lib/db";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { DEFAULT_VOTE_DURATION_MINUTES, isVoteDurationUnit, MAX_VOTE_DURATION_MINUTES, MIN_VOTE_DURATION_MINUTES, VOTE_DURATION_UNIT_TO_MINUTES } from "@/lib/voteDuration";
 
 import { Role } from "@prisma/client";
 
@@ -157,17 +158,26 @@ export async function createRule(formData: FormData) {
 
   const title = formData.get("title") as string;
   const description = formData.get("description") as string;
+  const voteDurationValueRaw = formData.get("voteDurationValue");
+  const voteDurationUnitRaw = formData.get("voteDurationUnit");
   const mediaUrl = formData.get("mediaUrl") as string | null;
   const mediaType = formData.get("mediaType") as string | null;
+  const voteDurationValue = Number(voteDurationValueRaw);
 
-  if (!title || !description) {
-    throw new Error("Title and description are required.");
+  if (!title || !description || !Number.isInteger(voteDurationValue) || typeof voteDurationUnitRaw !== "string" || !isVoteDurationUnit(voteDurationUnitRaw)) {
+    throw new Error("Title, description and vote duration are required.");
+  }
+
+  const voteDurationMinutes = voteDurationValue * VOTE_DURATION_UNIT_TO_MINUTES[voteDurationUnitRaw];
+  if (voteDurationMinutes < MIN_VOTE_DURATION_MINUTES || voteDurationMinutes > MAX_VOTE_DURATION_MINUTES) {
+    throw new Error("Trajanje glasanja mora biti između 1 minuta i 30 dana.");
   }
 
   await prisma.rule.create({
     data: {
       title,
       description,
+      voteDurationMinutes,
       mediaUrl,
       mediaType,
       status: "ACTIVE",
@@ -189,8 +199,8 @@ export async function castVote(ruleId: string, value: boolean) {
   });
   if (!rule) throw new Error("Proposal not found");
 
-  const expiryDate = new Date(rule.createdAt);
-  expiryDate.setDate(expiryDate.getDate() + 7);
+  const durationMinutes = rule.voteDurationMinutes ?? DEFAULT_VOTE_DURATION_MINUTES;
+  const expiryDate = new Date(rule.createdAt.getTime() + durationMinutes * 60 * 1000);
   if (new Date() > expiryDate) {
     throw new Error("Glasanje je završeno.");
   }

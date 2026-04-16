@@ -52,7 +52,7 @@ export default function PravilaPage() {
 
           <h2 className="text-2xl font-bold mt-12">4. Glasanje i Predlozi</h2>
           <p className="text-slate-600 dark:text-slate-300">
-            Sistem glasanja je autonoman. Predlozi imaju rok od 7 dana, nakon čega se automatski usvajaju ili odbijaju na osnovu glasova &quot;ZA&quot; i &quot;PROTIV&quot;. Odluka digitalnog parlamenta smatra se konačnom unutar okvira nadležnosti same aplikacije.
+            Sistem glasanja je autonoman. Trajanje svakog predloga određuje administrator prilikom kreiranja, nakon čega se automatski usvaja ili odbija na osnovu glasova &quot;ZA&quot; i &quot;PROTIV&quot;. Odluka digitalnog parlamenta smatra se konačnom unutar okvira nadležnosti same aplikacije.
           </p>
 
           <h2 className="text-2xl font-bold mt-12">5. Izmene Pravila</h2>

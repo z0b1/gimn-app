@@ -118,6 +118,7 @@ model Rule {
   id          String   @id @default(cuid())
   title       String
   description String
+  voteDurationMinutes Int @default(10080)
   mediaUrl    String?
   mediaType   String?
   status      String   @default("ACTIVE") // ACTIVE, AMENDMENT_PROPOSED, DEPRECATED

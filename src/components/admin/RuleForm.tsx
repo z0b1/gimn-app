@@ -75,6 +75,31 @@ export function RuleForm({ onSuccess, onClose }: RuleFormProps) {
         </div>
 
         <div>
+          <label className="block text-sm font-bold text-slate-700 mb-2 px-1">Trajanje glasanja</label>
+          <div className="grid grid-cols-1 sm:grid-cols-[1fr_180px] gap-3">
+            <input
+              name="voteDurationValue"
+              type="number"
+              min={1}
+              defaultValue={7}
+              required
+              className="w-full bg-slate-50 border-none rounded-2xl p-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-violet-100 transition-all font-semibold"
+              disabled={isPending}
+            />
+            <select
+              name="voteDurationUnit"
+              defaultValue="days"
+              className="w-full bg-slate-50 border-none rounded-2xl p-4 text-slate-900 focus:ring-2 focus:ring-violet-100 transition-all font-semibold"
+              disabled={isPending}
+            >
+              <option value="minutes">Minuti</option>
+              <option value="hours">Sati</option>
+              <option value="days">Dani</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
            <button
              type="button"
              onClick={() => setShowUpload(!showUpload)}
