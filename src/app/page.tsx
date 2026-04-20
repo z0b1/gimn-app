@@ -19,13 +19,15 @@ export default async function Home() {
       <main className="flex-grow">
         {/* Hero Section */}
         <section className="relative pt-12 pb-20 lg:pt-32 lg:pb-32 overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300">
-          {/* Blurred background image */}
+          {/* Softened hero background */}
           <div
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0 bg-cover bg-center scale-[1.03] opacity-55 dark:opacity-45"
             style={{ backgroundImage: "url('/hero-banner.jpg')" }}
           />
-          {/* Blur + overlay layer */}
-          <div className="absolute inset-0 backdrop-blur-sm bg-white/80 dark:bg-slate-950/85 transition-colors duration-300" />
+          {/* Smooth vertical blend into page background */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/65 via-white/82 to-white dark:from-slate-950/55 dark:via-slate-950/78 dark:to-slate-950 transition-colors duration-300" />
+          {/* Gentle center focus to avoid harsh image edges */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0)_20%,rgba(255,255,255,0.55)_72%,rgba(255,255,255,0.92)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(2,6,23,0)_18%,rgba(2,6,23,0.5)_70%,rgba(2,6,23,0.9)_100%)]" />
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
