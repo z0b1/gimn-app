@@ -21,13 +21,13 @@ export default async function Home() {
         <section className="relative pt-12 pb-20 lg:pt-32 lg:pb-32 overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300">
           {/* Softened hero background */}
           <div
-            className="absolute inset-0 bg-cover bg-center scale-[1.03] opacity-55 dark:opacity-45"
+            className="absolute inset-0 bg-cover bg-center scale-[1.03] opacity-70 dark:opacity-55 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.98)_0%,rgba(0,0,0,0.92)_65%,rgba(0,0,0,0.45)_86%,rgba(0,0,0,0)_100%)]"
             style={{ backgroundImage: "url('/hero-banner.jpg')" }}
           />
-          {/* Smooth vertical blend into page background */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/65 via-white/82 to-white dark:from-slate-950/55 dark:via-slate-950/78 dark:to-slate-950 transition-colors duration-300" />
-          {/* Gentle center focus to avoid harsh image edges */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0)_20%,rgba(255,255,255,0.55)_72%,rgba(255,255,255,0.92)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(2,6,23,0)_18%,rgba(2,6,23,0.5)_70%,rgba(2,6,23,0.9)_100%)]" />
+          {/* Neutral shading for readability without whitening the image */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/18 via-black/10 to-transparent dark:from-black/45 dark:via-black/28 dark:to-black/12 transition-colors duration-300" />
+          {/* Soft side feathering to avoid hard image edges */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_34%,rgba(0,0,0,0.12)_78%,rgba(0,0,0,0.22)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_32%,rgba(0,0,0,0.2)_78%,rgba(0,0,0,0.36)_100%)]" />
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
