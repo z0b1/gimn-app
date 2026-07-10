@@ -38,7 +38,7 @@ export default async function Home() {
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6 sm:mb-8 transition-colors text-balance">
                 Tvoj glas menja <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-accent dark:from-brand-accent dark:to-brand-primary">Gimnaziju</span>
               </h1>
-              <p className="text-xl text-white border border-black rounded-xl px-5 py-4 mb-10 leading-relaxed max-w-2xl mx-auto transition-colors">
+              <p className="text-xl text-white leading-relaxed max-w-2xl mx-auto mb-10 text-balance">
                 Pridruži se učeničkom parlamentu. Prati najnovije vesti, učestvuj u glasanju i 
                 daj svoj doprinos unapređenju naše škole.
               </p>
@@ -123,7 +123,7 @@ interface FeatureCardProps {
 
 function FeatureCard({ icon: Icon, title, description, color }: FeatureCardProps) {
   return (
-    <div className="p-6 sm:p-8 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+    <div className="p-6 sm:p-8 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
       <div className={cn("w-14 h-14 rounded-xl flex items-center justify-center text-white mb-6", color)}>
         <Icon size={28} />
       </div>

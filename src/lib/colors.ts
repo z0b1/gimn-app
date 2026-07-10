@@ -2,26 +2,26 @@
 // Change these values to instantly change the entire app's theme
 
 export const colors = {
-  // Brand colors - PRIMARY RED THEME
+  // Brand colors - NAVY BLUE THEME
   brand: {
-    primary: '#DC2626',   // Vibrant red for primary actions, buttons, CTAs
-    secondary: '#EF4444', // Lighter red for backgrounds, borders, subtle accents
-    accent: '#991B1B',    // Deep red for hover states, emphasis, secondary actions
+    primary: '#094d92',   // Deep navy for primary actions, buttons, CTAs
+    secondary: '#60b2e5', // Sky blue for secondary elements, highlights, links
+    accent: '#685044',    // Warm brown for emphasis, hover states
   },
   
-  // Neutral colors - for backgrounds, text, borders
+  // Neutral colors - warm-toned for backgrounds, text, borders
   neutral: {
-    50: '#ECFFFE',
-    100: '#D7FFFB',
-    200: '#B2F7F2',
-    300: '#8DEEE8',
-    400: '#66E2DB',
-    500: '#48D1CC',
-    600: '#34B6B1',
-    700: '#278F8B',
-    800: '#1D6966',
-    900: '#124645',
-    950: '#0A2B2A',
+    50: '#faf6f0',
+    100: '#f0ebe3',
+    200: '#e0d9ce',
+    300: '#cbc1b3',
+    400: '#b0a494',
+    500: '#948777',
+    600: '#786b5d',
+    700: '#5f5448',
+    800: '#4a4036',
+    900: '#332c24',
+    950: '#1f1a15',
   },
   
   // Semantic colors - DO NOT CHANGE (UX consistency)
@@ -34,7 +34,7 @@ export const colors = {
   
   // Gradients (optional)
   gradients: {
-    brandGradient: 'linear-gradient(135deg, #DC2626 0%, #991B1B 100%)',
+    brandGradient: 'linear-gradient(135deg, #094d92 0%, #60b2e5 100%)',
   }
 };
 

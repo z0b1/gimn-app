@@ -46,7 +46,7 @@ export default async function FeedPage() {
             </div>
             <h1 className="text-4xl font-bold text-slate-900 dark:text-white transition-colors">Zajednica</h1>
           </div>
-          <button className="bg-brand-primary text-white p-4 rounded-2xl shadow-xl hover:bg-brand-primary/90 transition-all">
+          <button className="bg-brand-primary text-white p-4 rounded-xl shadow-lg hover:bg-brand-primary/90 transition-all">
              <Plus size={24} />
           </button>
         </header>
@@ -55,11 +55,11 @@ export default async function FeedPage() {
 
         <div className="space-y-8">
           {posts.map((post) => (
-            <article id={post.id} key={post.id} className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-500 transition-colors">
+            <article id={post.id} key={post.id} className="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-500 transition-colors">
               <div className="p-6">
                 <div className="flex items-center gap-4 mb-6">
                   {post.user.imageUrl ? (
-                    <div className="relative w-12 h-12 rounded-2xl overflow-hidden shrink-0">
+                    <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0">
                       <Image
                         src={post.user.imageUrl}
                         alt={post.user.name || "User"}
@@ -68,7 +68,7 @@ export default async function FeedPage() {
                       />
                     </div>
                   ) : (
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center text-white font-bold text-xl overflow-hidden shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center text-white font-bold text-xl overflow-hidden shrink-0">
                       {post.user.name ? post.user.name[0] : "U"}
                     </div>
                   )}
@@ -87,7 +87,7 @@ export default async function FeedPage() {
                 </p>
 
                 {post.mediaUrl && (
-                  <div className="relative rounded-2xl overflow-hidden mb-6 bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 min-h-[200px] flex items-center justify-center transition-colors">
+                  <div className="relative rounded-lg overflow-hidden mb-6 bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 min-h-[200px] flex items-center justify-center transition-colors">
                     {post.mediaType === "VIDEO" ? (
                       <video 
                         src={post.mediaUrl} 
@@ -130,7 +130,7 @@ export default async function FeedPage() {
           ))}
 
           {posts.length === 0 && (
-            <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800 transition-colors">
+            <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-xl border border-dashed border-slate-200 dark:border-slate-800 transition-colors">
               <p className="text-slate-400 dark:text-slate-500 font-medium">Još uvek nema objava. Budi prvi koji će nešto podeliti!</p>
             </div>
           )}

@@ -82,7 +82,7 @@ export default async function GlasanjePage({ searchParams }: GlasanjePageProps) 
           <div className="flex items-center gap-2">
             <Link
               href="/glasanje"
-              className={`px-4 py-2 rounded-xl font-bold text-sm transition-all ${
+              className={`px-4 py-2 rounded-lg font-bold text-sm transition-all ${
                 selectedView === "active"
                   ? "bg-brand-primary text-white"
                   : "bg-white dark:bg-slate-900 text-brand-primary dark:text-brand-secondary border border-brand-secondary/20 dark:border-slate-800"
@@ -120,7 +120,7 @@ export default async function GlasanjePage({ searchParams }: GlasanjePageProps) 
               currentUserVote={currentUserVote}
             />
           )) : (
-            <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-12 text-center transition-colors">
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 p-12 text-center transition-colors">
               <p className="text-slate-500 dark:text-slate-400 font-medium">
                 {selectedView === "archive"
                   ? "Trenutno nema završenih glasanja."
@@ -131,7 +131,7 @@ export default async function GlasanjePage({ searchParams }: GlasanjePageProps) 
         </div>
 
         {selectedView === "active" && (
-          <section className="mt-16 bg-brand-primary rounded-[3rem] p-10 text-white relative overflow-hidden shadow-2xl shadow-brand-primary/30 dark:shadow-none transition-colors">
+          <section className="mt-16 bg-brand-primary rounded-2xl p-10 text-white relative overflow-hidden shadow-lg transition-colors">
            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
               <div className="max-w-xl text-center md:text-left">
                  <h2 className="text-3xl font-bold mb-4">Imaš svoj predlog?</h2>
@@ -140,7 +140,7 @@ export default async function GlasanjePage({ searchParams }: GlasanjePageProps) 
                  </p>
                  <Link 
                     href="/glasanje/novi-predlog"
-                    className="inline-flex bg-white dark:bg-slate-900 text-brand-primary dark:text-brand-secondary px-10 py-4 rounded-2xl font-bold text-lg hover:bg-brand-secondary/10 dark:hover:bg-slate-800 transition-all shadow-xl dark:shadow-none items-center gap-3 group"
+                     className="inline-flex bg-white dark:bg-slate-900 text-brand-primary dark:text-brand-secondary px-10 py-4 rounded-lg font-bold text-lg hover:bg-brand-secondary/10 dark:hover:bg-slate-800 transition-all shadow-lg items-center gap-3 group"
                  >
                     Predloži glasanje
                     <ChevronRight size={22} className="group-hover:translate-x-2 transition-transform" />
@@ -169,7 +169,7 @@ interface VoteCardProps {
 
 function VoteCard({ ruleId, title, description, isExpired, isAccepted, yesVotes, noVotes, voteDurationLabel, participation, currentUserVote }: VoteCardProps) {
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden p-8 md:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden p-8 md:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <div className="flex flex-col md:flex-row gap-10">
         <div className="flex-grow">
           <div className="flex items-center gap-3 mb-4">

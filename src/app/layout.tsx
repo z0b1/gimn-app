@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { srRS } from "@clerk/localizations";
 import { Footer } from "@/components/layout/Footer";
 
-const inter = Inter({ subsets: ["latin", "latin-ext"] });
+const outfit = Outfit({ subsets: ["latin", "latin-ext"] });
 
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description: "Zvanična aplikacija Učeničkog parlamenta Šabačke gimnazije.",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.png",
   },
   ...(googleSiteVerification
     ? {
@@ -57,7 +57,7 @@ export default function RootLayout({
     >
 
       <html lang="sr" suppressHydrationWarning>
-        <body className={inter.className}>
+        <body className={outfit.className}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

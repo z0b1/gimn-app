@@ -134,7 +134,7 @@ export function FeedInteractions({ postId, currentUserId, currentUserImage, init
            {/* Comment List */}
            <div className="space-y-4 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
              {comments.length > 0 ? comments.map((comment) => (
-                <div key={comment.id} className="bg-slate-50 dark:bg-slate-950/50 p-4 rounded-2xl transition-colors flex gap-3">
+                 <div key={comment.id} className="bg-slate-50 dark:bg-slate-950/50 p-4 rounded-lg transition-colors flex gap-3">
                    {comment.user.imageUrl ? (
                       <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 mt-0.5">
                         <Image
@@ -170,19 +170,19 @@ export function FeedInteractions({ postId, currentUserId, currentUserImage, init
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
                   placeholder="Napiši komentar..."
-                  className="flex-grow bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary transition-colors"
+                  className="flex-grow bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary transition-colors"
                   disabled={isCommenting}
                 />
                 <button 
                   type="submit" 
                   disabled={isCommenting || !newComment.trim()}
-                  className="bg-brand-primary text-white p-2.5 rounded-xl hover:bg-brand-primary/90 transition-colors disabled:opacity-50"
+                  className="bg-brand-primary text-white p-2.5 rounded-lg hover:bg-brand-primary/90 transition-colors disabled:opacity-50"
                 >
                   {isCommenting ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
                 </button>
               </form>
            ) : (
-              <p className="text-xs text-center text-slate-400 border border-dashed border-slate-200 dark:border-slate-800 rounded-xl py-3 transition-colors">
+              <p className="text-xs text-center text-slate-400 border border-dashed border-slate-200 dark:border-slate-800 rounded-lg py-3 transition-colors">
                  Moraš biti prijavljen/a da bi ostavio/la komentar.
               </p>
            )}

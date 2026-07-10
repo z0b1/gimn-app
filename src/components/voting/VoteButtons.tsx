@@ -37,7 +37,7 @@ export function VoteButtons({ ruleId, isExpired, initialUserVote }: VoteButtonsP
     return (
       <div className="flex flex-col gap-4 justify-center w-full md:min-w-[200px]">
         <div className={cn(
-          "p-4 rounded-2xl border-2 flex flex-col items-center gap-2",
+          "p-4 rounded-lg border-2 flex flex-col items-center gap-2",
           userVote 
             ? "bg-emerald-50 border-emerald-200 text-emerald-700" 
             : "bg-rose-50 border-rose-200 text-rose-700"
@@ -61,7 +61,7 @@ export function VoteButtons({ ruleId, isExpired, initialUserVote }: VoteButtonsP
         onClick={() => handleVote(true)}
         disabled={isPending || (userVote === true && !isEditing)}
         className={cn(
-          "w-full py-4 rounded-2xl font-bold transition-all shadow-lg disabled:opacity-50",
+          "w-full py-4 rounded-lg font-bold transition-all shadow-lg disabled:opacity-50",
           userVote === true
             ? "bg-emerald-600 text-white shadow-emerald-100"
             : "bg-brand-primary text-white shadow-brand-primary/20 hover:bg-brand-accent"

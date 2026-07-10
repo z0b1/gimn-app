@@ -56,7 +56,7 @@ export default async function PitanjaPage() {
             questions.map((q) => (
               <div
                 key={q.id}
-                className="group bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm p-5 sm:p-8 transition-colors"
+                className="group bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm p-5 sm:p-8 transition-colors"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -77,7 +77,7 @@ export default async function PitanjaPage() {
                       <UserQuestionActions questionId={q.id} content={q.content} />
                     )}
                     <span
-                      className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                      className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${
                         q.isResolved
                           ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
                           : q.answer
@@ -95,7 +95,7 @@ export default async function PitanjaPage() {
                 </p>
 
                 {q.answer ? (
-                  <div className="bg-indigo-50/50 dark:bg-indigo-950/30 rounded-2xl p-6 border border-indigo-50 dark:border-indigo-900/50 mb-4 transition-colors">
+                  <div className="bg-indigo-50/50 dark:bg-indigo-950/30 rounded-lg p-6 border border-indigo-50 dark:border-indigo-900/50 mb-4 transition-colors">
                     <div className="flex items-center gap-2 text-indigo-700 dark:text-indigo-400 font-bold text-sm mb-3">
                       <MessageCircle size={16} />
                       Odgovor parlamenta:
@@ -132,7 +132,7 @@ export default async function PitanjaPage() {
               </div>
             ))
           ) : (
-            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 p-8 text-center text-slate-500 dark:text-slate-400 transition-colors">
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 p-8 text-center text-slate-500 dark:text-slate-400 transition-colors">
               Još uvek nema postavljenih pitanja.
             </div>
           )}

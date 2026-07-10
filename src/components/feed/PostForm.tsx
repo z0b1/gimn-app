@@ -35,9 +35,9 @@ export function PostForm({ userAvatar }: PostFormProps) {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm p-4 sm:p-6 mb-10 transition-colors">
+    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm p-4 sm:p-6 mb-10 transition-colors">
       <form onSubmit={handleSubmit} className="flex gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-brand-secondary/20 flex items-center justify-center shrink-0 overflow-hidden">
+        <div className="w-12 h-12 rounded-xl bg-brand-secondary/20 flex items-center justify-center shrink-0 overflow-hidden">
           {userAvatar ? (
             <Image src={userAvatar} alt="User" width={48} height={48} />
           ) : (
@@ -50,7 +50,7 @@ export function PostForm({ userAvatar }: PostFormProps) {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="Šta ima novo u školi?"
-            className="w-full bg-slate-50 border-none rounded-2xl p-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-brand-secondary/20 min-h-[100px] resize-none transition-all"
+            className="w-full bg-slate-50 border-none rounded-lg p-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-brand-secondary/20 min-h-[100px] resize-none transition-all"
             disabled={isPending}
           />
 
@@ -70,7 +70,7 @@ export function PostForm({ userAvatar }: PostFormProps) {
               <button
                 type="button"
                 onClick={() => setShowUpload(!showUpload)}
-                className={`p-2.5 rounded-xl transition-all ${showUpload ? 'bg-brand-secondary/20 text-brand-primary' : 'text-slate-500 hover:bg-slate-50'}`}
+                className={`p-2.5 rounded-lg transition-all ${showUpload ? 'bg-brand-secondary/20 text-brand-primary' : 'text-slate-500 hover:bg-slate-50'}`}
                 title="Dodaj sliku ili video"
               >
                 {showUpload ? <X size={20} /> : <ImageIcon size={20} />}
