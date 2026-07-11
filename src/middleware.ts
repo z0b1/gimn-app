@@ -8,10 +8,18 @@ const isPublicRoute = createRouteMatcher([
   '/privatnost',
   '/uslovi-koriscenja',
   '/api/webhook/clerk',
+  '/67easter',
 ]);
 const isAdminRoute = createRouteMatcher(['/admin(.*)']);
 
 export default clerkMiddleware((auth, request) => {
+  const url = new URL(request.url);
+
+  // Route 67 subdomain to the easter egg page
+  if (url.hostname === '67.gimnapp.me') {
+    return NextResponse.rewrite(new URL('/67easter', request.url));
+  }
+
   const { sessionClaims } = auth();
   
   // Standardize role detection
