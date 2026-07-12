@@ -9,6 +9,7 @@ const isPublicRoute = createRouteMatcher([
   '/uslovi-koriscenja',
   '/api/webhook/clerk',
   '/67easter',
+  '/ai',
 ]);
 const isAdminRoute = createRouteMatcher(['/admin(.*)']);
 
@@ -18,6 +19,11 @@ export default clerkMiddleware((auth, request) => {
   // Route 67 subdomain to the easter egg page
   if (url.hostname === '67.gimnapp.me') {
     return NextResponse.rewrite(new URL('/67easter', request.url));
+  }
+
+  // Route ai subdomain to the AI chat page
+  if (url.hostname === 'ai.gimnapp.me') {
+    return NextResponse.rewrite(new URL('/ai', request.url));
   }
 
   const { sessionClaims } = auth();
