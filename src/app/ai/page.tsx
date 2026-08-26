@@ -82,7 +82,8 @@ export default function AIPage() {
         let msg = "Desila se greška. Molim te pokušaj ponovo.";
         try {
           const err = await res.json();
-          if (err?.error) msg = err.error;
+          if (typeof err?.error === "string") msg = err.error;
+          else if (err?.error?.message) msg = err.error.message;
         } catch {
           // ignore parse failure, keep default message
         }
