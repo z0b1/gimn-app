@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/layout/Navbar";
-import { ScrollText, ShieldAlert, Ban, HelpCircle } from "lucide-react";
+import { ScrollText, ShieldAlert, Ban, HelpCircle, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 export default function UsloviKoriscenjaPage() {
@@ -65,9 +65,44 @@ export default function UsloviKoriscenjaPage() {
             Učenički parlament zadržava pravo da u bilo kom trenutku izmeni ove Uslove korišćenja. O svim značajnim izmenama korisnici će biti obavešteni putem obaveštenja na platformi. Nastavak korišćenja aplikacije nakon izmena smatra se prihvatanjem novih uslova.
           </p>
 
-          <h2 className="text-2xl font-bold mt-12">5. Kontakt</h2>
+          <div className="flex items-center gap-4 mb-4 mt-12">
+            <Sparkles className="text-indigo-600 dark:text-indigo-400" size={28} />
+            <h2 className="m-0 text-2xl font-bold">5. GimnApp AI asistent</h2>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300">
+            GimnApp sadrži AI asistenta („GimnApp AI”) koji odgovore generiše pomoću modela veštačke inteligencije trećih lica (Groq, Google Gemini, OpenAI). Imajte u vidu:
+          </p>
+          <ul className="text-slate-600 dark:text-slate-300">
+            <li><strong>Automatski sadržaj:</strong> Odgovori se kreiraju automatski i nisu unapred pregledani od strane ljudi — mogu biti netačni, nepotpuni ili zastareli.</li>
+            <li><strong>Bez garancije:</strong> Sadržaj se pruža „kakav jeste” bez garancije tačnosti, ispravnosti ili pogodnosti za određenu svrhu.</li>
+            <li><strong>Nije stručni savet:</strong> Asistent ne pruža medicinske, pravne, psihološke niti finansijske savete. Za ozbiljna pitanja obratite se nastavniku, roditelju ili kvalifikovanom stručnjaku.</li>
+            <li><strong>Vaša odgovornost:</strong> Vi snosite odgovornost za korišćenje generisanog sadržaja i za proveru važnih informacija iz nezavisnih izvora.</li>
+            <li><strong>Obrada podataka:</strong> Poruke se šalju pomenutim provajderima u skladu sa njihovim uslovima (videti Politiku privatnosti). Ne unosite osetljive lične podatke.</li>
+          </ul>
+
+          <div className="flex items-center gap-4 mb-4 mt-12">
+            <ShieldAlert className="text-indigo-600 dark:text-indigo-400" size={28} />
+            <h2 className="m-0 text-2xl font-bold">6. Ograničenje odgovornosti</h2>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300">
+            U maksimalnoj meri dozvoljenoj zakonom, GimnApp, Učenički parlament Šabačke gimnazije, Šabačka gimnazija, njeni zaposleni i autor aplikacije (Božidar Mišković) ne snose odgovornost za bilo kakvu štetu, direktnu ili indirektnu, nastalu usled:
+          </p>
+          <ul className="text-slate-600 dark:text-slate-300">
+            <li>korišćenja ili oslanjanja na sadržaj koji je generisao GimnApp AI asistent;</li>
+            <li>grešaka, netačnosti ili propusta u bilo kom sadržaju platforme;</li>
+            <li>prekida u radu ili bezbednosnih incidentata uzrokovanih trećim licima (provajderi autentifikacije ili AI modela).</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300">
+            Platforma se pruža „kakva jeste”, bez garancije neprekidne dostupnosti. Ovi Uslovi ne isključuju odgovornost koja se zakonom ne može ograničiti.
+          </p>
+
+          <h2 className="text-2xl font-bold mt-12">7. Kontakt</h2>
           <p className="text-slate-600 dark:text-slate-300">
             Ukoliko imate pitanja u vezi sa ovim Uslovima korišćenja, možete ih postaviti putem sekcije za pitanja na platformi ili se direktno obratiti administratorima parlamenta.
+          </p>
+
+          <p className="mt-10 text-sm text-slate-400 dark:text-slate-500 italic">
+            Ovaj dokument je šablon informativne prirode. Za pravni savet prilagođen vašoj situaciji konsultujte kvalifikovanog pravnika.
           </p>
 
         </article>

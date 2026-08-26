@@ -19,6 +19,7 @@ const navLinks = [
 ];
 
 const projektiItems = [
+  { href: "/projekti", label: "Svi projekti", icon: FolderOpen },
   { href: "/hemija-26", label: "Hemija 26'", icon: Info },
   { href: "/humanitarni-sajam-knjiga", label: "Humanitarni sajam knjiga", icon: FolderOpen },
 ];

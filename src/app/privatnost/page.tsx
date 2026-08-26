@@ -58,9 +58,28 @@ export default function PrivatnostPage() {
             <li><strong>Autentifikacioni partneri:</strong> Platforma &quot;Clerk&quot; i Google OAuth se koriste isključivo kao provajderi za bezbedno upravljanje pristupom i osetljivim informacijama poput lozinki.</li>
           </ul>
 
-          <h2 className="text-2xl font-bold mt-12">4. Vaša prava</h2>
+          <div className="flex items-center gap-4 mb-4 mt-12">
+             <Eye className="text-indigo-600 dark:text-indigo-400" size={28} />
+             <h2 className="m-0 text-2xl font-bold">4. GimnApp AI i obrada poruka</h2>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300">
+            Kada koristite GimnApp AI asistenta, vaše poruke i generisani odgovori šalju se i obrađuju od strane spoljnih provajdera veštačke inteligencije — Groq, Google Gemini i OpenAI — u svrhu kreiranja odgovora. Ovi provajderi mogu privremeno obrađivati te podatke u skladu sa svojim uslovima:
+          </p>
+          <ul className="text-slate-600 dark:text-slate-300">
+            <li><strong>Google Gemini (besplatni nivo):</strong> Google može koristiti ulazne i izlazne podatke za unapređenje svojih modela. Preporučujemo da u chat ne unosite lične podatke, podatke o trećim licima niti poverljiv školski materijal.</li>
+            <li><strong>Groq i OpenAI:</strong> obrađuju poruke isključivo za generisanje odgovora, u skladu sa njihovim uslovima korišćenja.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300">
+            Istoriju razgovora sa AI asistentom ne čuvamo na našim serverima duže od trajanja vaše sesije. Izbegavajte deljenje osetljivih ličnih podataka u chat-u.
+          </p>
+
+          <h2 className="text-2xl font-bold mt-12">5. Vaša prava</h2>
           <p className="text-slate-600 dark:text-slate-300">
             Kao korisnik, u svakom trenutku možete zahtevati od administratora sistema da se vaše objave trajno uklone ili da se promeni prikaz vašeg imena ukoliko smatrate da se radi o grešci pri registraciji.
+          </p>
+
+          <p className="mt-10 text-sm text-slate-400 dark:text-slate-500 italic">
+            Ovaj dokument je šablon informativne prirode. Za pravni savet prilagođen vašoj situaciji konsultujte kvalifikovanog pravnika.
           </p>
 
         </article>
