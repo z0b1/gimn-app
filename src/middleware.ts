@@ -9,25 +9,29 @@ const isPublicRoute = createRouteMatcher([
   '/uslovi-koriscenja',
   '/api/webhook/clerk',
   '/67easter',
-  '/ai',
+  // /ai and /api/chat are intentionally excluded → login required
 ]);
 const isAdminRoute = createRouteMatcher(['/admin(.*)']);
 
 export default clerkMiddleware((auth, request) => {
   const url = new URL(request.url);
 
-  // Route 67 subdomain to the easter egg page
+  // Easter-egg subdomain — public, no auth
   if (url.hostname === '67.gimnapp.me') {
     return NextResponse.rewrite(new URL('/67easter', request.url));
   }
 
-  // Route ai subdomain to the AI chat page
+  // AI subdomain — login required (page AND api)
   if (url.hostname === 'ai.gimnapp.me') {
-    return NextResponse.rewrite(new URL('/ai', request.url));
+    auth().protect();
+    // Only rewrite non-api paths to the chat page; /api calls pass through
+    if (!url.pathname.startsWith('/api')) {
+      return NextResponse.rewrite(new URL('/ai', request.url));
+    }
   }
 
   const { sessionClaims } = auth();
-  
+
   // Standardize role detection
   const metadata = sessionClaims?.metadata as { role?: string } | undefined;
   const publicMetadata = sessionClaims?.publicMetadata as { role?: string } | undefined;
