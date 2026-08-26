@@ -17,6 +17,8 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface Message {
   role: "user" | "assistant";
@@ -111,7 +113,7 @@ export default function AIPage() {
           try {
             const parsed = JSON.parse(data);
             const delta = parsed.choices?.[0]?.delta || {};
-            const content = delta.content || delta.reasoning || "";
+            const content = delta.content || "";
             if (content) {
               setMessages((prev) => {
                 const updated = [...prev];
@@ -319,7 +321,13 @@ export default function AIPage() {
                     : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 rounded-bl-md"
                 )}
               >
-                {msg.content}
+                {msg.role === "assistant" ? (
+                  <div className="markdown">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
+                  </div>
+                ) : (
+                  <div className="whitespace-pre-wrap">{msg.content}</div>
+                )}
               </div>
               {msg.role === "user" && (
                 <div className="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 shrink-0 mt-0.5">

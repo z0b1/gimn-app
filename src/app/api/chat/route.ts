@@ -43,10 +43,17 @@ export async function POST(req: NextRequest) {
           },
           body: JSON.stringify({
             model: candidate,
-            messages: messages.map((m: { role: string; content: string }) => ({
-              role: m.role,
-              content: m.content,
-            })),
+            messages: [
+              {
+                role: "system",
+                content:
+                  "Ti si GimnApp AI, prijateljski asistent za učenike gimnazije. Uvek odgovaraj na srpskom jeziku (latinica ili ćirilica). Koristi Markdown za formatiranje: **podebljano**, *iskošeno*, liste, i blokove koda kada je korisno.",
+              },
+              ...messages.map((m: { role: string; content: string }) => ({
+                role: m.role,
+                content: m.content,
+              })),
+            ],
             stream: true,
           }),
           signal: controller.signal,
