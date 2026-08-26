@@ -56,29 +56,41 @@ export default function AIPage() {
     if (!input.trim() || isLoading) return;
 
     const userMessage: Message = { role: "user", content: input.trim() };
-    setMessages((prev) => [...prev, userMessage]);
+    const history = [...messages, userMessage];
+    setMessages(history);
     setInput("");
     setIsLoading(true);
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 35000);
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages: [...messages, userMessage].map((m) => ({
+          messages: history.map((m) => ({
             role: m.role,
             content: m.content,
           })),
           model: selectedModel,
         }),
+        signal: controller.signal,
       });
 
       if (!res.ok) {
-        throw new Error("Failed to fetch");
+        let msg = "Desila se greška. Molim te pokušaj ponovo.";
+        try {
+          const err = await res.json();
+          if (err?.error) msg = err.error;
+        } catch {
+          // ignore parse failure, keep default message
+        }
+        throw new Error(msg);
       }
 
       const reader = res.body?.getReader();
-      if (!reader) throw new Error("No reader");
+      if (!reader) throw new Error("Asistent nije mogao da učita odgovor.");
 
       setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
 
@@ -88,6 +100,7 @@ export default function AIPage() {
       while (!done) {
         const { value, done: doneReading } = await reader.read();
         done = doneReading;
+        if (!value) continue;
         const chunk = decoder.decode(value);
         const lines = chunk.split("\n").filter((l) => l.startsWith("data: "));
 
@@ -115,15 +128,26 @@ export default function AIPage() {
           }
         }
       }
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: "Desila se greška. Molim te pokušaj ponovo.",
-        },
-      ]);
+
+      setMessages((prev) => {
+        const updated = [...prev];
+        const last = updated[updated.length - 1];
+        if (last?.role === "assistant" && !last.content.trim()) {
+          updated[updated.length - 1] = {
+            ...last,
+            content: "Asistent nije vratio odgovor. Pokušaj ponovo ili izaberi drugi model.",
+          };
+        }
+        return updated;
+      });
+    } catch (err) {
+      const msg =
+        err instanceof Error && err.message
+          ? err.message
+          : "Desila se greška. Molim te pokušaj ponovo.";
+      setMessages((prev) => [...prev, { role: "assistant", content: msg }]);
     } finally {
+      clearTimeout(timeout);
       setIsLoading(false);
     }
   }
