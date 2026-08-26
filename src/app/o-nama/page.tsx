@@ -134,10 +134,10 @@ export default function ONamaPage() {
               Imaš pitanje, predlog ili želiš da se uključiš u rad parlamenta? Piši nam na našu zvaničnu email adresu.
             </p>
             <a 
-              href="mailto:parlamentucenickiparlament@gmail.com"
+              href="mailto:kontakt@gimnapp.me"
               className="inline-flex items-center gap-3 bg-white text-slate-900 px-4 sm:px-8 py-4 rounded-2xl font-bold hover:bg-slate-100 transition-all shadow-xl shadow-brand-primary/20 max-w-full"
             >
-              <span className="text-base sm:text-lg break-all">parlamentucenickiparlament@gmail.com</span>
+              <span className="text-base sm:text-lg break-all">kontakt@gimnapp.me</span>
             </a>
           </section>
         </div>

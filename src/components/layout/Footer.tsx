@@ -33,8 +33,8 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={16} className="shrink-0 text-brand-primary/70 dark:text-brand-accent/70" />
-                <a href="mailto:parlamentucenickiparlament@gmail.com" className="hover:text-brand-primary dark:hover:text-brand-accent transition-colors">
-                  parlamentucenickiparlament@gmail.com
+                <a href="mailto:kontakt@gimnapp.me" className="hover:text-brand-primary dark:hover:text-brand-accent transition-colors">
+                  kontakt@gimnapp.me
                 </a>
               </li>
             </ul>
