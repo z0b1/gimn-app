@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { UserButton, SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
-import { Menu, X, Bell, Vote, MessageSquare, Plus, Info, Map as MapIcon, HelpCircle, Users, ChevronDown, FolderOpen } from "lucide-react";
+import { Menu, X, Bell, Vote, MessageSquare, Plus, Info, Map as MapIcon, HelpCircle, Users, ChevronDown, FolderOpen, Sparkles } from "lucide-react";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 
@@ -19,7 +19,7 @@ const navLinks = [
 ];
 
 const projektiItems = [
-  { href: "/projekti", label: "Svi projekti", icon: FolderOpen },
+  { href: "/projekti", label: "GimnApp AI", icon: Sparkles },
   { href: "/hemija-26", label: "Hemija 26'", icon: Info },
   { href: "/humanitarni-sajam-knjiga", label: "Humanitarni sajam knjiga", icon: FolderOpen },
 ];

@@ -70,7 +70,7 @@ export default function UsloviKoriscenjaPage() {
             <h2 className="m-0 text-2xl font-bold">5. GimnApp AI asistent</h2>
           </div>
           <p className="text-slate-600 dark:text-slate-300">
-            GimnApp sadrži AI asistenta („GimnApp AI”) koji odgovore generiše pomoću modela veštačke inteligencije trećih lica (Groq, Google Gemini, OpenAI). Imajte u vidu:
+            GimnApp sadrži AI asistenta („GimnApp AI”) koji odgovore generiše pomoću modela veštačke inteligencije provajdera <strong>Groq</strong>. Imajte u vidu:
           </p>
           <ul className="text-slate-600 dark:text-slate-300">
             <li><strong>Automatski sadržaj:</strong> Odgovori se kreiraju automatski i nisu unapred pregledani od strane ljudi — mogu biti netačni, nepotpuni ili zastareli.</li>

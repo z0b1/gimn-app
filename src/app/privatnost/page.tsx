@@ -63,12 +63,8 @@ export default function PrivatnostPage() {
              <h2 className="m-0 text-2xl font-bold">4. GimnApp AI i obrada poruka</h2>
           </div>
           <p className="text-slate-600 dark:text-slate-300">
-            Kada koristite GimnApp AI asistenta, vaše poruke i generisani odgovori šalju se i obrađuju od strane spoljnih provajdera veštačke inteligencije — Groq, Google Gemini i OpenAI — u svrhu kreiranja odgovora. Ovi provajderi mogu privremeno obrađivati te podatke u skladu sa svojim uslovima:
+            Kada koristite GimnApp AI asistenta, vaše poruke i generisani odgovori šalju se i obrađuju od strane spoljnog provajdera veštačke inteligencije — <strong>Groq</strong> — u svrhu kreiranja odgovora. Groq obrađuje poruke isključivo za generisanje odgovora, u skladu sa svojim uslovima korišćenja.
           </p>
-          <ul className="text-slate-600 dark:text-slate-300">
-            <li><strong>Google Gemini (besplatni nivo):</strong> Google može koristiti ulazne i izlazne podatke za unapređenje svojih modela. Preporučujemo da u chat ne unosite lične podatke, podatke o trećim licima niti poverljiv školski materijal.</li>
-            <li><strong>Groq i OpenAI:</strong> obrađuju poruke isključivo za generisanje odgovora, u skladu sa njihovim uslovima korišćenja.</li>
-          </ul>
           <p className="text-slate-600 dark:text-slate-300">
             Istoriju razgovora sa AI asistentom ne čuvamo na našim serverima duže od trajanja vaše sesije. Izbegavajte deljenje osetljivih ličnih podataka u chat-u.
           </p>
