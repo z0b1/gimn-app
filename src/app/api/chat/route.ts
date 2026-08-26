@@ -66,6 +66,12 @@ export async function POST(req: NextRequest) {
             },
           });
         }
+
+        if (upstream.status === 429) {
+          lastError =
+            "Previše zahteva u kratkom vremenu. Sačekaj 20–30 sekundi pa pokušaj ponovo.";
+          break;
+        }
         lastError = await upstream.text();
       } catch {
         clearTimeout(timer);
