@@ -110,7 +110,8 @@ export default function AIPage() {
           if (data === "[DONE]") continue;
           try {
             const parsed = JSON.parse(data);
-            const content = parsed.choices?.[0]?.delta?.content || "";
+            const delta = parsed.choices?.[0]?.delta || {};
+            const content = delta.content || delta.reasoning || "";
             if (content) {
               setMessages((prev) => {
                 const updated = [...prev];

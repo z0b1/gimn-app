@@ -27,12 +27,8 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const requested = typeof model === "string" && model ? model : "groq/llama-3.3-70b-versatile";
-    const modelName = requested.startsWith("groq/") ? requested.slice("groq/".length) : requested;
-    const otherNames = models
-      .filter((m) => m.id !== requested)
-      .map((m) => (m.id.startsWith("groq/") ? m.id.slice("groq/".length) : m.id));
-    const candidates = [modelName, ...otherNames].slice(0, 3);
+    const requested = typeof model === "string" && model ? model : "groq/compound-mini";
+    const candidates = [requested, ...models.filter((m) => m.id !== requested).map((m) => m.id)].slice(0, 3);
 
     let lastError: string | null = null;
     for (const candidate of candidates) {

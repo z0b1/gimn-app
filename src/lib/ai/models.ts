@@ -6,8 +6,8 @@ export interface AiModel {
 }
 
 export const models: AiModel[] = [
-  { id: "groq/llama-3.3-70b-versatile", name: "Llama 3.3 70B", provider: "Groq", free: true },
-  { id: "groq/llama-3.1-8b-instant", name: "Llama 3.1 8B Instant", provider: "Groq", free: true },
+  { id: "groq/compound-mini", name: "Compound Mini", provider: "Groq", free: true },
+  { id: "groq/compound", name: "Compound", provider: "Groq", free: true },
 ];
 
 export const defaultModel = models[0].id;
