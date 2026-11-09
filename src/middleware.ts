@@ -7,6 +7,7 @@ const isPublicRoute = createRouteMatcher([
   '/',
   '/privatnost',
   '/uslovi-koriscenja',
+  '/vesti(.*)',
   '/api/webhook/clerk',
   '/67easter',
   // /ai and /api/chat are intentionally excluded → login required

@@ -59,6 +59,16 @@ export function NewsForm({ onSuccess, onClose }: NewsFormProps) {
         </div>
 
         <div>
+          <label className="block text-sm font-bold text-slate-700 mb-2 px-1">Autori (opciono)</label>
+          <input
+            name="authors"
+            placeholder="npr. Ana Petrović, Marko Jovanović"
+            className="w-full bg-slate-50 border-none rounded-2xl p-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-100 transition-all"
+            disabled={isPending}
+          />
+        </div>
+
+        <div>
           <label className="block text-sm font-bold text-slate-700 mb-2 px-1">Sadržaj</label>
           <textarea
             name="content"

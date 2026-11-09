@@ -104,6 +104,8 @@ model News {
   title     String
   content   String
   body      String?
+  authors   String?  // Free-text author names, e.g. "Ana Petrović, Marko Jovanović"
+  images    String[] @default([]) // Gallery image URLs added after creation
   mediaUrl  String?  // URL for image or video
   mediaType String?  // "IMAGE" or "VIDEO"
   published Boolean  @default(true)

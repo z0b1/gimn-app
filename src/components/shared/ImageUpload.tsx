@@ -11,12 +11,13 @@ interface ImageUploadProps {
   onUploadError?: (error: string) => void;
   onClear?: () => void;
   defaultValue?: string;
+  defaultMediaType?: string;
 }
 
-export function ImageUpload({ onUploadComplete, onUploadError, onClear, defaultValue }: ImageUploadProps) {
+export function ImageUpload({ onUploadComplete, onUploadError, onClear, defaultValue, defaultMediaType }: ImageUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedUrl, setUploadedUrl] = useState<string | null>(defaultValue || null);
-  const [mediaType, setMediaType] = useState<string | null>(null);
+  const [mediaType, setMediaType] = useState<string | null>(defaultMediaType || null);
 
   const clearFile = (e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -47,6 +48,7 @@ export function ImageUpload({ onUploadComplete, onUploadError, onClear, defaultV
             )}
             
             <button
+              type="button"
               onClick={clearFile}
               className="absolute top-4 right-4 p-2 bg-slate-900/60 hover:bg-slate-900/80 rounded-full text-white transition-all shadow-xl z-10"
             >

@@ -93,6 +93,7 @@ export async function createNews(formData: FormData) {
   const mediaUrl = formData.get("mediaUrl") as string | null;
   const mediaType = formData.get("mediaType") as string | null;
   const body = formData.get("body") as string | null;
+  const authors = formData.get("authors")?.toString().trim() || null;
 
   if (!title || !content) {
     throw new Error("Title and content are required.");
@@ -103,6 +104,7 @@ export async function createNews(formData: FormData) {
       title,
       content,
       body: body || null,
+      authors,
       mediaUrl,
       mediaType,
       lastEditedById: dbUser.id,
@@ -142,6 +144,81 @@ export async function updateNewsBody(id: string, body: string) {
   });
 
   revalidatePath("/vesti");
+  revalidatePath(`/vesti/${id}`);
+}
+
+async function requireNewsEditor() {
+  const { userId, sessionClaims } = auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+
+  if (!userId || (role !== "ADMIN" && role !== "REDAKCIJA")) {
+    throw new Error("Unauthorized");
+  }
+
+  const dbUser = await getOrCreateUser();
+  if (!dbUser) {
+    throw new Error("User not found");
+  }
+
+  return dbUser;
+}
+
+// Updates authors and the cover image/video of an existing article
+export async function updateNewsDetails(id: string, formData: FormData) {
+  const dbUser = await requireNewsEditor();
+
+  const authors = formData.get("authors")?.toString().trim() || null;
+  const mediaUrl = formData.get("mediaUrl")?.toString() || null;
+  const mediaType = mediaUrl ? formData.get("mediaType")?.toString() || "IMAGE" : null;
+
+  await prisma.news.update({
+    where: { id },
+    data: {
+      authors,
+      mediaUrl,
+      mediaType,
+      lastEditedById: dbUser.id,
+      lastEditedAt: new Date(),
+    },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/vesti");
+  revalidatePath(`/vesti/${id}`);
+}
+
+export async function addNewsImages(id: string, urls: string[]) {
+  const dbUser = await requireNewsEditor();
+
+  if (urls.length === 0) return;
+
+  await prisma.news.update({
+    where: { id },
+    data: {
+      images: { push: urls },
+      lastEditedById: dbUser.id,
+      lastEditedAt: new Date(),
+    },
+  });
+
+  revalidatePath(`/vesti/${id}`);
+}
+
+export async function removeNewsImage(id: string, url: string) {
+  const dbUser = await requireNewsEditor();
+
+  const news = await prisma.news.findUnique({ where: { id }, select: { images: true } });
+  if (!news) throw new Error("Vest nije pronađena.");
+
+  await prisma.news.update({
+    where: { id },
+    data: {
+      images: news.images.filter((image) => image !== url),
+      lastEditedById: dbUser.id,
+      lastEditedAt: new Date(),
+    },
+  });
+
   revalidatePath(`/vesti/${id}`);
 }
 

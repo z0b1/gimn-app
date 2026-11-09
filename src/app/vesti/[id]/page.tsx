@@ -1,15 +1,16 @@
 import { Navbar } from "@/components/layout/Navbar";
 import prisma from "@/lib/db";
 import Image from "next/image";
-import { Calendar, UserRound } from "lucide-react";
+import { Calendar, PenLine, UserRound } from "lucide-react";
 import { NewsBodyEditor } from "@/components/admin/NewsBodyEditor";
-import { isAdmin } from "@/lib/roles";
+import { NewsManagePanel } from "@/components/admin/NewsManagePanel";
+import { canManageNews } from "@/lib/roles";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
 export default async function NewsDetailPage({ params }: { params: { id: string } }) {
-  const admin = isAdmin();
+  const admin = canManageNews();
 
   const news = await prisma.news.findUnique({
     where: { id: params.id },
@@ -44,6 +45,12 @@ export default async function NewsDetailPage({ params }: { params: { id: string 
                 {new Date(news.createdAt).toLocaleDateString("sr-Latn-RS", { day: "numeric", month: "long", year: "numeric" })}
               </div>
               <h1 className="text-3xl font-bold text-slate-900 dark:text-white">{news.title}</h1>
+              {news.authors && (
+                <div className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+                  <PenLine size={16} />
+                  <span>Autori: {news.authors}</span>
+                </div>
+              )}
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{news.content}</p>
               <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                 <UserRound size={14} />
@@ -71,7 +78,33 @@ export default async function NewsDetailPage({ params }: { params: { id: string 
             ) : (
               <p className="text-sm text-slate-500 dark:text-slate-400">Tekst članka još nije dodat.</p>
             )}
+
+            {news.images.length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
+                {news.images.map((url) => (
+                  <a
+                    key={url}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative aspect-video rounded-2xl overflow-hidden bg-slate-200 dark:bg-slate-800 hover:opacity-90 transition-opacity"
+                  >
+                    <Image src={url} alt={news.title} fill className="object-cover" />
+                  </a>
+                ))}
+              </div>
+            )}
           </section>
+
+          {admin && (
+            <NewsManagePanel
+              newsId={news.id}
+              authors={news.authors}
+              mediaUrl={news.mediaUrl}
+              mediaType={news.mediaType}
+              images={news.images}
+            />
+          )}
         </div>
       </main>
     </div>

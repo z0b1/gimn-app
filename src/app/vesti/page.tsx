@@ -79,6 +79,11 @@ export default async function VestiPage() {
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-brand-accent dark:group-hover:text-brand-secondary transition-colors">
                   {item.title}
                 </h2>
+                {item.authors && (
+                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400 -mt-2 mb-4">
+                    Autori: {item.authors}
+                  </p>
+                )}
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6 line-clamp-3 transition-colors">
                   {item.content}
                 </p>
